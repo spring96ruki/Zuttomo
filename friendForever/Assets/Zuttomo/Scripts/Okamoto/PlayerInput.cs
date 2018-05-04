@@ -2,46 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour {
-    
-    [HideInInspector]
+public class PlayerInput : MonoBehaviour
+{
+
     public float Laxis_x;
-    [HideInInspector]
     public float Laxis_y;
-    [HideInInspector]
     public float Raxis_x;
-    [HideInInspector]
     public float Raxis_y;
-    [HideInInspector]
     public bool button_RB;
-    [HideInInspector]
     public bool button_A;
-    [HideInInspector]
     public bool button_B;
-    [HideInInspector]
     public bool button_X;
-    [HideInInspector]
     public bool button_Y;
     [SerializeField, Header("プレイヤーの番号")]
-    public int PlayerNum;
+    int PlayerNum;
 
     public void PController()
     {
         switch (PlayerNum)
         {
             case 1:
-                Laxis_x = Input.GetAxisRaw("L_GamePad1_X");
-                Laxis_y = Input.GetAxisRaw("L_GamePad1_Y");
-                Raxis_x = Input.GetAxisRaw("R_GamePad1_X");
-                Raxis_y = Input.GetAxisRaw("R_GamePad1_Y");
-                button_RB = Input.GetButton("RB_1") || Input.GetKey("z");
-                button_A = Input.GetButtonDown("A_1") || Input.GetKeyDown("x");
-                button_B = Input.GetButtonDown("B_1") || Input.GetKeyDown("c");
-                button_X = Input.GetButtonDown("X_1") || Input.GetKeyDown("v");
-                button_Y = Input.GetButtonDown("Y_1") || Input.GetKeyDown("b");
+                Laxis_x = Input.GetAxisRaw(StringName.GameStick_Left_X);
+                Laxis_y = Input.GetAxisRaw(StringName.GameStick_Left_Y);
+                Raxis_x = Input.GetAxisRaw(StringName.GameStick_Right_X);
+                Raxis_y = Input.GetAxisRaw(StringName.GameStick_Right_Y);
+                button_RB = Input.GetButton(StringName.GamePad_RB) || Input.GetKey("z");
+                button_A = Input.GetButtonDown(StringName.GamePad_A) || Input.GetKeyDown("x");
+                button_B = Input.GetButtonDown(StringName.GamePad_B) || Input.GetKeyDown("c");
+                button_X = Input.GetButtonDown(StringName.GamePad_X) || Input.GetKeyDown("v");
+                button_Y = Input.GetButtonDown(StringName.GamePad_Y) || Input.GetKeyDown("b");
 
-                Laxis_x = Input.GetAxisRaw("Horizontal");
-                Laxis_y = Input.GetAxisRaw("Vertical");
+                Laxis_x = Input.GetAxisRaw(StringName.xAxis);
+                Laxis_y = Input.GetAxisRaw(StringName.zAxis);
                 break;
 
             case 2:
@@ -80,6 +72,6 @@ public class Controller : MonoBehaviour {
                 //button_Y = Input.GetButtonDown("Y_4");
                 break;
         }
+
     }
-        
 }
