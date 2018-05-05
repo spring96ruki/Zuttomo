@@ -4,20 +4,24 @@ using UnityEngine;
 
 public class PlayerController : PlayerCore{
 
+    PlayerInput playerInput;
+    PlayerMove playerMove;
+
 	// Use this for initialization
 	void Start () {
-		
+        playerInput = GetComponent<PlayerInput>();
+        playerMove = GetComponent<PlayerMove>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        m_input.PController();
+        playerInput.PController();
         
 	}
 
     private void FixedUpdate()
     {
-        m_move.Move();
-        m_move.Button();
+        playerMove.Move();
+        playerMove.Button();
     }
 }

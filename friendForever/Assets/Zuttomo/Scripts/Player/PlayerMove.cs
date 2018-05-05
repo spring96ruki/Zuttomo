@@ -5,12 +5,18 @@ using UnityEngine;
 public class PlayerMove : PlayerCore {
 
     public GameObject m_camera;
-    PlayerCore m_core;
+
+    PlayerInput playerInput;
+
+    private void Awake()
+    {
+        playerInput = GetComponent<PlayerInput>();
+    }
 
     public void Move()
     {
-        float horizontal = m_input.Laxis_x * m_status.speed * Time.deltaTime;
-        float virtical = m_input.Laxis_y * m_status.speed * Time.deltaTime;
+        float horizontal = playerInput.Laxis_x * m_status.speed * Time.deltaTime;
+        float virtical = playerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
 
     }
@@ -57,7 +63,7 @@ public class PlayerMove : PlayerCore {
 
         if (m_status.isHealth == true)
         {
-            if (m_input.button_RB == true)
+            if (playerInput.button_RB == true)
             {
                 Debug.Log("ダッシュ");
                 m_status.speed = m_status.maxSpeed;
@@ -90,7 +96,7 @@ public class PlayerMove : PlayerCore {
         }
 
         //ボタンが押されてなかったら
-        if (m_input.button_RB == false)
+        if (playerInput.button_RB == false)
         {
             m_status.speed = m_status.firstSpeed;
             //スタミナがのっこていたら
@@ -105,22 +111,22 @@ public class PlayerMove : PlayerCore {
     public void Button()
     {
 
-        if (m_input.button_A == true)
+        if (playerInput.button_A == true)
         {
             Debug.Log("A");
         }
 
-        if (m_input.button_B == true)
+        if (playerInput.button_B == true)
         {
             Debug.Log("B");
         }
 
-        if (m_input.button_X == true)
+        if (playerInput.button_X == true)
         {
             Debug.Log("X");
         }
 
-        if (m_input.button_Y == true)
+        if (playerInput.button_Y == true)
         {
             Debug.Log("Y");
         }

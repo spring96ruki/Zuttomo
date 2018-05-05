@@ -93,6 +93,7 @@
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerStatus.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\SingletonMono.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\StringController.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\cubeMove.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
