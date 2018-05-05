@@ -85,15 +85,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Zuttomo\Scripts\Fujiwara\SingletonMono.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Fujiwara\StringController.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Iwasaki\test.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Okamoto\PlayerCamera.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Okamoto\PlayerController.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Okamoto\PlayerCore.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Okamoto\PlayerInput.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Okamoto\PlayerMove.cs" />
-    <Compile Include="Assets\Zuttomo\Scripts\Okamoto\PlayerStatus.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerCamera.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerController.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerCore.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerInput.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerMove.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerStatus.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\SingletonMono.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\StringController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
