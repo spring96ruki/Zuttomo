@@ -17,8 +17,8 @@ public class cubeMove : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 move = Vector3.zero;
-        move.x = Input.GetAxisRaw(StringName.xAxis);
-        move.z = Input.GetAxisRaw(StringName.zAxis);
+        move.x = Input.GetAxisRaw(GamePadName.xAxis);
+        move.z = Input.GetAxisRaw(GamePadName.zAxis);
         rb.velocity = move * speed;
 	}
 }

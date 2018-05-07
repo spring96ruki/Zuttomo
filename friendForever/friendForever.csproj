@@ -85,6 +85,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Zuttomo\Scripts\Chaser\ChaserController.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Chaser\ChaserSkill.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\FindObject.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\GameController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerCamera.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerCore.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerStatus.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\SingletonMono.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\StringController.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\UnFairCharacter\UnfairController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\cubeMove.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

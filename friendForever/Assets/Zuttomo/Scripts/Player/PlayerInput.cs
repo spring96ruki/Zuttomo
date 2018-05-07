@@ -66,17 +66,17 @@ public class PlayerInput : MonoBehaviour
 
     void EscapePlayerInput()
     {
-        Laxis_x = Input.GetAxisRaw(StringName.GameStick_Left_X);
-        Laxis_y = Input.GetAxisRaw(StringName.GameStick_Left_Y);
-        Raxis_x = Input.GetAxisRaw(StringName.GameStick_Right_X);
-        Raxis_y = Input.GetAxisRaw(StringName.GameStick_Right_Y);
-        button_RB = Input.GetButton(StringName.GamePad_RB) || Input.GetKey("z");
-        button_A = Input.GetButtonDown(StringName.GamePad_A) || Input.GetKeyDown("x");
-        button_B = Input.GetButtonDown(StringName.GamePad_B) || Input.GetKeyDown("c");
-        button_X = Input.GetButtonDown(StringName.GamePad_X) || Input.GetKeyDown("v");
-        button_Y = Input.GetButtonDown(StringName.GamePad_Y) || Input.GetKeyDown("b");
+        Laxis_x = Input.GetAxisRaw(GamePadName.GameStick_Left_X);
+        Laxis_y = Input.GetAxisRaw(GamePadName.GameStick_Left_Y);
+        Raxis_x = Input.GetAxisRaw(GamePadName.GameStick_Right_X);
+        Raxis_y = Input.GetAxisRaw(GamePadName.GameStick_Right_Y);
+        button_RB = Input.GetButton(GamePadName.GamePad_RB) || Input.GetKey("z");
+        button_A = Input.GetButtonDown(GamePadName.GamePad_A) || Input.GetKeyDown("x");
+        button_B = Input.GetButtonDown(GamePadName.GamePad_B) || Input.GetKeyDown("c");
+        button_X = Input.GetButtonDown(GamePadName.GamePad_X) || Input.GetKeyDown("v");
+        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y) || Input.GetKeyDown("b");
 
-        Laxis_x = Input.GetAxisRaw(StringName.xAxis);
-        Laxis_y = Input.GetAxisRaw(StringName.zAxis);
+        Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
+        Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
     }
 }
