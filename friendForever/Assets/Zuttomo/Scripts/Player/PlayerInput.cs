@@ -22,18 +22,7 @@ public class PlayerInput : MonoBehaviour
         switch (PlayerNum)
         {
             case 1:
-                Laxis_x = Input.GetAxisRaw(StringName.GameStick_Left_X);
-                Laxis_y = Input.GetAxisRaw(StringName.GameStick_Left_Y);
-                Raxis_x = Input.GetAxisRaw(StringName.GameStick_Right_X);
-                Raxis_y = Input.GetAxisRaw(StringName.GameStick_Right_Y);
-                button_RB = Input.GetButton(StringName.GamePad_RB) || Input.GetKey("z");
-                button_A = Input.GetButtonDown(StringName.GamePad_A) || Input.GetKeyDown("x");
-                button_B = Input.GetButtonDown(StringName.GamePad_B) || Input.GetKeyDown("c");
-                button_X = Input.GetButtonDown(StringName.GamePad_X) || Input.GetKeyDown("v");
-                button_Y = Input.GetButtonDown(StringName.GamePad_Y) || Input.GetKeyDown("b");
-
-                Laxis_x = Input.GetAxisRaw(StringName.xAxis);
-                Laxis_y = Input.GetAxisRaw(StringName.zAxis);
+                EscapePlayerInput();
                 break;
 
             case 2:
@@ -73,5 +62,21 @@ public class PlayerInput : MonoBehaviour
                 break;
         }
 
+    }
+
+    void EscapePlayerInput()
+    {
+        Laxis_x = Input.GetAxisRaw(StringName.GameStick_Left_X);
+        Laxis_y = Input.GetAxisRaw(StringName.GameStick_Left_Y);
+        Raxis_x = Input.GetAxisRaw(StringName.GameStick_Right_X);
+        Raxis_y = Input.GetAxisRaw(StringName.GameStick_Right_Y);
+        button_RB = Input.GetButton(StringName.GamePad_RB) || Input.GetKey("z");
+        button_A = Input.GetButtonDown(StringName.GamePad_A) || Input.GetKeyDown("x");
+        button_B = Input.GetButtonDown(StringName.GamePad_B) || Input.GetKeyDown("c");
+        button_X = Input.GetButtonDown(StringName.GamePad_X) || Input.GetKeyDown("v");
+        button_Y = Input.GetButtonDown(StringName.GamePad_Y) || Input.GetKeyDown("b");
+
+        Laxis_x = Input.GetAxisRaw(StringName.xAxis);
+        Laxis_y = Input.GetAxisRaw(StringName.zAxis);
     }
 }
