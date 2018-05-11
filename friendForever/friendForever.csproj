@@ -95,6 +95,7 @@
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerInput.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerMove.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\PlayerStatus.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\SceneController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\SingletonMono.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\StringController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\UnFairCharacter\UnfairController.cs" />

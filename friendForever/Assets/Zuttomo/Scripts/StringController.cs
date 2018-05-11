@@ -22,3 +22,11 @@ public static class TagName
     public const string Player_3P = "Player_3P";
     public const string Chaser = "Chaser";
 }
+
+public static class SceneName
+{
+    public const string TITLE_SCENE = "Title";
+    public const string SELECT_SCENE = "Select";
+    public const string GAME_SCENE = "Main";
+    public const string RESULT_SCENE = "Result";
+}
