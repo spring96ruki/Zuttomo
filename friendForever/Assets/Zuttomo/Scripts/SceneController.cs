@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : SingletonMono<SceneController> {
 
-    public GameObject m_loadScreen;
+    //public GameObject m_loadScreen;
 
     AsyncOperation m_async;
     StringBuilder m_sceneName;
@@ -19,8 +19,9 @@ public class SceneController : SingletonMono<SceneController> {
     // Scene.Instanse.LoadSceneTest(SceneName.****)
     public void LoadScene(string sceneName)
     {
-            m_sceneName.Length = 0;
-            m_sceneName.Append(sceneName);
+        m_sceneName.Length = 0;
+        m_sceneName.Append(sceneName);
+        StartCoroutine(LoadStart());
     }
 
     IEnumerator LoadStart()

@@ -21,6 +21,7 @@ public static class TagName
     public const string Player_2P = "Player_2P";
     public const string Player_3P = "Player_3P";
     public const string Chaser = "Chaser";
+    public const string TestTag = "TestTarget";
 }
 
 public static class SceneName
@@ -29,4 +30,7 @@ public static class SceneName
     public const string SELECT_SCENE = "Select";
     public const string GAME_SCENE = "Main";
     public const string RESULT_SCENE = "Result";
+    public const string SCENE_TEST = "SceneTest";
+    public const string SCENE_CHANGE = "SceneChange";
+    public const string FUJIWARA = "fujiwara";
 }

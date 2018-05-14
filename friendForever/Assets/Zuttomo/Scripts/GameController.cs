@@ -11,6 +11,9 @@ public class GameController : SingletonMono<GameController> {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SceneController.Instance.LoadScene(SceneName.SCENE_CHANGE);
+        }
 	}
 }

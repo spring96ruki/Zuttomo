@@ -23,6 +23,7 @@ public class UnfairController : MonoBehaviour {
     void UnfairCharHauntPlayer(GameObject player)
     {
         Debug.Log("ボクの効果を発揮するよ");
-        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        Debug.Log("Object:" + player.gameObject);
+        Debug.Log("ObjectTag:" + player.gameObject.tag);
     }
 }

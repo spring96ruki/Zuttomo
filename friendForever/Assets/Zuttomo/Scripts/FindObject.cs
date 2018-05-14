@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class FindObject : MonoBehaviour {
 
-    float m_rayDistance;
+    static FindObject instance;
+    public static FindObject Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new FindObject();
+            }
+            return instance;
+        }
+    }
 
-    void FindPlayer(GameObject player)
+    float m_rayDistance = 10f;
+
+    public void FindPlayer(GameObject player)
     {
         Ray ray = new Ray(player.transform.position, player.transform.forward);
         RaycastHit hit;
@@ -22,6 +35,9 @@ public class FindObject : MonoBehaviour {
                     break;
                 case TagName.Player_3P:
                     Debug.Log("3p見つけた");
+                    break;
+                case TagName.TestTag:
+                    Debug.Log("TestTargetを見つけた");
                     break;
             }
         }
