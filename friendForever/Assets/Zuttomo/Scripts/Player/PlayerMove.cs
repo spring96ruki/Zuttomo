@@ -18,7 +18,7 @@ public class PlayerMove : PlayerCore {
         float horizontal = playerInput.Laxis_x * m_status.speed * Time.deltaTime;
         float virtical = playerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
-
+        HealthControll();
     }
 
     void PlayerRotation(float horizontal, float virtical)
@@ -35,28 +35,28 @@ public class PlayerMove : PlayerCore {
             //体の向きを変更
             transform.rotation = Quaternion.LookRotation(moveForward);
             // PlayerのAnimation管理
-            PlayerAnimation(horizontal, virtical);
+            //PlayerAnimation(horizontal, virtical);
         }
     }
 
-    void PlayerAnimation(float h, float v)
-    {
-        if (m_status.speed <= m_status.firstSpeed)
-        {
-            m_status.animator.SetBool("Walk", true);
-            m_status.animator.SetBool("Run", false);
-        }
-        else if (m_status.speed >= m_status.firstSpeed)
-        {
-            m_status.animator.SetBool("Run", true);
-            m_status.animator.SetBool("Walk", false);
-        }
-        else
-        {
-            m_status.animator.SetBool("Walk", false);
-            m_status.animator.SetBool("Run", false);
-        }
-    }
+    //void PlayerAnimation(float h, float v)
+    //{
+        //if (m_status.speed <= m_status.firstSpeed)
+        //{
+        //    m_status.animator.SetBool("Walk", true);
+        //    m_status.animator.SetBool("Run", false);
+        //}
+        //else if (m_status.speed >= m_status.firstSpeed)
+        //{
+        //    m_status.animator.SetBool("Run", true);
+        //    m_status.animator.SetBool("Walk", false);
+        //}
+        //else
+        //{
+        //    m_status.animator.SetBool("Walk", false);
+        //    m_status.animator.SetBool("Run", false);
+        //}
+    //}
 
     void HealthControll()
     {
@@ -75,7 +75,7 @@ public class PlayerMove : PlayerCore {
             m_status.speed = m_status.firstSpeed;
         }
 
-        if (m_status.health > 0f)
+        if (m_status.health > 5f)
         {
             m_status.isHealth = true;
         }

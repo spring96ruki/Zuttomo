@@ -16,6 +16,6 @@ public class PlayerStatus : MonoBehaviour {
     public float maxHealth;
     [Header("スタミナがあるか")]
     public bool isHealth;
-    [Header("アニメーターを入れる")]
-    public Animator animator;
+    //[Header("アニメーターを入れる")]
+    //public Animator animator;
 }
