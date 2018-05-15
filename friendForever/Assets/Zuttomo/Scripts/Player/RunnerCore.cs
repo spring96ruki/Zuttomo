@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCore : MonoBehaviour {
+public class RunnerCore : MonoBehaviour {
 
-    protected PlayerStatus m_status;
+    protected RunnerStatus m_status;
     protected Rigidbody m_rigidbody;
 
 
 	// Use this for initialization
 	void Start () {
-        m_status = GetComponent<PlayerStatus>();
+        m_status = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
 	}
 	
