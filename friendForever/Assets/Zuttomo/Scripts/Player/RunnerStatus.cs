@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatus : MonoBehaviour {
+public class RunnerStatus : MonoBehaviour {
 
     [Header("初速")]
     public float firstSpeed;

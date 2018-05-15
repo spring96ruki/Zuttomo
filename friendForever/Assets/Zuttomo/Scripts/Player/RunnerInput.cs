@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class RunnerInput : MonoBehaviour
 {
 
     public float Laxis_x;
@@ -15,11 +15,11 @@ public class PlayerInput : MonoBehaviour
     public bool button_X;
     public bool button_Y;
     [SerializeField, Header("プレイヤーの番号")]
-    int PlayerNum;
+    int runnerNum;
 
     public void PController()
     {
-        switch (PlayerNum)
+        switch (runnerNum)
         {
             case 1:
                 EscapePlayerInput();

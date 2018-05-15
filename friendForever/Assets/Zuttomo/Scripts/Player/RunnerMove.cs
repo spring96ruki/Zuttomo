@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : PlayerCore {
+public class RunnerMove : RunnerCore
+{
 
     public GameObject m_camera;
 
-    PlayerInput playerInput;
+    RunnerInput runnerInput;
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
+        runnerInput = GetComponent<RunnerInput>();
     }
 
     public void Move()
     {
-        float horizontal = playerInput.Laxis_x * m_status.speed * Time.deltaTime;
-        float virtical = playerInput.Laxis_y * m_status.speed * Time.deltaTime;
+        float horizontal = runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
+        float virtical = runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
         HealthControll();
     }
@@ -63,7 +64,7 @@ public class PlayerMove : PlayerCore {
 
         if (m_status.isHealth == true)
         {
-            if (playerInput.button_RB == true)
+            if (runnerInput.button_RB == true)
             {
                 Debug.Log("ダッシュ");
                 m_status.speed = m_status.maxSpeed;
@@ -96,7 +97,7 @@ public class PlayerMove : PlayerCore {
         }
 
         //ボタンが押されてなかったら
-        if (playerInput.button_RB == false)
+        if (runnerInput.button_RB == false)
         {
             m_status.speed = m_status.firstSpeed;
             //スタミナがのっこていたら
@@ -111,22 +112,22 @@ public class PlayerMove : PlayerCore {
     public void Button()
     {
 
-        if (playerInput.button_A == true)
+        if (runnerInput.button_A == true)
         {
             Debug.Log("A");
         }
 
-        if (playerInput.button_B == true)
+        if (runnerInput.button_B == true)
         {
             Debug.Log("B");
         }
 
-        if (playerInput.button_X == true)
+        if (runnerInput.button_X == true)
         {
             Debug.Log("X");
         }
 
-        if (playerInput.button_Y == true)
+        if (runnerInput.button_Y == true)
         {
             Debug.Log("Y");
         }
