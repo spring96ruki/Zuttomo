@@ -47,15 +47,15 @@ public class RunnerInput : MonoBehaviour
 
     void EscapePlayerInput()
     {
-        Laxis_x = Input.GetAxisRaw(GamePadName.GameStick_Left + PlayerNum.ToString() + GamePadName.GameStick_X);
-        Laxis_y = Input.GetAxisRaw(GamePadName.GameStick_Left + PlayerNum.ToString() + GamePadName.GameStick_Y);
-        Raxis_x = Input.GetAxisRaw(GamePadName.GameStick_Right + PlayerNum.ToString() + GamePadName.GameStick_X);
-        Raxis_y = Input.GetAxisRaw(GamePadName.GameStick_Right + PlayerNum.ToString() + GamePadName.GameStick_Y);
-        button_RB = Input.GetButton(GamePadName.GamePad_RB + PlayerNum.ToString());
-        button_A = Input.GetButtonDown(GamePadName.GamePad_A + PlayerNum.ToString());
-        button_B = Input.GetButtonDown(GamePadName.GamePad_B + PlayerNum.ToString());
-        button_X = Input.GetButtonDown(GamePadName.GamePad_X + PlayerNum.ToString());
-        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + PlayerNum.ToString());
+        Laxis_x = Input.GetAxisRaw(GamePadName.GameStick_Left + runnerNum.ToString() + GamePadName.GameStick_X);
+        Laxis_y = Input.GetAxisRaw(GamePadName.GameStick_Left + runnerNum.ToString() + GamePadName.GameStick_Y);
+        Raxis_x = Input.GetAxisRaw(GamePadName.GameStick_Right + runnerNum.ToString() + GamePadName.GameStick_X);
+        Raxis_y = Input.GetAxisRaw(GamePadName.GameStick_Right + runnerNum.ToString() + GamePadName.GameStick_Y);
+        button_RB = Input.GetButton(GamePadName.GamePad_RB + runnerNum.ToString());
+        button_A = Input.GetButtonDown(GamePadName.GamePad_A + runnerNum.ToString());
+        button_B = Input.GetButtonDown(GamePadName.GamePad_B + runnerNum.ToString());
+        button_X = Input.GetButtonDown(GamePadName.GamePad_X + runnerNum.ToString());
+        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + runnerNum.ToString());
 
         Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
         Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
