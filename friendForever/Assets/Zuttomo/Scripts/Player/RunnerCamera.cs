@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCamera : MonoBehaviour {
+public class RunnerCamera : MonoBehaviour {
 
     public GameObject target;
     Vector3 targetPos;
 
-    PlayerInput m_pInput;
+    RunnerInput m_pInput;
 
     void Start()
     {
-        m_pInput = GetComponent<PlayerInput>();
+        m_pInput = GetComponent<RunnerInput>();
         targetPos = target.transform.position;
     }
 

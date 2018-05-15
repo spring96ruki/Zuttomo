@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatus : MonoBehaviour {
+public class RunnerStatus : MonoBehaviour {
 
     [Header("初速")]
     public float firstSpeed;
@@ -16,6 +16,6 @@ public class PlayerStatus : MonoBehaviour {
     public float maxHealth;
     [Header("スタミナがあるか")]
     public bool isHealth;
-    [Header("アニメーターを入れる")]
-    public Animator animator;
+    //[Header("アニメーターを入れる")]
+    //public Animator animator;
 }
