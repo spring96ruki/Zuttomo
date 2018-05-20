@@ -26,10 +26,11 @@ public class ChaserController : SingletonMono<ChaserController> {
         {
             m_coolTime = 0;
         }
-        Debug.Log(m_coolTime);
+        //Debug.Log(m_coolTime);
         if (Input.GetKeyDown(KeyCode.R))
         {
             ChaserSkill.Instance.SkilTest(gameObject);
+            RunnerController.Instance.stanTime = m_stanTime;
         }
 	}
 }

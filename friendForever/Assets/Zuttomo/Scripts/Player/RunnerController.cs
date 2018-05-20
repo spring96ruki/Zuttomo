@@ -11,9 +11,25 @@ public enum RunnerState
 public class RunnerController : SingletonMono<RunnerController>
 {
 
-    RunnerCore runnerCore;
+    float m_stanTime;
+    public float stanTime
+    {
+        get
+        {
+            return m_stanTime;
+        }
+        set
+        {
+            m_stanTime = value;
+        }
+    }
+
+    Rigidbody m_rigidBody;
+    RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
+
+    bool isStan = false;
 
     RunnerState m_state;
 
@@ -21,36 +37,45 @@ public class RunnerController : SingletonMono<RunnerController>
 	void Start () {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
+        m_rigidBody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //m_runnerInput.PController(); 
+        RunnerStanTime();
+        Debug.Log(isStan);
+        Debug.Log(m_state);
 	}
+
 
     public void RunnerStan(RunnerState state, float skilTime)
     {
         m_state = state;
         if (m_state == RunnerState.stan)
         {
-            bool isSkil = true;
-            --skilTime;
-            if (isSkil == true) {
-                for (float i = skilTime; i > 0; --i)
-                {
-                    runnerCore.m_rigidbody.velocity = Vector3.zero;
-                    Debug.Log(skilTime);
-                    if (skilTime == 0f)
-                    {
-                        isSkil = false;
-                    }
-                }
+            Debug.Log("スタンしたよ");
+            isStan = true;
+        }
+    }
+
+    public void RunnerStanTime()
+    {
+        Debug.Log(stanTime);
+        if (isStan == true)
+        {
+            --stanTime;
+            Debug.Log("通った");
+            m_rigidBody.velocity = Vector3.zero;
+            if (stanTime < 0)
+            {
+                stanTime = 0;
             }
-            //if (skilTime > 0)
-            //{
-            //    runnerCore.m_rigidbody.velocity = Vector3.zero;
-            //}
-            Debug.Log("スタン終わったよ");
+            if (stanTime == 0)
+            {
+                isStan = false;
+                m_state = RunnerState.normal;
+                Debug.Log("スタン終わったよ");
+            }
         }
     }
 

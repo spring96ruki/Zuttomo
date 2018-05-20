@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Assets\Zuttomo\Scripts\Chaser\ChaserController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Chaser\ChaserSkill.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Chaser\testScript.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\EnumController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\FindObject.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\GameController.cs" />
