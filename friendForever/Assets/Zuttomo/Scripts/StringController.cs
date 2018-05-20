@@ -34,3 +34,8 @@ public static class SceneName
     public const string SCENE_CHANGE = "SceneChange";
     public const string FUJIWARA = "fujiwara";
 }
+
+public static class ScreenName
+{
+
+}
