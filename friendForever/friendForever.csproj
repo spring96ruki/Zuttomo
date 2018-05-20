@@ -89,6 +89,8 @@
     <Compile Include="Assets\Zuttomo\Scenes\Sekiguchi\PlayerController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Chaser\ChaserController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Chaser\ChaserSkill.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Chaser\testScript.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\EnumController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\FindObject.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\GameController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerCamera.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerInput.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerMove.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerStatus.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\PlayerCore.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\PlayerScreen.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\SceneController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\SingletonMono.cs" />
