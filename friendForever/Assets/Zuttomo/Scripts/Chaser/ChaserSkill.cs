@@ -19,17 +19,17 @@ public class ChaserSkill : FindObject {
     
     public bool isFind;
 
-    public void SkilTest(GameObject chaserObject)
+    public void StanStart(GameObject chaserObject)
     {
         float coolTime = ChaserController.Instance.m_coolTime;
         float maxCoolTime = ChaserController.Instance.m_maxCoolTime;
         float skilTime = ChaserController.Instance.m_stanTime;
 
-        FindObject.Instance.FindPlayer(chaserObject);
-        SkilStart_at_Method(coolTime, maxCoolTime, skilTime);
+        FindPlayer(chaserObject);
+        Stan(coolTime, maxCoolTime, skilTime);
     }
 
-    void SkilStart_at_Method(float coolTime, float maxCoolTime, float skilTime)
+    void Stan(float coolTime, float maxCoolTime, float skilTime)
     {
         if (coolTime == 0f)
         {

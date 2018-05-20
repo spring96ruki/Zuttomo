@@ -21,16 +21,24 @@ public class ChaserController : SingletonMono<ChaserController> {
 
     // Update is called once per frame
     void Update () {
+        Debug.Log(m_coolTime);
         --m_coolTime;
-        if (m_coolTime <= 0)
+        if (m_coolTime < 0)
         {
             m_coolTime = 0;
         }
         //Debug.Log(m_coolTime);
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ChaserSkill.Instance.SkilTest(gameObject);
-            RunnerController.Instance.stanTime = m_stanTime;
+            if (m_coolTime == 0)
+            {
+                ChaserSkill.Instance.StanStart(gameObject);
+                RunnerController.Instance.stanTime = m_stanTime;
+            }
+            else
+            {
+                Debug.Log("まだクールタイム終わってないよ");
+            }
         }
 	}
 }
