@@ -42,7 +42,7 @@ public class RunnerController : SingletonMono<RunnerController>
 	
 	// Update is called once per frame
 	void Update () {
-        RunnerStanTime();
+        //RunnerStanTime();
         Debug.Log(isStan);
         Debug.Log(m_state);
 	}

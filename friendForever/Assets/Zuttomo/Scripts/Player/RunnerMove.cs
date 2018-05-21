@@ -6,20 +6,34 @@ public class RunnerMove : RunnerCore
 {
 
     public GameObject m_camera;
-
+    public GameObject m_collider;
+    Renderer rend;
     RunnerInput runnerInput;
+    public float timar;
+    public float State_timar;
 
     private void Awake()
     {
         runnerInput = GetComponent<RunnerInput>();
+        rend = GetComponent<Renderer>();
     }
 
     public void Move()
     {
-        float horizontal = runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
-        float virtical = runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
-        PlayerRotation(horizontal, virtical);
-        HealthControll();
+        if (m_status.isState == true)
+        {
+            float horizontal = runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
+            float virtical = runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
+            rend.material.color = Color.white;
+            PlayerRotation(horizontal, virtical);
+            HealthControll();
+        } else {
+            State_timar += Time.deltaTime;
+            if(State_timar >= 3)
+            {
+                m_status.isState = true;
+            }
+        }
     }
 
     void PlayerRotation(float horizontal, float virtical)
@@ -114,22 +128,39 @@ public class RunnerMove : RunnerCore
 
         if (runnerInput.button_A == true)
         {
-            Debug.Log("A");
+            Debug.Log("突き飛ばし");
+            m_collider.SetActive(true);
+            timar = 0;
+        } else {
+            if(timar <= 0.5){
+                timar += Time.deltaTime;
+                m_collider.SetActive(false);
+            }
         }
 
         if (runnerInput.button_B == true)
         {
-            Debug.Log("B");
+            Debug.Log("決定");
         }
 
         if (runnerInput.button_X == true)
         {
-            Debug.Log("X");
+            Debug.Log("アイテム使用");
         }
 
         if (runnerInput.button_Y == true)
         {
             Debug.Log("Y");
+        }
+    }
+
+    private void OnCollisionEnter(Collision hit)
+    {
+        if(hit.gameObject.tag == "Push"){
+            m_status.isState = false;
+            rend.material.color = Color.blue;
+            Debug.Log("当たった");
+            State_timar = 0;
         }
     }
 }
