@@ -6,12 +6,17 @@ public class RunnerMove : RunnerCore
 {
 
     public GameObject m_camera;
-
+    public GameObject[] m_colliders;
+    public GameObject m_item;
+    public Transform m_player;
     RunnerInput runnerInput;
+    public float m_itemspeed = 1000;
+    public float timar;
 
     private void Awake()
     {
         runnerInput = GetComponent<RunnerInput>();
+
     }
 
     public void Move()
@@ -114,17 +119,35 @@ public class RunnerMove : RunnerCore
 
         if (runnerInput.button_A == true)
         {
-            Debug.Log("A");
+            Debug.Log("突き飛ばし");
+            m_colliders[0].SetActive(true);
+            timar = 0;
+        } else {
+            if(timar <= 0.5){
+                timar += Time.deltaTime;
+                m_colliders[0].SetActive(false);
+            }
         }
 
         if (runnerInput.button_B == true)
         {
-            Debug.Log("B");
+            Debug.Log("決定");
         }
 
         if (runnerInput.button_X == true)
         {
-            Debug.Log("X");
+            if (m_status.ishave == true)
+            {
+                Debug.Log("アイテム使用");
+                GameObject bullets = Instantiate(m_item) as GameObject;
+                Vector3 force;
+                force = this.gameObject.transform.forward * m_itemspeed;
+                // Rigidbodyに力を加えて発射
+                bullets.GetComponent<Rigidbody>().AddForce(force);
+                // 弾丸の位置を調整
+                bullets.transform.position = m_player.position;
+                m_status.ishave = false;
+            }
         }
 
         if (runnerInput.button_Y == true)

@@ -15,7 +15,7 @@ public class RunnerInput : MonoBehaviour
     public bool button_X;
     public bool button_Y;
     [SerializeField, Header("プレイヤーの番号")]
-    int runnerNum;
+    public int runnerNum;
 
     public void PController()
     {
