@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Zuttomo/Scenes/Okamoto/okamoto.unity
+- path: Assets/test/Main.unity
   isLoaded: 1
   isActive: 1
