@@ -88,6 +88,8 @@
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
+Assets/Zuttomo/Scenes/Sekiguchi/Enemy.cs
+Assets/Zuttomo/Scenes/Sekiguchi/PlayerController.cs
 Assets/Zuttomo/Scripts/Chaser/ChaserController.cs
 Assets/Zuttomo/Scripts/Chaser/ChaserSkill.cs
 Assets/Zuttomo/Scripts/FindObject.cs

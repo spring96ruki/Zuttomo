@@ -13,6 +13,8 @@
 -r:"C:/Program Files/Unity5.6.5/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
 -r:"C:/Program Files/Unity5.6.5/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll"
 -r:"C:/Program Files/Unity5.6.5/Editor/Data/Managed/UnityEditor.dll"
+-r:"C:/Program Files/Unity5.6.5/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll"
+-r:"C:/Program Files/Unity5.6.5/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll"
 -define:UNITY_5_3_OR_NEWER
 -define:UNITY_5_4_OR_NEWER
 -define:UNITY_5_5_OR_NEWER
@@ -86,6 +88,8 @@
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
+Assets/Zuttomo/Scenes/Sekiguchi/Enemy.cs
+Assets/Zuttomo/Scenes/Sekiguchi/PlayerController.cs
 Assets/Zuttomo/Scripts/Chaser/ChaserController.cs
 Assets/Zuttomo/Scripts/Chaser/ChaserSkill.cs
 Assets/Zuttomo/Scripts/FindObject.cs

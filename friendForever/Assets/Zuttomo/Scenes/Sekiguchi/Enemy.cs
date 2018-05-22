@@ -5,6 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour {
 
     float m_rayDistance = 10f;
+    //上下する幅
+    [SerializeField]
+    float height = 1.0f;
+    //上下の動きが変化する速さ
+    [SerializeField]
+    float moveChangeSpeed = 2.0f;
     Transform findObject;
 
     // Use this for initialization
@@ -22,10 +28,15 @@ public class Enemy : MonoBehaviour {
             findObject = hit.collider.gameObject.transform;
         }
 
-        if(findObject != null)
-        {
-            transform.position = Vector3.Lerp(transform.position, findObject.position, Time.deltaTime);
-        }
+        //移動
+        Vector3 movePos = Vector3.zero;
+        movePos = (
+            findObject == null ?
+            new Vector3(transform.position.x, height + Mathf.Cos(Time.time * moveChangeSpeed) * height, transform.position.z) :
+            new Vector3(findObject.position.x, findObject.position.y + Mathf.Cos(Time.time * moveChangeSpeed) * height, findObject.position.z)
+            );
+
+        transform.position = Vector3.Lerp(transform.position, movePos, Time.deltaTime);
     }
 
     void OnCollisionStay(Collision collision)
