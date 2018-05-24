@@ -15,25 +15,27 @@ public class ChaserSkill : FindObject {
             }
             return instance;
         }
-    } 
-    
+    }
+
     public bool isFind;
 
-    public void SkilTest(GameObject chaserObject)
+    public void Skil(GameObject chaserObject)
     {
         float coolTime = ChaserController.Instance.m_coolTime;
         float maxCoolTime = ChaserController.Instance.m_maxCoolTime;
         float skilTime = ChaserController.Instance.m_stanTime;
 
-        FindObject.Instance.FindPlayer(chaserObject);
-        SkilStart_at_Method(coolTime, maxCoolTime, skilTime);
+        FindPlayer(chaserObject);
+        SkilStart(coolTime, maxCoolTime, skilTime);
     }
 
-    void SkilStart_at_Method(float coolTime, float maxCoolTime, float skilTime)
+    void SkilStart(float coolTime, float maxCoolTime, float skilTime)
     {
+        // Rayを飛ばして対象がいたらRunnerControllerへ登録
         if (coolTime == 0f)
         {
             Debug.Log("wan");
+            // RunnerStateをStanに変更し、スタン時間を登録
             RunnerController.Instance.RunnerStan(RunnerState.stan, skilTime);
         }
     }

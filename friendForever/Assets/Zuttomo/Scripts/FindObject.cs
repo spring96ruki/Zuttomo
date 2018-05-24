@@ -4,19 +4,6 @@ using UnityEngine;
 
 public class FindObject : MonoBehaviour {
 
-    static FindObject instance;
-    public static FindObject Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new FindObject();
-            }
-            return instance;
-        }
-    }
-
     float m_rayDistance = 10f;
 
     public void FindPlayer(GameObject player)

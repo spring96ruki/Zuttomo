@@ -12,17 +12,7 @@ public class RunnerController : SingletonMono<RunnerController>
 {
 
     float m_stanTime;
-    public float stanTime
-    {
-        get
-        {
-            return m_stanTime;
-        }
-        set
-        {
-            m_stanTime = value;
-        }
-    }
+    public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
 
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
@@ -43,8 +33,6 @@ public class RunnerController : SingletonMono<RunnerController>
 	// Update is called once per frame
 	void Update () {
         RunnerStanTime();
-        Debug.Log(isStan);
-        Debug.Log(m_state);
 	}
 
 
@@ -54,6 +42,7 @@ public class RunnerController : SingletonMono<RunnerController>
         if (m_state == RunnerState.stan)
         {
             Debug.Log("スタンしたよ");
+            // RunnerStateがStanに変更されたらisStanをtrueに変更
             isStan = true;
         }
     }
@@ -61,20 +50,33 @@ public class RunnerController : SingletonMono<RunnerController>
     public void RunnerStanTime()
     {
         Debug.Log(stanTime);
+        // isStanがtrueになったらスタン処理開始
         if (isStan == true)
         {
             --stanTime;
             Debug.Log("通った");
-            m_rigidBody.velocity = Vector3.zero;
+
+            // スタン処理
+            m_rigidBody.constraints = RigidbodyConstraints.FreezePosition;
+
             if (stanTime < 0)
             {
                 stanTime = 0;
             }
             if (stanTime == 0)
             {
+                // stanTimeが0になったらisStanをfalseにする
+                // RunnerStanをnormalに変更
                 isStan = false;
                 m_state = RunnerState.normal;
                 Debug.Log("スタン終わったよ");
+
+                // isStanがfalseに変更されたら、スタン処理終了
+                if (isStan == false)
+                {
+                    m_rigidBody.constraints = RigidbodyConstraints.None;
+                    m_rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+                }
             }
         }
     }
