@@ -93,6 +93,8 @@
     <Compile Include="Assets\Zuttomo\Scripts\EnumController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\FindObject.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\GameController.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Gimmick\gimmickItemScript.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\Gimmick\gimmickScript.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerCamera.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\Player\RunnerCore.cs" />
@@ -106,6 +108,10 @@
     <Compile Include="Assets\Zuttomo\Scripts\StringController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\UnFairCharacter\UnfairController.cs" />
     <Compile Include="Assets\Zuttomo\Scripts\cubeMove.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\kamisato\FadeManager.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\kamisato\SelectButton.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\kamisato\SelectController.cs" />
+    <Compile Include="Assets\Zuttomo\Scripts\kamisato\TitleController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -6,6 +6,14 @@ public class RunnerMove : RunnerCore
 {
 
     public GameObject m_camera;
+    public GameObject m_colliders;
+    public GameObject m_item;
+    public Transform m_player;
+
+    public float m_itemspeed = 1000;
+    public float timar;
+
+    public int itemNum;
 
     RunnerInput runnerInput;
 
@@ -68,7 +76,7 @@ public class RunnerMove : RunnerCore
             {
                 Debug.Log("ダッシュ");
                 m_status.speed = m_status.maxSpeed;
-                m_status.health += Time.deltaTime;
+                m_status.health -= Time.deltaTime;
             }
         }
         else
@@ -114,17 +122,52 @@ public class RunnerMove : RunnerCore
 
         if (runnerInput.button_A == true)
         {
-            Debug.Log("A");
+            Debug.Log("突き飛ばし");
+            m_colliders.SetActive(true);
+            timar = 0;
+        }
+        else
+        {
+            if (timar <= 0.5)
+            {
+                timar += Time.deltaTime;
+                m_colliders.SetActive(false);
+            }
         }
 
         if (runnerInput.button_B == true)
         {
-            Debug.Log("B");
+            Debug.Log("決定");
         }
 
         if (runnerInput.button_X == true)
         {
-            Debug.Log("X");
+            if (m_status.ishave == true)
+            {
+                switch (itemNum)
+                {
+                    case 1:
+
+                        Debug.Log("市松人形を投げたよ");
+                        Vector3 force;
+                        GameObject bullets = Instantiate(m_item) as GameObject;
+                        force = this.gameObject.transform.forward * m_itemspeed;
+                        // Rigidbodyに力を加えて発射
+                        bullets.GetComponent<Rigidbody>().AddForce(force);
+                        // アイテムの位置を調整
+                        bullets.transform.position = m_player.position;
+                        m_status.ishave = false;
+
+                        break;
+
+                    case 2:
+                        Debug.Log("力が上がったよ");
+                        m_status.ishave = false;
+                        break;
+                }
+
+            }
+
         }
 
         if (runnerInput.button_Y == true)
