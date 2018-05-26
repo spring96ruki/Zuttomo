@@ -100,6 +100,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\SapphiArt\SapphiArtchan\Scripts\AnimationManagerUI.cs" />
+    <Compile Include="Assets\SapphiArt\SapphiArtchan\Scripts\SapphiArtChan_AnimManager.cs" />
     <Compile Include="Assets\Zuttomo\Scenes\Okamoto\PlayerMove.cs" />
     <Compile Include="Assets\Zuttomo\Scenes\Sekiguchi\Enemy.cs" />
     <Compile Include="Assets\Zuttomo\Scenes\Sekiguchi\PlayerController.cs" />

@@ -20,6 +20,6 @@ public class RunnerStatus : MonoBehaviour {
     public bool isState;
     [Header("アイテムを持っているかどうか")]
     public bool ishave;
-    //[Header("アニメーターを入れる")]
-    //public Animator animator;
+    [Header("アニメーターを入れる")]
+    public Animator animator;
 }

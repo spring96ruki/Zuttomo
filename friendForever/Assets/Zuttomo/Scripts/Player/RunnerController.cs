@@ -12,6 +12,8 @@ public class RunnerController : SingletonMono<RunnerController>
 {
 
     float m_stanTime;
+    public float State_timar;
+
     public float stanTime
     {
         get
@@ -28,25 +30,36 @@ public class RunnerController : SingletonMono<RunnerController>
     RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
+    RunnerStatus m_runnerStatus;
 
     bool isStan = false;
 
     RunnerState m_state;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_rigidBody = GetComponent<Rigidbody>();
-	}
+        m_runnerStatus = GetComponent<RunnerStatus>();
+        DontDestroyOnLoad(gameObject);
+    }
+
+	// Use this for initialization
+	//void Start () {
+ //       m_runnerInput = GetComponent<RunnerInput>();
+ //       m_runnerMove = GetComponent<RunnerMove>();
+ //       m_rigidBody = GetComponent<Rigidbody>();
+ //       DontDestroyOnLoad(gameObject);
+	//}
 	
 	// Update is called once per frame
 	void Update () {
         //RunnerStanTime();
+        m_runnerInput.PController();
         Debug.Log(isStan);
         Debug.Log(m_state);
 	}
-
 
     public void RunnerStan(RunnerState state, float skilTime)
     {
@@ -81,7 +94,75 @@ public class RunnerController : SingletonMono<RunnerController>
 
     private void FixedUpdate()
     {
-        //m_runnerMove.Move();
-        //m_runnerMove.Button();
+        if (m_runnerStatus.isState == true)
+        {
+            m_runnerMove.Move();
+            m_runnerMove.Button();
+        }
+        else
+        {
+            State_timar += Time.deltaTime;
+            if (State_timar >= 3)
+            {
+                m_runnerStatus.isState = true;
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision hit)
+    {
+        if (hit.gameObject.tag == "Push")
+        {
+            m_runnerStatus.isState = false;
+            Debug.Log("当たった");
+            State_timar = 0;
+        }
+
+        if (hit.gameObject.tag == "item")
+        {
+            Debug.Log("当たった");
+            m_runnerMove.m_rigidbody.AddForce(Vector3.zero.normalized * 10f);
+            Destroy(hit.gameObject);
+        }
+    }
+
+    void OnCollisionStay(Collision col)
+    {
+        CheckEvent(col);
+    }
+
+    void CheckEvent(Collision col)
+    {
+
+        if (m_runnerStatus.ishave == false)
+        {
+            if (col.gameObject.name == "Sphere")
+            {
+                Debug.Log("市松人形だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    m_runnerStatus.ishave = true;
+                    m_runnerMove.m_item.tag = "item";
+                    m_runnerMove.ItemNum = 1;
+                    Destroy(col.gameObject);
+                }
+            }
+
+            if (col.gameObject.name == "Capsule")
+            {
+                Debug.Log("薬だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    m_runnerStatus.ishave = true;
+                    m_runnerMove.ItemNum = 2;
+                    Destroy(col.gameObject);
+                }
+            }
+
+        }
+        else
+        {
+            Debug.Log("これ以上は持てないよ");
+        }
     }
 }

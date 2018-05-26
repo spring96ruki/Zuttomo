@@ -28,7 +28,6 @@ public class PlayerMove : MonoBehaviour {
         {
             m_runnerMove.Move();
             m_runnerMove.Button();
-            rend.material.color = Color.white;
         } else {
             State_timar += Time.deltaTime;
             if (State_timar >= 3)
@@ -38,12 +37,11 @@ public class PlayerMove : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter(Collision hit)
+    void OnCollisionEnter(Collision hit)
     {
         if (hit.gameObject.tag == "Push")
         {
             m_runnerStatus.isState = false;
-            rend.material.color = Color.blue;
             Debug.Log("当たった");
             State_timar = 0;
         }
@@ -51,6 +49,45 @@ public class PlayerMove : MonoBehaviour {
         if (hit.gameObject.tag == "item")
         {
             Debug.Log("当たった");
+            m_runnerMove.m_rigidbody.AddForce(Vector3.zero.normalized * 10f);
+            Destroy(hit.gameObject);
+        }
+    }
+
+    void OnCollisionStay(Collision col)
+	{
+        CheckEvent(col);
+	}
+
+    void CheckEvent(Collision col){
+
+        if (m_runnerStatus.ishave == false)
+        {
+            if (col.gameObject.name == "Sphere")
+            {
+                Debug.Log("市松人形だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    m_runnerStatus.ishave = true;
+                    m_runnerMove.m_item.tag = "item";
+                    m_runnerMove.ItemNum = 1;
+                    Destroy(col.gameObject);
+                }
+            }
+
+            if(col.gameObject.name == "Capsule")
+            {
+                if(m_runnerInput.button_B == true)
+                {
+                    Debug.Log("薬だよ");
+                    m_runnerStatus.ishave = true;
+                    m_runnerMove.ItemNum = 2;
+                    Destroy(col.gameObject);
+                }
+            }
+
+        } else {
+            Debug.Log("これ以上は持てないよ");
         }
     }
 }
