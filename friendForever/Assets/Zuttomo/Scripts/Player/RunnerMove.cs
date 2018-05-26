@@ -11,26 +11,22 @@ public class RunnerMove : RunnerCore
     public Transform m_player;
 
     public float m_itemspeed = 1000;
-    public float timar;
+    public float m_timer;
 
-    public int itemNum;
+    public int m_itemNum;
 
-    RunnerInput runnerInput;
+    RunnerInput m_runnerInput;
 
-    public float m_itemspeed = 1000;
-    public float timar;
-
-    public int ItemNum;
 
     private void Awake()
     {
-        runnerInput = GetComponent<RunnerInput>();
+        m_runnerInput = GetComponent<RunnerInput>();
     }
 
     public void Move()
     {
-        float horizontal = runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
-        float virtical = runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
+        float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
+        float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
         //PlayerAnimation(horizontal, virtical);
         HealthControll();
@@ -80,7 +76,7 @@ public class RunnerMove : RunnerCore
 
         if (m_status.isHealth == true)
         {
-            if (runnerInput.button_RB == true)
+            if (m_runnerInput.button_RB == true)
             {
                 Debug.Log("ダッシュ");
                 m_status.speed = m_status.maxSpeed;
@@ -113,7 +109,7 @@ public class RunnerMove : RunnerCore
         }
 
         //ボタンが押されてなかったら
-        if (runnerInput.button_RB == false)
+        if (m_runnerInput.button_RB == false)
         {
             m_status.speed = m_status.firstSpeed;
             //スタミナがのっこていたら
@@ -128,31 +124,31 @@ public class RunnerMove : RunnerCore
     public void Button()
     {
 
-        if (runnerInput.button_A == true)
+        if (m_runnerInput.button_A == true)
         {
             Debug.Log("突き飛ばし");
             m_colliders.SetActive(true);
-            timar = 0;
+            m_timer = 0;
         }
         else
         {
-            if (timar <= 0.5)
+            if (m_timer <= 0.5)
             {
-                timar += Time.deltaTime;
+                m_timer += Time.deltaTime;
                 m_colliders.SetActive(false);
             }
         }
 
-        if (runnerInput.button_B == true)
+        if (m_runnerInput.button_B == true)
         {
             Debug.Log("決定");
         }
 
-        if (runnerInput.button_X == true)
+        if (m_runnerInput.button_X == true)
         {
             if (m_status.ishave == true)
             {
-                switch (ItemNum)
+                switch (m_itemNum)
                 {
                     case 1:
                         Debug.Log("市松人形を投げたよ");
@@ -176,7 +172,7 @@ public class RunnerMove : RunnerCore
 
         }
 
-        if (runnerInput.button_Y == true)
+        if (m_runnerInput.button_Y == true)
         {
             Debug.Log("Y");
         }

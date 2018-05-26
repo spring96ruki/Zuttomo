@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio for Mac
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "friendForever", "friendForever.csproj", "{7C81EE0B-1A2D-22B9-6D37-46E6AE67EFBF}"
 EndProject
 Global

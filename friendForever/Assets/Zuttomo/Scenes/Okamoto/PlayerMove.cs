@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour {
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
     Renderer rend;
-    public float State_timar;
+    public float State_timer;
 
 	void Start () {
         m_runnerInput = GetComponent<RunnerInput>();
@@ -29,8 +29,8 @@ public class PlayerMove : MonoBehaviour {
             m_runnerMove.Move();
             m_runnerMove.Button();
         } else {
-            State_timar += Time.deltaTime;
-            if (State_timar >= 3)
+            State_timer += Time.deltaTime;
+            if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
             }
@@ -43,7 +43,7 @@ public class PlayerMove : MonoBehaviour {
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
-            State_timar = 0;
+            State_timer = 0;
         }
 
         if (hit.gameObject.tag == "item")
@@ -70,7 +70,7 @@ public class PlayerMove : MonoBehaviour {
                 {
                     m_runnerStatus.ishave = true;
                     m_runnerMove.m_item.tag = "item";
-                    m_runnerMove.ItemNum = 1;
+                    m_runnerMove.m_itemNum = 1;
                     Destroy(col.gameObject);
                 }
             }
@@ -81,7 +81,7 @@ public class PlayerMove : MonoBehaviour {
                 {
                     Debug.Log("薬だよ");
                     m_runnerStatus.ishave = true;
-                    m_runnerMove.ItemNum = 2;
+                    m_runnerMove.m_itemNum = 2;
                     Destroy(col.gameObject);
                 }
             }

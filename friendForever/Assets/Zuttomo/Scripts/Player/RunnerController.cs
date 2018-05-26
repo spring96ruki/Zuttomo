@@ -137,7 +137,7 @@ public class RunnerController : SingletonMono<RunnerController>
                 {
                     m_runnerStatus.ishave = true;
                     m_runnerMove.m_item.tag = "item";
-                    m_runnerMove.ItemNum = 1;
+                    m_runnerMove.m_itemNum = 1;
                     Destroy(col.gameObject);
                 }
             }
@@ -148,7 +148,7 @@ public class RunnerController : SingletonMono<RunnerController>
                 if (m_runnerInput.button_B == true)
                 {
                     m_runnerStatus.ishave = true;
-                    m_runnerMove.ItemNum = 2;
+                    m_runnerMove.m_itemNum = 2;
                     Destroy(col.gameObject);
                 }
             }
