@@ -20,7 +20,6 @@ public class TitleController : MonoBehaviour
 
     public void SceneLoad()
     {
-        //SceneController.Instance.LoadScene(SceneName.SELECT_SCENE);
-        FadeManager.Instance.LoadScene(SceneName.SELECT_SCENE, 1.0f);
+        SceneController.Instance.LoadScene(SceneName.SELECT_SCENE);
     }
 }

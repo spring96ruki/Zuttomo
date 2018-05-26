@@ -7,14 +7,15 @@ public class ChaserController : SingletonMono<ChaserController> {
     public float m_coolTime;
     public float m_maxCoolTime = 100f;
     public float m_stanTime;
+    public float m_invisibleTime;
 
     // Use this for initialization
     private void Start()
     {
-        Init();
+        StanInit();
     }
 
-    public void Init()
+    public void StanInit()
     {
         m_coolTime = m_maxCoolTime;
     }
@@ -26,11 +27,17 @@ public class ChaserController : SingletonMono<ChaserController> {
         {
             m_coolTime = 0;
         }
-        //Debug.Log(m_coolTime);
+
+        // Rキー押して対象がいればスタン開始
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ChaserSkill.Instance.SkilTest(gameObject);
+            ChaserSkill.Instance.StanSkilStart(gameObject);
             RunnerController.Instance.stanTime = m_stanTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ChaserSkill.Instance.InvisibleSkilStart(gameObject, m_coolTime, m_invisibleTime);
         }
 	}
 }

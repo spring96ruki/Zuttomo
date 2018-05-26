@@ -25,12 +25,12 @@ public class SelectButton : MonoBehaviour {
 
     public void Title()
     {
-        FadeManager.Instance.LoadScene(SceneName.SELECT_SCENE, 1.0f);
+        SceneController.Instance.LoadScene(SceneName.SELECT_SCENE);
     }
     public void Select()
     {
         //SelectControllerに選択結果を送っている
-        selectController.allplayer_selectstate[player_num - 1] = selectstate;
+        selectController.allplayerSelectState[player_num - 1] = selectstate;
         selectController.Lottery();
         //Debug.Log(selectController.allplayer_selectstate[player_num - 1]);
        //FadeManager.Instance.LoadScene(SceneName.GAME_SCENE,1.0f);

@@ -6,91 +6,89 @@ using UnityEngine.SceneManagement;
 
 public class FadeManager : MonoBehaviour {
 
-    #region Singleton
+    static FadeManager instance;
+    public static FadeManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = new FadeManager();
+            }
+            return instance;
+        }
+    }
 
-	private static FadeManager instance;
+    bool m_isFading = false;
+    float m_fadeAlpha = 0;
+    float m_LoadTime = 1.5f;
+    public Color m_fadeColor = Color.black;
 
-	public static FadeManager Instance {
-		get {
-			if (instance == null) {
-				instance = (FadeManager)FindObjectOfType (typeof(FadeManager));
+    public void OnGUI()
+    {
 
-				if (instance == null) {
-					Debug.LogError (typeof(FadeManager) + "is nothing");
-				}
-			}
-
-			return instance;
-		}
-	}
-
-	#endregion Singleton
-
-	public bool DebugMode = true;
-	//フェード中の透明度
-	private float fadeAlpha = 0;
-	//フェード中かどうか
-	private bool isFading = false;
-	//フェード色
-	public Color fadeColor = Color.black;
+        // Fade
+        if (m_isFading)
+        {
+            //色と透明度を更新して白テクスチャを描画
+            this.m_fadeColor.a = this.m_fadeAlpha;
+            GUI.color = this.m_fadeColor;
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
+        }
+    }
 
 
-	public void Awake ()
-	{
-		if (this != Instance) {
-			Destroy (this.gameObject);
-			return;
-		}
+    // シーン遷移用コルーチン
+    //シーン名
+    //暗転にかかる時間(秒)
+    //public IEnumerator Fade(bool isFade = true)
+    //{
 
-		DontDestroyOnLoad (this.gameObject);
-	}
+    //    float time = 0;
+    //    float interval = 1.0f;
+    //    while (time <= interval)
+    //    {
+    //        this.m_fadeAlpha = Mathf.Lerp(0f, 1f, time / interval);
+    //        time += Time.deltaTime;
+    //        yield return 0;
+    //    }
 
-	public void OnGUI ()
-	{
+    //    if (isFade == false)
+    //    {
+    //        time = 0;
+    //        yield return  new WaitForSeconds(m_LoadTime);
+    //        while (time <= interval)
+    //        {
+    //            this.m_fadeAlpha = Mathf.Lerp(1f, 0f, time / interval);
+    //            time += Time.deltaTime;
+    //            yield return 0;
+    //        }
+    //    }
+    //}
 
-		// Fade
-		if (this.isFading) {
-			//色と透明度を更新して白テクスチャを描画
-			this.fadeColor.a = this.fadeAlpha;
-			GUI.color = this.fadeColor;
-			GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
-		}
-			
-	}
+    public IEnumerator FadeOut()
+    {
+        float time = 0;
+        float interval = 1.0f;
+        while (time <= interval)
+        {
+            Debug.Log("うっす");
+            m_fadeColor.a = Mathf.Lerp(0f, 1f, time / interval);
+            time += Time.deltaTime;
+            yield return 0;
+        }
+    }
 
-	// 画面遷移
-	//シーン名
-	//暗転にかかる時間(秒
-	public void LoadScene (string scene, float interval)
-	{
-		StartCoroutine (TransScene (scene, interval));
-	}
-
-	// シーン遷移用コルーチン
-	//シーン名
-	//暗転にかかる時間(秒)
-	private IEnumerator TransScene (string scene, float interval)
-	{
-		//だんだん暗く
-		this.isFading = true;
-		float time = 0;
-		while (time <= interval) {
-			this.fadeAlpha = Mathf.Lerp (0f, 1f, time / interval);
-			time += Time.deltaTime;
-			yield return 0;
-		}
-
-		//シーン切替
-		SceneManager.LoadScene (scene);
-
-		//だんだん明るく
-		time = 0;
-		while (time <= interval) {
-			this.fadeAlpha = Mathf.Lerp (1f, 0f, time / interval);
-			time += Time.deltaTime;
-			yield return 0;
-		}
-
-		this.isFading = false;
-	}
+    public IEnumerator FadeIn()
+    {
+        float time = 0;
+        float interval = 1.0f;
+        while (time <= interval)
+        {
+            Debug.Log("は？");
+            m_fadeColor.a = Mathf.Lerp(1f, 0f, time / interval);
+            time += Time.deltaTime;
+            yield return 0;
+        }
+    }
 }
