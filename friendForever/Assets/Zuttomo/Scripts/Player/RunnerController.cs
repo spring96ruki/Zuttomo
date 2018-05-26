@@ -24,6 +24,7 @@ public class RunnerController : SingletonMono<RunnerController>
     bool isStan = false;
 
     RunnerState m_state;
+    GameObject hogehoge;
 
     void Awake()
     {
