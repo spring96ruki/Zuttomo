@@ -21,26 +21,25 @@ public class RunnerController : SingletonMono<RunnerController>
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
     Renderer rend;
-    
     bool isStan = false;
 
     RunnerState m_state;
 
-	// Use this for initialization
-	void Start () {
+    void Awake()
+    {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
         rend = GetComponent<Renderer>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         RunnerStanTime();
         m_runnerInput.PController();
     }
-
 
     public void RunnerStan(RunnerState state, float skilTime)
     {
@@ -138,18 +137,18 @@ public class RunnerController : SingletonMono<RunnerController>
                 {
                     m_runnerStatus.ishave = true;
                     m_runnerMove.m_item.tag = "item";
-                    m_runnerMove.itemNum = 1;
+                    m_runnerMove.ItemNum = 1;
                     Destroy(col.gameObject);
                 }
             }
 
             if (col.gameObject.name == "Capsule")
             {
+                Debug.Log("薬だよ");
                 if (m_runnerInput.button_B == true)
                 {
-                    Debug.Log("薬だよ");
                     m_runnerStatus.ishave = true;
-                    m_runnerMove.itemNum = 2;
+                    m_runnerMove.ItemNum = 2;
                     Destroy(col.gameObject);
                 }
             }

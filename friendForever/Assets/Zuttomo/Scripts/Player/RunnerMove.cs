@@ -17,6 +17,11 @@ public class RunnerMove : RunnerCore
 
     RunnerInput runnerInput;
 
+    public float m_itemspeed = 1000;
+    public float timar;
+
+    public int ItemNum;
+
     private void Awake()
     {
         runnerInput = GetComponent<RunnerInput>();
@@ -27,6 +32,7 @@ public class RunnerMove : RunnerCore
         float horizontal = runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
         float virtical = runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
+        //PlayerAnimation(horizontal, virtical);
         HealthControll();
     }
 
@@ -43,28 +49,30 @@ public class RunnerMove : RunnerCore
             transform.position += cameraForward * virtical + m_camera.transform.right * horizontal;
             //体の向きを変更
             transform.rotation = Quaternion.LookRotation(moveForward);
-            // PlayerのAnimation管理
+            //PlayerのAnimation管理
             //PlayerAnimation(horizontal, virtical);
         }
     }
 
     //void PlayerAnimation(float h, float v)
     //{
-        //if (m_status.speed <= m_status.firstSpeed)
-        //{
-        //    m_status.animator.SetBool("Walk", true);
-        //    m_status.animator.SetBool("Run", false);
-        //}
-        //else if (m_status.speed >= m_status.firstSpeed)
-        //{
-        //    m_status.animator.SetBool("Run", true);
-        //    m_status.animator.SetBool("Walk", false);
-        //}
-        //else
-        //{
-        //    m_status.animator.SetBool("Walk", false);
-        //    m_status.animator.SetBool("Run", false);
-        //}
+    //    if (runnerInput.Laxis_y >= 0.1f || runnerInput.Laxis_y <= -0.1f || runnerInput.Laxis_x >= 0.1f || runnerInput.Laxis_x <= -0.1f)
+    //    {
+    //        if (m_status.speed <= m_status.firstSpeed)
+    //        {
+    //            m_status.animator.SetBool("Walk", true);
+    //            m_status.animator.SetBool("Run", false);
+    //        }
+    //        else if (m_status.speed >= m_status.firstSpeed)
+    //        {
+    //            m_status.animator.SetBool("Run", true);
+    //            m_status.animator.SetBool("Walk", false);
+    //        }
+    //    } else
+    //    {
+    //        m_status.animator.SetBool("Walk", false);
+    //        m_status.animator.SetBool("Run", false);
+    //    }
     //}
 
     void HealthControll()
@@ -144,10 +152,9 @@ public class RunnerMove : RunnerCore
         {
             if (m_status.ishave == true)
             {
-                switch (itemNum)
+                switch (ItemNum)
                 {
                     case 1:
-
                         Debug.Log("市松人形を投げたよ");
                         Vector3 force;
                         GameObject bullets = Instantiate(m_item) as GameObject;
@@ -164,9 +171,8 @@ public class RunnerMove : RunnerCore
                         Debug.Log("力が上がったよ");
                         m_status.ishave = false;
                         break;
-                }
-
-            }
+                }             
+             }
 
         }
 

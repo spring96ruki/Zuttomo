@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerCamera : MonoBehaviour {
+public class RunnerCamera : SingletonMono<RunnerCamera> 
+{
 
     public GameObject target;
     Vector3 targetPos;
 
     RunnerInput m_pInput;
 
-    void Start()
+	void Awake()
+	{
+        DontDestroyOnLoad(gameObject);
+	}
+
+	void Start()
     {
         m_pInput = GetComponent<RunnerInput>();
         targetPos = target.transform.position;

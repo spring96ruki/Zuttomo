@@ -16,10 +16,10 @@ public class RunnerStatus : MonoBehaviour {
     public float maxHealth;
     [Header("スタミナがあるか")]
     public bool isHealth;
-    [Header("プレイヤーが動けるかどうか")]
+    [Header("プレイヤーが動けかどうか")]
     public bool isState;
     [Header("アイテムを持っているかどうか")]
     public bool ishave;
-    //[Header("アニメーターを入れる")]
-    //public Animator animator;
+    [Header("アニメーターを入れる")]
+    public Animator animator;
 }
