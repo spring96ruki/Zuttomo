@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FindObject : MonoBehaviour {
 
+    protected bool isFind;
     float m_rayDistance = 10f;
 
     public void FindPlayer(GameObject player)
@@ -24,6 +25,7 @@ public class FindObject : MonoBehaviour {
                     Debug.Log("3p見つけた");
                     break;
                 case TagName.TestTag:
+                    isFind = true;
                     Debug.Log("TestTargetを見つけた");
                     break;
             }

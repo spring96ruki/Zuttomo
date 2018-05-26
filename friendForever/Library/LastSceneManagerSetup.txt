@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Zuttomo/Scenes/Test/a_version.unity
+- path: Assets/Zuttomo/Scenes/Fujiwara/fujiwara.unity
   isLoaded: 1
   isActive: 1
