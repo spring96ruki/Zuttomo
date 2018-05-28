@@ -20,9 +20,13 @@ public class ChaserController : SingletonMono<ChaserController> {
         m_coolTime = m_maxCoolTime;
     }
 
+    private void FixedUpdate()
+    {
+        Debug.Log(m_coolTime);
+        --m_coolTime;
+    }
     // Update is called once per frame
     void Update () {
-        --m_coolTime;
         if (m_coolTime <= 0)
         {
             m_coolTime = 0;

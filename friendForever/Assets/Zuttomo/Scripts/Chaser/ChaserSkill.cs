@@ -55,7 +55,8 @@ public class ChaserSkill : FindObject {
         while (objectAlpha.a > 0)
         {
             Debug.Log("透明度: " + objectAlpha.a);
-            objectAlpha.a -= 0.1f;
+            objectAlpha.a -= 0.01f;
+            chaserObject.GetComponent<MeshRenderer>().material.color = new Color(chaserObject.GetComponent<MeshRenderer>().material.color.r, chaserObject.GetComponent<MeshRenderer>().material.color.g, chaserObject.GetComponent<MeshRenderer>().material.color.b, objectAlpha.a);
         }
     }
 
