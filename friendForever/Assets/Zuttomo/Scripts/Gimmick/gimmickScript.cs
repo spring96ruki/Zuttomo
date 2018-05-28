@@ -21,13 +21,13 @@ public class gimmickScript : MonoBehaviour {
         for (int i = 0; i < 7; i++) {
 			float x = UnityEngine.Random.Range(-5f, 5f);
 			float z = UnityEngine.Random.Range(-5f, 5f);
-			Instantiate(gimmickItem[i], new Vector3(x, 1.8f, z), Quaternion.identity);
+			Instantiate(gimmickItem[i], new Vector3(x, 1.3f, z), Quaternion.identity);
         }
 		Instantiate(door, new Vector3( UnityEngine.Random.Range(-5f, 5f), 0.5f, UnityEngine.Random.Range(-5f, 5f) ), Quaternion.identity);
 		for (int i = 0; i < 5; i++) {
 			float x = UnityEngine.Random.Range(-5f, 5f);
 			float z = UnityEngine.Random.Range(-5f, 5f);
-			Instantiate(gimmickItem[UnityEngine.Random.Range(0, 6)], new Vector3(x, 1.8f, z), Quaternion.identity);
+			Instantiate(gimmickItem[UnityEngine.Random.Range(0, 6)], new Vector3(x, 1.3f, z), Quaternion.identity);
 		}
 
 		GetGimmickItem_word = new int[] { 0, 0, 0, 0, 0, 0, 0 };
