@@ -28,7 +28,7 @@ public class RunnerMove : RunnerCore
         float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
         float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
-        //PlayerAnimation(horizontal, virtical);
+        PlayerAnimation(horizontal, virtical);
         HealthControll();
     }
 
@@ -46,30 +46,30 @@ public class RunnerMove : RunnerCore
             //体の向きを変更
             transform.rotation = Quaternion.LookRotation(moveForward);
             //PlayerのAnimation管理
-            //PlayerAnimation(horizontal, virtical);
+            PlayerAnimation(horizontal, virtical);
         }
     }
 
-    //void PlayerAnimation(float h, float v)
-    //{
-    //    if (runnerInput.Laxis_y >= 0.1f || runnerInput.Laxis_y <= -0.1f || runnerInput.Laxis_x >= 0.1f || runnerInput.Laxis_x <= -0.1f)
-    //    {
-    //        if (m_status.speed <= m_status.firstSpeed)
-    //        {
-    //            m_status.animator.SetBool("Walk", true);
-    //            m_status.animator.SetBool("Run", false);
-    //        }
-    //        else if (m_status.speed >= m_status.firstSpeed)
-    //        {
-    //            m_status.animator.SetBool("Run", true);
-    //            m_status.animator.SetBool("Walk", false);
-    //        }
-    //    } else
-    //    {
-    //        m_status.animator.SetBool("Walk", false);
-    //        m_status.animator.SetBool("Run", false);
-    //    }
-    //}
+    void PlayerAnimation(float h, float v)
+    {
+        if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
+        {
+            if (m_status.speed <= m_status.firstSpeed)
+            {
+                m_status.animator.SetBool("Walk", true);
+                m_status.animator.SetBool("Run", false);
+            }
+            else if (m_status.speed >= m_status.firstSpeed)
+            {
+                m_status.animator.SetBool("Run", true);
+                m_status.animator.SetBool("Walk", false);
+            }
+        } else
+        {
+            m_status.animator.SetBool("Walk", false);
+            m_status.animator.SetBool("Run", false);
+        }
+    }
 
     void HealthControll()
     {
