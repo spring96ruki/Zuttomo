@@ -24,7 +24,8 @@ public class RunnerController : SingletonMono<RunnerController>
     bool isStan = false;
 
     RunnerState m_state;
-    GameObject hogehoge;
+
+    float currentSpeed;
 
     void Awake()
     {
@@ -63,7 +64,9 @@ public class RunnerController : SingletonMono<RunnerController>
             Debug.Log("通った");
 
             // スタン処理
-            m_rigidBody.constraints = RigidbodyConstraints.FreezePosition;
+            // 現在のスピードを別の変数に保持し、スピードを0に変更
+            currentSpeed = m_runnerStatus.speed;
+            m_runnerStatus.speed = 0f;
 
             if (stanTime < 0)
             {
@@ -78,10 +81,10 @@ public class RunnerController : SingletonMono<RunnerController>
                 Debug.Log("スタン終わったよ");
 
                 // isStanがfalseに変更されたら、スタン処理終了
+                // スタン終了時に保持してたスピードをプレイヤーのステータスへ戻す
                 if (isStan == false)
                 {
-                    m_rigidBody.constraints = RigidbodyConstraints.None;
-                    m_rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+                    m_runnerStatus.speed = currentSpeed;
                 }
             }
         }
