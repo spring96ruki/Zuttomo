@@ -90,6 +90,12 @@ public class RunnerController : SingletonMono<RunnerController>
         }
     }
 
+	public void RunnerSkyHigh()
+	{
+		Debug.Log ("sky");
+		this.GetComponent<Rigidbody>().AddForce(0,500,0);
+	}
+
     private void FixedUpdate()
     {
         if (m_runnerStatus.isState == true)
@@ -100,6 +106,10 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timar += Time.deltaTime;
+			Vector3 force = Vector3.zero;
+			force = this.gameObject.transform.forward * 1000;
+			// Rigidbodyに力を加える
+			m_rigidBody.AddForce(force,ForceMode.Force);
             if (State_timar >= 3)
             {
                 m_runnerStatus.isState = true;
