@@ -56,7 +56,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log(stanTime);
+        Debug.Log("スタン時間" + stanTime);
         // isStanがtrueになったらスタン処理開始
         if (isStan == true)
         {
