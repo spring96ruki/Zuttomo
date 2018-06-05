@@ -21,7 +21,12 @@ public class RunnerCamera : MonoBehaviour
         targetPos = target.transform.position;
     }
 
-    void FixedUpdate()
+	void Update()
+	{
+        m_pInput.PController();
+	}
+
+	void FixedUpdate()
     {
         // targetの移動量分、カメラも移動する
         transform.position += target.transform.position - targetPos;

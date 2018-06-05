@@ -40,7 +40,7 @@ public class RunnerController : SingletonMono<RunnerController>
     void Update()
     {
         RunnerStanTime();
-        //m_runnerInput.PController();
+        m_runnerInput.PController();
     }
 
     public void RunnerStan(RunnerState state, float skilTime)
@@ -56,7 +56,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log("スタン時間" + stanTime);
+        Debug.Log(stanTime);
         // isStanがtrueになったらスタン処理開始
         if (isStan == true)
         {
@@ -90,12 +90,6 @@ public class RunnerController : SingletonMono<RunnerController>
         }
     }
 
-	public void RunnerSkyHigh()
-	{
-		Debug.Log ("sky");
-		this.GetComponent<Rigidbody>().AddForce(0,500,0);
-	}
-
     private void FixedUpdate()
     {
         if (m_runnerStatus.isState == true)
@@ -106,10 +100,10 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timar += Time.deltaTime;
-            Vector3 force = Vector3.zero;
+            Vector3 force;
             force = this.gameObject.transform.forward * 1000;
-            // Rigidbodyに力を加える
-            m_rigidBody.AddForce(force, ForceMode.Force);
+            // Rigidbodyに力を加えて発射
+            GetComponent<Rigidbody>().AddForce(force);
             if (State_timar >= 3)
             {
                 m_runnerStatus.isState = true;
@@ -126,10 +120,11 @@ public class RunnerController : SingletonMono<RunnerController>
             State_timar = 0;
         }
 
-        if (hit.gameObject.tag == "item")
+        if (hit.gameObject.tag == "Itimathu")
         {
             Debug.Log("当たった");
             m_runnerMove.m_rigidbody.AddForce(Vector3.zero.normalized * 10f);
+            m_runnerStatus.isState = false;
             Destroy(hit.gameObject);
         }
     }
@@ -144,13 +139,12 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            if (col.gameObject.name == "Sphere")
+            if (col.gameObject.name == "Doll_itimathu")
             {
                 Debug.Log("市松人形だよ");
                 if (m_runnerInput.button_B == true)
                 {
                     m_runnerStatus.ishave = true;
-                    m_runnerMove.m_item.tag = "item";
                     m_runnerMove.m_itemNum = 1;
                     Destroy(col.gameObject);
                 }
