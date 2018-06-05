@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class GameController : SingletonMono<GameController> {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SceneController.Instance.LoadScene(SceneName.SCENE_CHANGE);
-        }
-	}
+    int getdemon_num;
+
+
+    void Start()
+    {
+        getdemon_num = SelectController.Getdemonplayer();
+        Debug.Log(getdemon_num);
+    }
+
+    // Update is called once per frame
+    void Update () {
+        
+    }
 }

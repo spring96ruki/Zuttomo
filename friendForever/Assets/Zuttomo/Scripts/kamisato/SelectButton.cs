@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class SelectButton : MonoBehaviour {
 
     public static int demonplayer = 0;
-
-    
     public int player_num;
     public int selectstate;
     public SelectController selectController;
