@@ -17,7 +17,12 @@ public class ChaserSkill : FindObject {
         }
     }
 
+    bool m_isChaserAlpha = false;
     IEnumerator m_enumInvisible;
+
+    private void Start()
+    {
+    }
 
     public void StanSkilStart(GameObject chaserObject)
     {
@@ -42,37 +47,14 @@ public class ChaserSkill : FindObject {
         }
     }
 
-    public void InvisibleSkilStart(GameObject chaserObject, float coolTime, float skilTime)
+    public void ChaserInvisible(GameObject chaserObject, float coolTime)
     {
-        if (coolTime == 0f)
+        Debug.Log("とぅっとぅるー");
+        //m_chaserColor = new Color(m_chaserColor.r, m_chaserColor.g, m_chaserColor.b, Mathf.Lerp(1.0f, 0f, 0.1f));
+        Color chaserColor = chaserObject.GetComponent<MeshRenderer>().material.color;
+        if (coolTime == 0)
         {
-            Debug.Log("うぃーっす");
-            m_enumInvisible = InvisibleSkil(chaserObject);
-            if (m_enumInvisible != null)
-            {
-                bool ret = m_enumInvisible.MoveNext();
-                if (ret == true)
-                {
-                    Debug.Log("逆転裁判");
-                }
-                else
-                {
-                    m_enumInvisible = null;
-                }
-            }
+            chaserObject.GetComponent<MeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
         }
-    }
-
-    IEnumerator InvisibleSkil(GameObject chaserObject)
-    {
-        var myColor = chaserObject.GetComponent<MeshRenderer>().material.color;
-        InvisibleSkilAlpha(myColor, 0f, 1.0f);
-        yield return null;
-        InvisibleSkilAlpha(myColor, 1.0f, 0f);
-    }
-
-    void InvisibleSkilAlpha(Color myColor, float before, float after)
-    {
-        myColor = new Color(myColor.r, myColor.g, myColor.b, Mathf.Clamp(Time.time, before, after));
     }
 }

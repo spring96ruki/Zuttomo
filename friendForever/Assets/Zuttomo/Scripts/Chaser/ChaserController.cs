@@ -2,17 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ChaserState
+{
+    normal = 0,
+    invisible
+}
+
 public class ChaserController : SingletonMono<ChaserController> {
 
     public float m_coolTime;
     public float m_maxCoolTime = 100f;
     public float m_stanTime;
     public float m_invisibleTime;
+    public ChaserState m_chaserState;
 
     // Use this for initialization
     private void Start()
     {
         StanInit();
+        m_chaserState = ChaserState.normal;
     }
 
     public void StanInit()
@@ -41,7 +49,14 @@ public class ChaserController : SingletonMono<ChaserController> {
 
         if (Input.GetKeyDown(KeyCode.T))
         {
-            ChaserSkill.Instance.InvisibleSkilStart(gameObject, m_coolTime, m_invisibleTime);
+            m_chaserState = ChaserState.invisible;
+            //ChaserSkill.Instance.InvisibleSkilStart(gameObject, m_coolTime, m_invisibleTime);
         }
-	}
+
+        if (m_chaserState == ChaserState.invisible)
+        {
+            Debug.Log("透明化");
+            ChaserSkill.Instance.ChaserInvisible(gameObject, m_coolTime);
+        }
+    }
 }

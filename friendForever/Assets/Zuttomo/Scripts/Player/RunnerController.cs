@@ -40,7 +40,7 @@ public class RunnerController : SingletonMono<RunnerController>
     void Update()
     {
         RunnerStanTime();
-        m_runnerInput.PController();
+        //m_runnerInput.PController();
     }
 
     public void RunnerStan(RunnerState state, float skilTime)
@@ -106,10 +106,10 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timar += Time.deltaTime;
-			Vector3 force = Vector3.zero;
-			force = this.gameObject.transform.forward * 1000;
-			// Rigidbodyに力を加える
-			m_rigidBody.AddForce(force,ForceMode.Force);
+            Vector3 force = Vector3.zero;
+            force = this.gameObject.transform.forward * 1000;
+            // Rigidbodyに力を加える
+            m_rigidBody.AddForce(force, ForceMode.Force);
             if (State_timar >= 3)
             {
                 m_runnerStatus.isState = true;
