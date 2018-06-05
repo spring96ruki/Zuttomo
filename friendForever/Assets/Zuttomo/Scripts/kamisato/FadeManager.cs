@@ -6,12 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class FadeManager : MonoBehaviour {
 
-
-    bool m_fadeout = false;
-    bool m_fadein = false;
-    private Image m_fadeimage;
     [SerializeField]
     private GameObject m_image;
+    private Image m_fadeimage;
     Color color;
     float m_fadespeed = 0.006f;
 
@@ -24,7 +21,6 @@ public class FadeManager : MonoBehaviour {
 
     void Update()
     {
-        Debug.Log(m_fadeimage);
     }
 
     public IEnumerator FadeOut()
