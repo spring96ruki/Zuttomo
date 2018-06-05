@@ -15,18 +15,22 @@ public class gimmickScript : MonoBehaviour {
 	public int[] GetGimmickItem_word = new int[7];		//獲得された文字の種類
 	public int[] GetGimmickItem_player = new int[3];	//各プレイヤーの獲得文字数
 	public int GamePhase;								//ゲームのフェーズ
+	public float ItemPosition_x;
+	public float ItemPosition_z;
 
     // Use this for initialization
     void Start () {
         for (int i = 0; i < 7; i++) {
-			float x = UnityEngine.Random.Range(-5f, 5f);
-			float z = UnityEngine.Random.Range(-5f, 5f);
+			float x = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
+			float z = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
 			Instantiate(gimmickItem[i], new Vector3(x, 1.3f, z), Quaternion.identity);
         }
-		Instantiate(door, new Vector3( UnityEngine.Random.Range(-5f, 5f), 0.5f, UnityEngine.Random.Range(-5f, 5f) ), Quaternion.identity);
+		//Instantiate(door, new Vector3( UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_x), 0f, UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z) ), Quaternion.identity);
+		Instantiate(door, new Vector3( -3, 0f, 7 ), Quaternion.identity);
+
 		for (int i = 0; i < 5; i++) {
-			float x = UnityEngine.Random.Range(-5f, 5f);
-			float z = UnityEngine.Random.Range(-5f, 5f);
+			float x = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
+			float z = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
 			Instantiate(gimmickItem[UnityEngine.Random.Range(0, 6)], new Vector3(x, 1.3f, z), Quaternion.identity);
 		}
 
