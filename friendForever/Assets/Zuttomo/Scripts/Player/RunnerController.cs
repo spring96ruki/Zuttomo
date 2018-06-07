@@ -37,8 +37,20 @@ public class RunnerController : SingletonMono<RunnerController>
         rend = GetComponent<Renderer>();
     }
 
-    // Update is called once per frame
-    void Update()
+	void Start()
+	{
+        m_runnerStatus.firstSpeed = 5;
+        m_runnerStatus.maxSpeed = 10;
+        m_runnerStatus.health = 5;
+        m_runnerStatus.maxHealth = 5;
+        m_runnerStatus.isState = true;
+        m_runnerStatus.ishave = false;
+        m_runnerStatus.isBuff = false;
+        m_runnerStatus.isInvincible = false;
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         RunnerStanTime();
         m_runnerInput.PController();
