@@ -5,6 +5,7 @@ using UnityEngine;
 public class RunnerCore : MonoBehaviour {
 
     protected RunnerStatus m_status;
+    [HideInInspector]
     public Rigidbody m_rigidbody;
 
 

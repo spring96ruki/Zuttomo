@@ -8,12 +8,16 @@ public class RunnerMove : RunnerCore
     public GameObject m_camera;
     public GameObject m_colliders;
     public GameObject m_item;
+
     public Transform m_player;
 
     public float m_itemspeed = 1000;
+    [HideInInspector]
     public float m_timer;
+    [HideInInspector]
     public float m_bufftimer;
 
+    [HideInInspector]
     public int m_itemNum;
 
     RunnerInput m_runnerInput;

@@ -13,19 +13,20 @@ public class RunnerController : SingletonMono<RunnerController>
 
     float m_stanTime;
     public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
+    [HideInInspector]
     public float State_timar;
-
+    float currentSpeed;
+    public GameObject m_players;
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
     Renderer rend;
+    Vector3 playerForward;
     bool isStan = false;
 
     RunnerState m_state;
-
-    float currentSpeed;
 
     void Awake()
     {
@@ -101,7 +102,7 @@ public class RunnerController : SingletonMono<RunnerController>
         {
             State_timar += Time.deltaTime;
             Vector3 force;
-            force = this.gameObject.transform.forward * 1000;
+            force = transform.position * 200;
             // Rigidbodyに力を加えて発射
             GetComponent<Rigidbody>().AddForce(force);
             if (State_timar >= 3)
@@ -119,7 +120,6 @@ public class RunnerController : SingletonMono<RunnerController>
             Debug.Log("当たった");
             State_timar = 0;
         }
-
         if (hit.gameObject.tag == "Itimathu")
         {
             Debug.Log("当たった");

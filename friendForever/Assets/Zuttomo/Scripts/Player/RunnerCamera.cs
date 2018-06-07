@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class RunnerCamera : SingletonMono<RunnerCamera> 
 {
-
+    [Header("カメラが追いかける対象")]
     public GameObject target;
+    [Header("カメラの初期位置")]
+    public Transform initPos;
     Vector3 targetPos;
 
     RunnerInput m_pInput;
@@ -19,12 +21,13 @@ public class RunnerCamera : SingletonMono<RunnerCamera>
     {
         m_pInput = GetComponent<RunnerInput>();
         targetPos = target.transform.position;
+        transform.position = initPos.position;
     }
 
-	void Update()
-	{
+    void Update()
+    {
         m_pInput.PController();
-	}
+    }
 
 	void FixedUpdate()
     {
@@ -35,9 +38,8 @@ public class RunnerCamera : SingletonMono<RunnerCamera>
         float h = m_pInput.Raxis_x * 150 * Time.deltaTime;
         float v = m_pInput.Raxis_y * 150 * Time.deltaTime;
 
-
         // targetの位置のY軸を中心に、回転する
-        transform.RotateAround(targetPos, Vector3.up, v);
+        transform.RotateAround(targetPos, Vector3.up, -v);
         // カメラの垂直移動（角度制限なし）
         //transform.RotateAround(targetPos, transform.right, h);
     }
