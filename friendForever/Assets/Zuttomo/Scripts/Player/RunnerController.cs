@@ -16,7 +16,6 @@ public class RunnerController : SingletonMono<RunnerController>
     [HideInInspector]
     public float State_timar;
     float currentSpeed;
-    public GameObject m_players;
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
@@ -39,6 +38,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
 	void Start()
 	{
+        //初期ステータス
         m_runnerStatus.firstSpeed = 5;
         m_runnerStatus.maxSpeed = 10;
         m_runnerStatus.health = 5;
@@ -47,6 +47,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus.ishave = false;
         m_runnerStatus.isBuff = false;
         m_runnerStatus.isInvincible = false;
+        m_runnerStatus.animator = GetComponent<Animator>();
 	}
 
 	// Update is called once per frame
@@ -126,16 +127,15 @@ public class RunnerController : SingletonMono<RunnerController>
 
     void OnCollisionEnter(Collision hit)
     {
-        if (hit.gameObject.tag == "Push")
+        if (hit.gameObject.tag == TagName.Push)
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
             State_timar = 0;
         }
-        if (hit.gameObject.tag == "Itimathu")
+        if (hit.gameObject.tag == TagName.Itimathu)
         {
             Debug.Log("当たった");
-            m_runnerMove.m_rigidbody.AddForce(Vector3.zero.normalized * 10f);
             m_runnerStatus.isState = false;
             Destroy(hit.gameObject);
         }
@@ -151,28 +151,45 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            if (col.gameObject.name == "Doll_itimathu")
+            if (col.gameObject.name == ItemName.Doll_itimathu)
             {
                 Debug.Log("市松人形だよ");
                 if (m_runnerInput.button_B == true)
                 {
+                    //アイテムを持ったらtrueに変更
                     m_runnerStatus.ishave = true;
+                    //アイテムの番号を1に変更
                     m_runnerMove.m_itemNum = 1;
+                    //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
             }
-
-            if (col.gameObject.name == "Capsule")
+            if(col.gameObject.name == ItemName.Drug)
             {
                 Debug.Log("薬だよ");
                 if (m_runnerInput.button_B == true)
                 {
+                    //アイテムを持ったらtrueに変更
                     m_runnerStatus.ishave = true;
+                    //アイテムの番号を2に変更
                     m_runnerMove.m_itemNum = 2;
+                    //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
             }
-
+            if (col.gameObject.name == ItemName.Bill)
+            {
+                Debug.Log("お札だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    //アイテムを持ったらtrueに変更
+                    m_runnerStatus.ishave = true;
+                    //アイテムの番号を3に変更
+                    m_runnerMove.m_itemNum = 3;
+                    //拾ったアイテムを消去
+                    Destroy(col.gameObject);
+                }
+            }
         }
         else
         {

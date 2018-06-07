@@ -131,7 +131,7 @@ public class RunnerMove : RunnerCore
             m_bufftimer += Time.deltaTime;
             m_status.maxHealth = 10;
             m_status.maxSpeed = 15;
-            if (m_bufftimer > 3){
+            if (m_bufftimer > 4){
                 m_status.isBuff = false;
             }
         }
@@ -183,6 +183,11 @@ public class RunnerMove : RunnerCore
                     case 2:
                         Debug.Log("力が上がったよ");
                         m_status.ishave = false;
+                        break;
+
+                    case 3:
+                        Debug.Log("無敵");
+                        m_status.isInvincible = false;
                         break;
                 }             
              }
