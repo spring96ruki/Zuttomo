@@ -22,7 +22,7 @@ public class ChaserController : SingletonMono<ChaserController> {
 
     private void FixedUpdate()
     {
-        Debug.Log(m_coolTime);
+        //Debug.Log(m_coolTime);
         --m_coolTime;
     }
     // Update is called once per frame
