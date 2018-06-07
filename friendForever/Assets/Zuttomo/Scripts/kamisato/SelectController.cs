@@ -7,8 +7,8 @@ public class SelectController : MonoBehaviour {
     //鬼か人間かの選択結果を格納
     public int[] allplayerSelectState = new int[4];
     public static int setdemon_num = 0;
-    private int player_count = 0;
-    private int demon_count = 0;
+    public int player_count = 0;
+    public int demon_count = 0;
 
     // Use this for initialization
     void Start () {
@@ -17,28 +17,27 @@ public class SelectController : MonoBehaviour {
 
     public void Lottery()
     {
-        Debug.Log("player_count =" + player_count);
         player_count = 0;
+		demon_count = 0;
         for (int i = 0; i < 4; i++)
         {
-            //プレイヤーの数を数えてカウントする
+            //選択済みのプレイヤーの数を数えてカウントする
             if (allplayerSelectState[i] != 0)
             {
                 player_count++;
                 //鬼の数を数える
-                if (allplayerSelectState[i] == 2)
-                {
-                    demon_count++;
-                }
+				if (allplayerSelectState [i] == 2) {
+					demon_count++;
+				}
             }
         }
         if (player_count == 4)
         {
             switch (demon_count)
             {
-                case 0:
+				case 0:
                     //ランダムで鬼にする
-                    allplayerSelectState[new System.Random().Next(4)] = 2;
+					allplayerSelectState [new System.Random ().Next (4)] = 2;
                     break;
 
                 case 1:
@@ -61,14 +60,16 @@ public class SelectController : MonoBehaviour {
                     }
                     break;
             }
+
             for (int i = 0; i < 4; i++)
             {
                 if (allplayerSelectState[i] == 2)
                 {
                     setdemon_num = i + 1;
-                    Debug.Log("鬼" + (i + 1));
+                    Debug.Log("鬼:" + (i + 1));
                 }
             }
+            
             SceneController.Instance.LoadScene(SceneName.GAME_SCENE);
         }
     }
@@ -76,11 +77,5 @@ public class SelectController : MonoBehaviour {
     public static int Getdemonplayer()
     {
         return setdemon_num;
-    }
-
-    // Update is called once per frame
-    void Update () {
-
-        
     }
 }

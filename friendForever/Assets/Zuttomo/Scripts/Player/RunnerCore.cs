@@ -17,13 +17,13 @@ public class RunnerCore : MonoBehaviour {
         int m_getdemonNum = SelectController.Getdemonplayer();
         if (m_getdemonNum == runnerNum)
         {
-            //GameObject.Find("testPlayer" + runnerNum);//SetActive(false);
-            Debug.Log("runner" + runnerNum);
+			GameObject.Find("runner" + runnerNum).SetActive(false);
+			Debug.Log("プレイヤー" + runnerNum + ":demon");
         }
         else
         {
-            //GameObject.Find("testChaser" + runnerNum);//.SetActive(false);
-            Debug.Log("demon" + runnerNum);
+            //GameObject.Find("testChaser" + runnerNum).SetActive(false);
+            Debug.Log("プレイヤー" + runnerNum + ":runner");
         }
         
     }
