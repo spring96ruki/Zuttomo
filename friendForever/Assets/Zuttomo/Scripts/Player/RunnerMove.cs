@@ -16,8 +16,7 @@ public class RunnerMove : RunnerCore
     public int m_itemNum;
 
     RunnerInput m_runnerInput;
-
-
+	
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
