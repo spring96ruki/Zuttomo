@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class RunnerInput : MonoBehaviour
 {
-
+    [HideInInspector]
     public float Laxis_x;
+    [HideInInspector]
     public float Laxis_y;
+    [HideInInspector]
     public float Raxis_x;
+    [HideInInspector]
     public float Raxis_y;
+    [HideInInspector]
     public bool button_RB;
+    [HideInInspector]
     public bool button_A;
+    [HideInInspector]
     public bool button_B;
+    [HideInInspector]
     public bool button_X;
+    [HideInInspector]
     public bool button_Y;
+
     [SerializeField, Header("プレイヤーの番号")]
     public int runnerNum;
    
@@ -47,7 +56,11 @@ public class RunnerInput : MonoBehaviour
                 break;
 
             case 4:
+<<<<<<< HEAD
 			EscapePlayerInput();
+=======
+                EscapePlayerInput();
+>>>>>>> okamoto
                 break;
         }
 

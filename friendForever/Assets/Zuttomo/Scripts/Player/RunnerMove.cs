@@ -8,11 +8,16 @@ public class RunnerMove : RunnerCore
     public GameObject m_camera;
     public GameObject m_colliders;
     public GameObject m_item;
+
     public Transform m_player;
 
     public float m_itemspeed = 1000;
+    [HideInInspector]
     public float m_timer;
+    [HideInInspector]
+    public float m_bufftimer;
 
+    [HideInInspector]
     public int m_itemNum;
 
     RunnerInput m_runnerInput;
@@ -61,7 +66,6 @@ public class RunnerMove : RunnerCore
             else if (m_status.speed >= m_status.firstSpeed)
             {
                 m_status.animator.SetBool("Run", true);
-                m_status.animator.SetBool("Walk", false);
             }
         } else
         {
@@ -87,7 +91,7 @@ public class RunnerMove : RunnerCore
             m_status.speed = m_status.firstSpeed;
         }
 
-        if (m_status.health > 5f)
+        if (m_status.health > m_status.maxHealth)
         {
             m_status.isHealth = true;
         }
@@ -116,6 +120,18 @@ public class RunnerMove : RunnerCore
             {
                 //スタミナ回復
                 m_status.health += Time.deltaTime;
+            }
+        }
+
+        if(m_status.isBuff == false){
+            m_status.maxHealth = 5;
+            m_status.maxSpeed = 10;
+        } else {
+            m_bufftimer += Time.deltaTime;
+            m_status.maxHealth = 10;
+            m_status.maxSpeed = 15;
+            if (m_bufftimer > 4){
+                m_status.isBuff = false;
             }
         }
     }
@@ -158,6 +174,7 @@ public class RunnerMove : RunnerCore
                         bullets.GetComponent<Rigidbody>().AddForce(force);
                         // アイテムの位置を調整
                         bullets.transform.position = m_player.position;
+                        bullets.tag = "Itimathu";
                         m_status.ishave = false;
 
                         break;
@@ -165,6 +182,11 @@ public class RunnerMove : RunnerCore
                     case 2:
                         Debug.Log("力が上がったよ");
                         m_status.ishave = false;
+                        break;
+
+                    case 3:
+                        Debug.Log("無敵");
+                        m_status.isInvincible = false;
                         break;
                 }             
              }
