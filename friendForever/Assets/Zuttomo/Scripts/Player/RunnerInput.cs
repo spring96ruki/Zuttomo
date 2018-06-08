@@ -56,11 +56,8 @@ public class RunnerInput : MonoBehaviour
                 break;
 
             case 4:
-<<<<<<< HEAD
-			EscapePlayerInput();
-=======
                 EscapePlayerInput();
->>>>>>> okamoto
+
                 break;
         }
 

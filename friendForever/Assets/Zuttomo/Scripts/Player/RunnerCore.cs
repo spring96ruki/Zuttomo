@@ -8,13 +8,14 @@ public class RunnerCore : MonoBehaviour {
     [HideInInspector]
     public Rigidbody m_rigidbody;
     public static int m_getdemonNum;
-    [SerializeField, Header("プレイヤーの番号")]
-    public int runnerNum;
-	public GameObject runner;
-	public GameObject demon;
+    //[SerializeField, Header("プレイヤーの番号")]
+    //public int runnerNum;
+	//public GameObject runner;
+	//public GameObject demon;
 
     // Use this for initialization
     void Start() {
+		/*
         m_status = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
         int m_getdemonNum = SelectController.Getdemonplayer();
@@ -29,7 +30,7 @@ public class RunnerCore : MonoBehaviour {
 			demon.SetActive(true);
             Debug.Log("プレイヤー" + runnerNum + ":runner");
         }
-        
+        */
     }
 	
 	// Update is called once per frame

@@ -15,12 +15,8 @@ public class RunnerController : SingletonMono<RunnerController>
     public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
     [HideInInspector]
     public float State_timar;
-<<<<<<< HEAD
 	public bool demonFlag;
-
-=======
     float currentSpeed;
->>>>>>> okamoto
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
@@ -122,17 +118,13 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timar += Time.deltaTime;
-<<<<<<< HEAD
 			Vector3 force = Vector3.zero;
 			force = this.gameObject.transform.forward * 1000;
 			// Rigidbodyに力を加える
 			m_rigidBody.AddForce(force,ForceMode.Force);
-=======
-            Vector3 force;
             force = transform.position * 200;
             // Rigidbodyに力を加えて発射
             GetComponent<Rigidbody>().AddForce(force);
->>>>>>> okamoto
             if (State_timar >= 3)
             {
                 m_runnerStatus.isState = true;
