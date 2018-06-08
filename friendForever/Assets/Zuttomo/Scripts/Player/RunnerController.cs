@@ -21,8 +21,6 @@ public class RunnerController : SingletonMono<RunnerController>
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
-    Renderer rend;
-    Vector3 playerForward;
     bool isStan = false;
 
     RunnerState m_state;
@@ -33,7 +31,6 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
-        rend = GetComponent<Renderer>();
     }
 
 	void Start()
