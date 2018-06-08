@@ -30,7 +30,7 @@ public static class SceneName
 {
     public const string TITLE_SCENE = "Title";
     public const string SELECT_SCENE = "Select";
-    public const string GAME_SCENE = "Main";
+    public const string GAME_SCENE = "okamoto";
     public const string RESULT_SCENE = "Result";
     public const string SCENE_TEST = "SceneTest";
     public const string SCENE_CHANGE = "SceneChange";
