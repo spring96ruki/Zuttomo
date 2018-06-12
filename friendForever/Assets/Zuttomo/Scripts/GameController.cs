@@ -13,9 +13,17 @@ public class GameController : MonoBehaviour {
         int m_getdemonNum = SelectController.Getdemonplayer();
 		Debug.Log (m_getdemonNum);
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    void PlayerInstance()
+    {
+
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
 }
