@@ -59,7 +59,6 @@ public class RunnerInput : MonoBehaviour
 
             case 4:
                 EscapePlayerInput();
-
                 break;
         }
 

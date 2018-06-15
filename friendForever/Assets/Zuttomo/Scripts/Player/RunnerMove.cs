@@ -22,7 +22,6 @@ public class RunnerMove : RunnerCore
 
 	RunnerInput m_runnerInput;
 
-
 	private void Awake()
 	{
 		m_runnerInput = GetComponent<RunnerInput>();
