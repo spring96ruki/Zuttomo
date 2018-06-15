@@ -6,89 +6,46 @@ using UnityEngine.SceneManagement;
 
 public class FadeManager : MonoBehaviour {
 
-    static FadeManager instance;
-    public static FadeManager Instance
+
+    bool m_fadeout = false;
+    bool m_fadein = false;
+    private Image m_fadeimage;
+    [SerializeField]
+    private GameObject m_image;
+    Color color;
+    float m_fadespeed = 0.006f;
+
+    void Start()
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new FadeManager();
-            }
-            return instance;
-        }
+        m_fadeimage = GetComponent<Image>();
+        color = m_fadeimage.color;
+        m_image.SetActive(false);
     }
 
-    bool m_isFading = false;
-    float m_fadeAlpha = 0;
-    float m_LoadTime = 1.5f;
-    public Color m_fadeColor = Color.black;
-
-    public void OnGUI()
+    void Update()
     {
-
-        // Fade
-        if (m_isFading)
-        {
-            //色と透明度を更新して白テクスチャを描画
-            this.m_fadeColor.a = this.m_fadeAlpha;
-            GUI.color = this.m_fadeColor;
-            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), Texture2D.whiteTexture);
-        }
+        Debug.Log(m_fadeimage);
     }
-
-
-    // シーン遷移用コルーチン
-    //シーン名
-    //暗転にかかる時間(秒)
-    //public IEnumerator Fade(bool isFade = true)
-    //{
-
-    //    float time = 0;
-    //    float interval = 1.0f;
-    //    while (time <= interval)
-    //    {
-    //        this.m_fadeAlpha = Mathf.Lerp(0f, 1f, time / interval);
-    //        time += Time.deltaTime;
-    //        yield return 0;
-    //    }
-
-    //    if (isFade == false)
-    //    {
-    //        time = 0;
-    //        yield return  new WaitForSeconds(m_LoadTime);
-    //        while (time <= interval)
-    //        {
-    //            this.m_fadeAlpha = Mathf.Lerp(1f, 0f, time / interval);
-    //            time += Time.deltaTime;
-    //            yield return 0;
-    //        }
-    //    }
-    //}
 
     public IEnumerator FadeOut()
     {
-        float time = 0;
-        float interval = 1.0f;
-        while (time <= interval)
+        m_image.SetActive(true);
+        while (color.a < 1)
         {
-            Debug.Log("うっす");
-            m_fadeColor.a = Mathf.Lerp(0f, 1f, time / interval);
-            time += Time.deltaTime;
-            yield return 0;
+            m_fadeimage.color = color;
+            color.a += m_fadespeed;
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
     public IEnumerator FadeIn()
     {
-        float time = 0;
-        float interval = 1.0f;
-        while (time <= interval)
+        while (color.a > 0)
         {
-            Debug.Log("は？");
-            m_fadeColor.a = Mathf.Lerp(1f, 0f, time / interval);
-            time += Time.deltaTime;
-            yield return 0;
+            m_fadeimage.color = color;
+            color.a -= m_fadespeed;
+            yield return new WaitForSeconds(0.01f);
         }
+        m_image.SetActive(false);
     }
 }

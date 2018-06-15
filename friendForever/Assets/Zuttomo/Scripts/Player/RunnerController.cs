@@ -25,6 +25,8 @@ public class RunnerController : SingletonMono<RunnerController>
 
     RunnerState m_state;
 
+    float currentSpeed;
+
     void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
@@ -62,7 +64,9 @@ public class RunnerController : SingletonMono<RunnerController>
             Debug.Log("通った");
 
             // スタン処理
-            m_rigidBody.constraints = RigidbodyConstraints.FreezePosition;
+            // 現在のスピードを別の変数に保持し、スピードを0に変更
+            currentSpeed = m_runnerStatus.speed;
+            m_runnerStatus.speed = 0f;
 
             if (stanTime < 0)
             {
@@ -77,10 +81,10 @@ public class RunnerController : SingletonMono<RunnerController>
                 Debug.Log("スタン終わったよ");
 
                 // isStanがfalseに変更されたら、スタン処理終了
+                // スタン終了時に保持してたスピードをプレイヤーのステータスへ戻す
                 if (isStan == false)
                 {
-                    m_rigidBody.constraints = RigidbodyConstraints.None;
-                    m_rigidBody.constraints = RigidbodyConstraints.FreezeRotation;
+                    m_runnerStatus.speed = currentSpeed;
                 }
             }
         }
@@ -96,6 +100,10 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timar += Time.deltaTime;
+            Vector3 force;
+            force = this.gameObject.transform.forward * 1000;
+            // Rigidbodyに力を加えて発射
+            GetComponent<Rigidbody>().AddForce(force);
             if (State_timar >= 3)
             {
                 m_runnerStatus.isState = true;
@@ -112,10 +120,11 @@ public class RunnerController : SingletonMono<RunnerController>
             State_timar = 0;
         }
 
-        if (hit.gameObject.tag == "item")
+        if (hit.gameObject.tag == "Itimathu")
         {
             Debug.Log("当たった");
             m_runnerMove.m_rigidbody.AddForce(Vector3.zero.normalized * 10f);
+            m_runnerStatus.isState = false;
             Destroy(hit.gameObject);
         }
     }
@@ -130,13 +139,12 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            if (col.gameObject.name == "Sphere")
+            if (col.gameObject.name == "Doll_itimathu")
             {
                 Debug.Log("市松人形だよ");
                 if (m_runnerInput.button_B == true)
                 {
                     m_runnerStatus.ishave = true;
-                    m_runnerMove.m_item.tag = "item";
                     m_runnerMove.m_itemNum = 1;
                     Destroy(col.gameObject);
                 }

@@ -17,6 +17,13 @@ public class ChaserSkill : FindObject {
         }
     }
 
+    bool m_isChaserAlpha = false;
+    IEnumerator m_enumInvisible;
+
+    private void Start()
+    {
+    }
+
     public void StanSkilStart(GameObject chaserObject)
     {
 
@@ -40,27 +47,14 @@ public class ChaserSkill : FindObject {
         }
     }
 
-    public void InvisibleSkilStart(GameObject chaserObject, float coolTime, float skilTime)
+    public void ChaserInvisible(GameObject chaserObject, float coolTime)
     {
-        if (coolTime == 0f)
+        Debug.Log("とぅっとぅるー");
+        //m_chaserColor = new Color(m_chaserColor.r, m_chaserColor.g, m_chaserColor.b, Mathf.Lerp(1.0f, 0f, 0.1f));
+        Color chaserColor = chaserObject.GetComponent<MeshRenderer>().material.color;
+        if (coolTime == 0)
         {
-            Debug.Log("うぃーっす");
-            InvisibleSkil(chaserObject);
+            chaserObject.GetComponent<MeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
         }
     }
-
-    void InvisibleSkil(GameObject chaserObject)
-    {
-        Color objectAlpha = chaserObject.GetComponent<MeshRenderer>().material.color;
-        while (objectAlpha.a > 0)
-        {
-            Debug.Log("透明度: " + objectAlpha.a);
-            objectAlpha.a -= 0.1f;
-        }
-    }
-
-    //IEnumerator InvisibleSkil(GameObject chaserObject)
-    //{
-    //    yield return null;
-    //}
 }

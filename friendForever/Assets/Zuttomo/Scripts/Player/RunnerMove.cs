@@ -12,6 +12,7 @@ public class RunnerMove : RunnerCore
 
     public float m_itemspeed = 1000;
     public float m_timer;
+    public float m_bufftimer;
 
     public int m_itemNum;
 
@@ -28,7 +29,7 @@ public class RunnerMove : RunnerCore
         float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
         float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
-        //PlayerAnimation(horizontal, virtical);
+        PlayerAnimation(horizontal, virtical);
         HealthControll();
     }
 
@@ -46,30 +47,29 @@ public class RunnerMove : RunnerCore
             //体の向きを変更
             transform.rotation = Quaternion.LookRotation(moveForward);
             //PlayerのAnimation管理
-            //PlayerAnimation(horizontal, virtical);
+            PlayerAnimation(horizontal, virtical);
         }
     }
 
-    //void PlayerAnimation(float h, float v)
-    //{
-    //    if (runnerInput.Laxis_y >= 0.1f || runnerInput.Laxis_y <= -0.1f || runnerInput.Laxis_x >= 0.1f || runnerInput.Laxis_x <= -0.1f)
-    //    {
-    //        if (m_status.speed <= m_status.firstSpeed)
-    //        {
-    //            m_status.animator.SetBool("Walk", true);
-    //            m_status.animator.SetBool("Run", false);
-    //        }
-    //        else if (m_status.speed >= m_status.firstSpeed)
-    //        {
-    //            m_status.animator.SetBool("Run", true);
-    //            m_status.animator.SetBool("Walk", false);
-    //        }
-    //    } else
-    //    {
-    //        m_status.animator.SetBool("Walk", false);
-    //        m_status.animator.SetBool("Run", false);
-    //    }
-    //}
+    void PlayerAnimation(float h, float v)
+    {
+        if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
+        {
+            if (m_status.speed <= m_status.firstSpeed)
+            {
+                m_status.animator.SetBool("Walk", true);
+                m_status.animator.SetBool("Run", false);
+            }
+            else if (m_status.speed >= m_status.firstSpeed)
+            {
+                m_status.animator.SetBool("Run", true);
+            }
+        } else
+        {
+            m_status.animator.SetBool("Walk", false);
+            m_status.animator.SetBool("Run", false);
+        }
+    }
 
     void HealthControll()
     {
@@ -88,7 +88,7 @@ public class RunnerMove : RunnerCore
             m_status.speed = m_status.firstSpeed;
         }
 
-        if (m_status.health > 5f)
+        if (m_status.health > m_status.maxHealth)
         {
             m_status.isHealth = true;
         }
@@ -117,6 +117,18 @@ public class RunnerMove : RunnerCore
             {
                 //スタミナ回復
                 m_status.health += Time.deltaTime;
+            }
+        }
+
+        if(m_status.isBuff == false){
+            m_status.maxHealth = 5;
+            m_status.maxSpeed = 10;
+        } else {
+            m_bufftimer += Time.deltaTime;
+            m_status.maxHealth = 10;
+            m_status.maxSpeed = 15;
+            if (m_bufftimer > 3){
+                m_status.isBuff = false;
             }
         }
     }
@@ -159,6 +171,7 @@ public class RunnerMove : RunnerCore
                         bullets.GetComponent<Rigidbody>().AddForce(force);
                         // アイテムの位置を調整
                         bullets.transform.position = m_player.position;
+                        bullets.tag = "Itimathu";
                         m_status.ishave = false;
 
                         break;

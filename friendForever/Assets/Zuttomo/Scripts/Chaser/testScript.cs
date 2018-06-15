@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class testScript : MonoBehaviour {
 
-    float dt;
-    float time;
+    public GameObject test;
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        Debug.Log("うんち");
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        dt += Time.deltaTime;
-        time += Time.time;
-        //Debug.Log("dt: " + dt);
-        //Debug.Log("Time.deltaTime: " + Time.deltaTime);
-        //Debug.Log("time: " + time);
-        //Debug.Log("Time.time" + Time.time);
 	}
 }
