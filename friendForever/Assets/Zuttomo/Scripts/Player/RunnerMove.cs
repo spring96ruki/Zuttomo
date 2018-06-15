@@ -6,7 +6,7 @@ public class RunnerMove : RunnerCore
 {
 
     public GameObject m_camera;
-    public GameObject m_colliders;
+    public GameObject m_Push;
     public GameObject m_item;
 
     public Transform m_player;
@@ -143,7 +143,7 @@ public class RunnerMove : RunnerCore
         if (m_runnerInput.button_A == true)
         {
             Debug.Log("突き飛ばし");
-            m_colliders.SetActive(true);
+            m_Push.SetActive(true);
             m_timer = 0;
         }
         else
@@ -151,7 +151,7 @@ public class RunnerMove : RunnerCore
             if (m_timer <= 0.5)
             {
                 m_timer += Time.deltaTime;
-                m_colliders.SetActive(false);
+                m_Push.SetActive(false);
             }
         }
 

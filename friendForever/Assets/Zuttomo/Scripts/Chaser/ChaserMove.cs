@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemonMove : RunnerCore 
-{
-    
+public class ChaserMove : RunnerCore {
+
     public GameObject m_camera;
+    public GameObject m_touch;
+
     RunnerInput m_runnerInput;
+    float m_timer;
 
 
     private void Awake()
@@ -57,17 +59,27 @@ public class DemonMove : RunnerCore
 
         if (m_runnerInput.button_A == true)
         {
-           
+            Debug.Log("スキル_1");
         }
 
         if (m_runnerInput.button_B == true)
         {
-            Debug.Log("決定");
+            Debug.Log("タッチ");
+            m_touch.SetActive(true);
+            m_timer = 0;
+        }
+        else
+        {
+            if (m_timer <= 0.5)
+            {
+                m_timer += Time.deltaTime;
+                m_touch.SetActive(false);
+            }
         }
 
         if (m_runnerInput.button_X == true)
         {
-            
+            Debug.Log("スキル_2");
         }
 
         if (m_runnerInput.button_Y == true)
@@ -75,5 +87,4 @@ public class DemonMove : RunnerCore
             Debug.Log("Y");
         }
     }
-	
 }
