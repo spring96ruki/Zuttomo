@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{7C81EE0B-1A2D-22B9-6D37-46E6AE67EFBF}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Zuttomo/Scripts/Chaser/ChaserMove.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Zuttomo/Scripts/Player/RunnerMove.cs">
     <Files>
-      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerCamera.cs" Line="23" Column="25" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerCamera.cs" Line="22" Column="50" />
       <File FileName="Assets/Zuttomo/Scripts/Player/RunnerInput.cs" Line="44" Column="20" />
       <File FileName="Assets/Zuttomo/Scripts/Player/RunnerController.cs" Line="131" Column="23" />
       <File FileName="Assets/Zuttomo/Scripts/Chaser/ChaserController.cs" Line="89" Column="9" />
-      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerMove.cs" Line="9" Column="28" />
-      <File FileName="Assets/Zuttomo/Scripts/Chaser/ChaserMove.cs" Line="8" Column="5" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerMove.cs" Line="177" Column="70" />
+      <File FileName="Assets/Zuttomo/Scripts/Chaser/ChaserMove.cs" Line="62" Column="32" />
       <File FileName="Assets/Zuttomo/Scripts/Player/RunnerStatus.cs" Line="28" Column="29" />
       <File FileName="Assets/Zuttomo/Scripts/StringController.cs" Line="22" Column="49" />
       <File FileName="Assets/Zuttomo/Scripts/Chaser/ChaserArea.cs" Line="10" Column="35" />
