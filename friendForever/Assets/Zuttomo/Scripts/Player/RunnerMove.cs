@@ -9,7 +9,7 @@ public class RunnerMove : RunnerCore
     public GameObject m_Push;
     public GameObject m_item;
 
-    public Transform m_player;
+    public Transform m_FiringPosition;
 
     public float m_itemspeed = 1000;
     [HideInInspector]
@@ -174,7 +174,7 @@ public class RunnerMove : RunnerCore
                         // Rigidbodyに力を加えて発射
                         bullets.GetComponent<Rigidbody>().AddForce(force);
                         // アイテムの位置を調整
-                        bullets.transform.position = m_player.position;
+                        bullets.transform.position = m_FiringPosition.position;
                         bullets.tag = "Itimathu";
                         m_status.ishave = false;
 
