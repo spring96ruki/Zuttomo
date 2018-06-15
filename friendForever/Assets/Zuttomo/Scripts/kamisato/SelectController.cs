@@ -6,9 +6,9 @@ public class SelectController : MonoBehaviour {
 
     //鬼か人間かの選択結果を格納
     public int[] allplayerSelectState = new int[4];
-    public static int setdemon_num = 0;
+	public static int setChaser_num = 0;
     public int player_count = 0;
-    public int demon_count = 0;
+	public int Chaser_count = 0;
 
     // Use this for initialization
     void Start () {
@@ -18,7 +18,7 @@ public class SelectController : MonoBehaviour {
     public void Lottery()
     {
         player_count = 0;
-		demon_count = 0;
+		Chaser_count = 0;
         for (int i = 0; i < 4; i++)
         {
             //選択済みのプレイヤーの数を数えてカウントする
@@ -27,13 +27,13 @@ public class SelectController : MonoBehaviour {
                 player_count++;
                 //鬼の数を数える
 				if (allplayerSelectState [i] == 2) {
-					demon_count++;
+					Chaser_count++;
 				}
             }
         }
         if (player_count == 4)
         {
-            switch (demon_count)
+			switch (Chaser_count)
             {
 				case 0:
                     //ランダムで鬼にする
@@ -44,17 +44,17 @@ public class SelectController : MonoBehaviour {
                     break;
 
                 default:
-                    while (demon_count >= 2)
+				while (Chaser_count >= 2)
                     {
                         //鬼が二人以上いたらランダムで誰かを人間にする
                         allplayerSelectState[new System.Random().Next(4)] = 1;
-                        demon_count = 0;
+					Chaser_count = 0;
                         for (int i = 0; i < 4; i++)
                         {
                             //鬼の数を数える
                             if (allplayerSelectState[i] == 2)
                             {
-                                demon_count++;
+							Chaser_count++;
                             }
                         }
                     }
@@ -65,7 +65,7 @@ public class SelectController : MonoBehaviour {
             {
                 if (allplayerSelectState[i] == 2)
                 {
-                    setdemon_num = i + 1;
+					setChaser_num = i + 1;
                     Debug.Log("鬼:" + (i + 1));
                 }
             }
@@ -74,8 +74,8 @@ public class SelectController : MonoBehaviour {
         }
     }
 
-    public static int Getdemonplayer()
+	public static int GetChaserplayer()
     {
-        return setdemon_num;
+		return setChaser_num;
     }
 }
