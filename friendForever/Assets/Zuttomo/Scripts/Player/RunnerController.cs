@@ -15,7 +15,7 @@ public class RunnerController : SingletonMono<RunnerController>
     public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
     [HideInInspector]
     public float State_timar;
-	public bool demonFlag;
+	public bool ChaserFlag;
     float currentSpeed;
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
