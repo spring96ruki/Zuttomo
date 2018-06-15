@@ -28,7 +28,7 @@ public class gimmickItemScript : MonoBehaviour {
 			if (Door) {
 				if (GimmickScript.GetComponent<gimmickScript> ().GamePhase == 1) {
 					if (GimmickScript.GetComponent<gimmickScript> ().GetGimmickItem_player [collision.gameObject.GetComponent<RunnerInput> ().runnerNum - 1] == 1) {
-						collision.gameObject.GetComponent<RunnerController> ().RunnerSkyHigh ();
+						//collision.gameObject.GetComponent<RunnerController> ().RunnerSkyHigh ();
 						Debug.Log ("goal");
 					}
 				} 
