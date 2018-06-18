@@ -22,7 +22,7 @@ public class gimmickItemScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player")
+		if (collision.gameObject.GetComponent<RunnerController>().ChaserFlag == false)
         {
             GameObject GimmickScript = GameObject.Find("Gimmick Script");
 			if (Door) {
