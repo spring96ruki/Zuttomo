@@ -140,7 +140,7 @@ public class RunnerController : SingletonMono<RunnerController>
             Debug.Log("当たった");
             State_timar = 0;
         }
-        if (hit.gameObject.tag == TagName.Itimathu)
+        if (hit.gameObject.tag == TagName.Itimatu)
         {
             Debug.Log("当たった");
             m_runnerStatus.isState = false;
@@ -158,7 +158,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            if (col.gameObject.name == ItemName.Doll_itimathu)
+            if (col.gameObject.name == ItemName.itimatu)
             {
                 Debug.Log("市松人形だよ");
                 if (m_runnerInput.button_B == true)

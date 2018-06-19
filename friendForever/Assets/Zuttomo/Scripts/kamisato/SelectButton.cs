@@ -5,26 +5,15 @@ using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour {
 
-<<<<<<< HEAD
+
     public static int Chaserplayer = 0;
-=======
+
     public static int player = 0;
->>>>>>> 8e6a8cd604ae9ac80e4c157e21cacd1362b9ec3e
+
     public int player_num;
     
     public int selectstate;
     public SelectController selectController;
-
-
-    // Use this for initialization
-    void Start () {
-        
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void Title()
     {

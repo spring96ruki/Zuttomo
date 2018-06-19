@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class RunnerMove : RunnerCore
+public class RunnerMove : MonoBehaviour
 {
 
 	public GameObject m_camera;
 	public GameObject m_colliders;
 	public GameObject m_item;
 
-	public Transform m_player;
+    public Image m_healthUI;
+    public float m_healthTime = 5f;
+
+    public Transform m_player;
 
 	public float m_itemspeed = 1000;
 	[HideInInspector]
@@ -21,20 +25,26 @@ public class RunnerMove : RunnerCore
 	public int m_itemNum;
 
 	RunnerInput m_runnerInput;
+    RunnerStatus m_status;
+    [HideInInspector]
+    Rigidbody m_rigidbody;
 
-	private void Awake()
+
+    private void Awake()
 	{
 		m_runnerInput = GetComponent<RunnerInput>();
-	}
+        m_status = GetComponent<RunnerStatus>();
+        m_rigidbody = GetComponent<Rigidbody>();
+    }
 
 	public void Move()
 	{
 		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
 		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
 		PlayerRotation(horizontal, virtical);
-		PlayerAnimation(horizontal, virtical);
-		HealthControll();
-	}
+        PlayerAnimation(horizontal, virtical);
+        HealthControll();
+    }
 
 	void PlayerRotation(float horizontal, float virtical)
 	{
@@ -49,94 +59,103 @@ public class RunnerMove : RunnerCore
 			transform.position += cameraForward * virtical + m_camera.transform.right * horizontal;
 			//体の向きを変更
 			transform.rotation = Quaternion.LookRotation(moveForward);
-			//PlayerのAnimation管理
-			PlayerAnimation(horizontal, virtical);
-		}
+            //PlayerのAnimation管理
+
+            PlayerAnimation(horizontal, virtical);
+        }
 	}
 
-	void PlayerAnimation(float h, float v)
-	{
-		if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
-		{
-			if (m_status.speed <= m_status.firstSpeed)
-			{
-				m_status.animator.SetBool("Walk", true);
-				m_status.animator.SetBool("Run", false);
-			}
-			else if (m_status.speed >= m_status.firstSpeed)
-			{
-				m_status.animator.SetBool("Run", true);
-			}
-		} else
-		{
-			m_status.animator.SetBool("Walk", false);
-			m_status.animator.SetBool("Run", false);
-		}
-	}
+    void PlayerAnimation(float h, float v)
+    {
+        if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
+        {
+            if (m_status.speed <= m_status.firstSpeed)
+            {
+                m_status.animator.SetBool("Walk", true);
+                m_status.animator.SetBool("Run", false);
+            }
+            else if (m_status.speed >= m_status.firstSpeed)
+            {
+                m_status.animator.SetBool("Run", true);
+            }
+        }
+        else
+        {
+            m_status.animator.SetBool("Walk", false);
+            m_status.animator.SetBool("Run", false);
+        }
+    }
 
-	void HealthControll()
-	{
+    void HealthControll()
+    {
 
-		if (m_status.isHealth == true)
-		{
-			if (m_runnerInput.button_RB == true)
-			{
-				Debug.Log("ダッシュ");
-				m_status.speed = m_status.maxSpeed;
-				m_status.health -= Time.deltaTime;
-			}
-		}
-		else
-		{
-			m_status.speed = m_status.firstSpeed;
-		}
+        if (m_status.isHealth == true)
+        {
+            if (m_runnerInput.button_RB == true)
+            {
+                Debug.Log("ダッシュ");
+                m_status.speed = m_status.maxSpeed;
+                m_status.health -= Time.deltaTime;
+                m_healthUI.fillAmount -= 1f / m_healthTime * Time.deltaTime;
+            }
+        }
+        else
+        {
+            m_status.speed = m_status.firstSpeed;
+        }
 
-		if (m_status.health > m_status.maxHealth)
-		{
-			m_status.isHealth = true;
-		}
+        if (m_status.health > m_status.maxHealth) 
+        {
+            m_status.isHealth = true;
+        }
 
-		if (m_status.health <= 0f)
-		{
-			m_status.isHealth = false;
-		}
-		//スタミナがなかったら
-		if (m_status.isHealth == false)
-		{
-			//スタミナ回復
-			m_status.health += Time.deltaTime;
-		}
-		if (m_status.health >= m_status.maxHealth)
-		{
-			m_status.health = m_status.maxHealth;
-		}
+        if (m_status.health <= 0f)
+        {
+            m_status.isHealth = false;
+        }
+        //スタミナがなかったら
+        if (m_status.isHealth == false)
+        {
+            //スタミナ回復
+            m_status.health += Time.deltaTime;
+            m_healthUI.fillAmount += 1f / m_healthTime * Time.deltaTime;
+        }
+        if (m_status.health >= m_status.maxHealth)
+        {
+            m_status.health = m_status.maxHealth;
+        }
 
-		//ボタンが押されてなかったら
-		if (m_runnerInput.button_RB == false)
-		{
-			m_status.speed = m_status.firstSpeed;
-			//スタミナがのっこていたら
-			if (m_status.health >= 0f)
-			{
-				//スタミナ回復
-				m_status.health += Time.deltaTime;
-			}
-		}
+        //ボタンが押されてなかったら
+        if (m_runnerInput.button_RB == false)
+        {
+            m_status.speed = m_status.firstSpeed;
+            //スタミナがのっこていたら
+            if (m_status.health >= 0f)
+            {
+                //スタミナ回復
+                m_status.health += Time.deltaTime;
+                m_healthUI.fillAmount += 1f / m_healthTime * Time.deltaTime;
+            }
+        }
 
-		if(m_status.isBuff == false){
-			m_status.maxHealth = 5;
-			m_status.maxSpeed = 10;
-		} else {
-			m_bufftimer += Time.deltaTime;
-			m_status.maxHealth = 10;
-			m_status.maxSpeed = 15;
-			if (m_bufftimer > 4){
-				m_status.isBuff = false;
-			}
-		}
-	}
+        if (m_status.isBuff == false)
+        {
+            m_status.maxHealth = 5;
+            m_status.maxSpeed = 10;
+        }
+        else
+        {
+            m_bufftimer += Time.deltaTime;
+            m_status.maxHealth = 10;
+            m_status.maxSpeed = 15;
+            if (m_bufftimer > 4)
+            {
+                m_status.isBuff = false;
+            }
+        }
+    }
 
-	public void Button()
+    public void Button()
 	{
 
 		if (m_runnerInput.button_A == true)
@@ -174,7 +193,7 @@ public class RunnerMove : RunnerCore
 					bullets.GetComponent<Rigidbody>().AddForce(force);
 					// アイテムの位置を調整
 					bullets.transform.position = m_player.position;
-					bullets.tag = "Itimathu";
+					bullets.tag = "Itimatu";
 					m_status.ishave = false;
 
 					break;

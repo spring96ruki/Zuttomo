@@ -8,6 +8,7 @@ public class ChaserController : SingletonMono<ChaserController> {
     public float m_maxCoolTime = 100f;
     public float m_stanTime;
     public float m_invisibleTime;
+    
 
     // Use this for initialization
     private void Start()
