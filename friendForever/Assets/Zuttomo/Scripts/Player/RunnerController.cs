@@ -18,10 +18,13 @@ public class RunnerController : SingletonMono<RunnerController>
 	public bool ChaserFlag;
     float currentSpeed;
     Rigidbody m_rigidBody;
-    RunnerCore m_runnerCore;
+    //RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
+    protected RunnerStatus m_status;
+    [HideInInspector]
+    public Rigidbody m_rigidbody;
     bool isStan = false;
 
     RunnerState m_state;

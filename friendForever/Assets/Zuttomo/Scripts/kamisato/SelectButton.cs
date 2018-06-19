@@ -5,16 +5,12 @@ using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour {
 
-<<<<<<< HEAD
+
 
     public static int Chaserplayer = 0;
 
     public static int player = 0;
 
-=======
-    public static int Chaserplayer = 0;
-    public static int player = 0;
->>>>>>> 329ab8c946c6f89c2ba3a8c419766f1af9379fa0
     public int player_num;
     
     public int selectstate;

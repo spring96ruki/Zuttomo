@@ -38,27 +38,23 @@ public class RunnerCamera : MonoBehaviour
 
         float h = m_pInput.Raxis_x * 150 * Time.deltaTime;
         float v = m_pInput.Raxis_y * 150 * Time.deltaTime;
-<<<<<<< HEAD
 
-=======
->>>>>>> 329ab8c946c6f89c2ba3a8c419766f1af9379fa0
+
+
 
         transform.LookAt(m_lookAt);
 
         // targetの位置のY軸を中心に、回転する
-<<<<<<< HEAD
-        transform.RotateAround(targetPos, Vector3.up, v);
+        transform.RotateAround(m_targetPos, Vector3.up, v);
 
         // targetの位置のY軸を中心に、回転する
-        transform.RotateAround(targetPos, Vector3.up, -v);
+        transform.RotateAround(m_targetPos, Vector3.up, -v);
 
         // カメラの垂直移動（角度制限なし）
         //transform.RotateAround(targetPos, transform.right, h);
-=======
         transform.RotateAround(m_targetPos, Vector3.up, -v);
 
         //　レイを視覚的に確認
         Debug.DrawLine(m_targetPos + Vector3.up, transform.position, Color.red, 0f, false);
->>>>>>> 329ab8c946c6f89c2ba3a8c419766f1af9379fa0
     }
 }
