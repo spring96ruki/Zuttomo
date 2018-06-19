@@ -22,13 +22,13 @@ public class gimmickItemScript : MonoBehaviour {
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.tag == "Player")
+		if (collision.gameObject.GetComponent<RunnerController>().ChaserFlag == false)
         {
             GameObject GimmickScript = GameObject.Find("Gimmick Script");
 			if (Door) {
 				if (GimmickScript.GetComponent<gimmickScript> ().GamePhase == 1) {
 					if (GimmickScript.GetComponent<gimmickScript> ().GetGimmickItem_player [collision.gameObject.GetComponent<RunnerInput> ().runnerNum - 1] == 1) {
-						collision.gameObject.GetComponent<RunnerController> ().RunnerSkyHigh ();
+						GameObject.Find("GameController").GetComponent<GameController> ().EndGame ();
 						Debug.Log ("goal");
 					}
 				} 

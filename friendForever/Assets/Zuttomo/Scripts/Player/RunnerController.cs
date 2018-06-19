@@ -53,6 +53,9 @@ public class RunnerController : SingletonMono<RunnerController>
     {
         RunnerStanTime();
         m_runnerInput.PController();
+		if (transform.position.y < -10) {
+			transform.position = new Vector3 (0, 3, 0);
+		} 
     }
 
     public void RunnerStan(RunnerState state, float skilTime)

@@ -13,13 +13,18 @@ public class gimmickScript : MonoBehaviour {
 	[SerializeField]
 	private GameObject door;
 	public int[] GetGimmickItem_word = new int[7];		//獲得された文字の種類
-	public int[] GetGimmickItem_player = new int[3];	//各プレイヤーの獲得文字数
+	public int[] GetGimmickItem_player = new int[4];	//各プレイヤーの獲得文字数
 	public int GamePhase;								//ゲームのフェーズ
 	public float ItemPosition_x;
 	public float ItemPosition_z;
 
     // Use this for initialization
-    void Start () {
+    public void GimmickStart () {
+		int m_getChaserNum = SelectController.GetChaserplayer();
+		for(int i = 0;i < 4;i++){
+			player[i] = GameObject.Find("Player" + (i+1)).transform.GetChild(0).gameObject;
+		}
+
         for (int i = 0; i < 7; i++) {
 			float x = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
 			float z = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
@@ -35,7 +40,7 @@ public class gimmickScript : MonoBehaviour {
 		}
 
 		GetGimmickItem_word = new int[] { 0, 0, 0, 0, 0, 0, 0 };
-		GetGimmickItem_player = new int[] { 0, 0, 0 };
+		GetGimmickItem_player = new int[] { 0, 0, 0, 0 };
 		GamePhase = 0;
 	}
 
@@ -45,11 +50,11 @@ public class gimmickScript : MonoBehaviour {
 	}
 
     public void GetWord() {
-		if (GetGimmickItem_player [0] + GetGimmickItem_player [1] + GetGimmickItem_player [2] == 7) {
+		if (GetGimmickItem_player [0] + GetGimmickItem_player [1] + GetGimmickItem_player [2] + GetGimmickItem_player [3] == 7) {
 			GamePhase = 1;
 
 			int max = GetGimmickItem_player.Select(s => s).Max();
-			for (int i = 0; i < 3; i++) {
+			for (int i = 0; i < 4; i++) {
 				if (GetGimmickItem_player [i] >= max) {
 					GetGimmickItem_player [i] = 1;
 				} else {

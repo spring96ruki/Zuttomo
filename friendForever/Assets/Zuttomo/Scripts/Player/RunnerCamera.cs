@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class RunnerCamera : MonoBehaviour 
 {
-    [Header("カメラが追いかける対象")]
-    public GameObject target;
-    [Header("カメラの初期位置")]
-    public Transform initPos;
-    Vector3 targetPos;
-
+    [SerializeField,Header("カメラが追いかける対象")]
+    GameObject m_target;
+    Vector3 m_targetPos;
+    [SerializeField]
+    RaycastHit m_hit;
     RunnerInput m_pInput;
 
-	void Awake()
-	{
-        DontDestroyOnLoad(gameObject);
-	}
+    [SerializeField,Header("プレイヤーとの距離")]
+    float m_Distance;
+    [SerializeField, Header("視点の高さ")]
+    float m_Height;
 
 	void Start()
     {
         m_pInput = GetComponent<RunnerInput>();
-        targetPos = target.transform.position;
-        transform.position = initPos.position;
+        m_targetPos = m_target.transform.position;
+        m_Distance = 1.7f;
+        m_Height = 1f;
     }
 
     void Update()
@@ -31,16 +31,22 @@ public class RunnerCamera : MonoBehaviour
 
 	void FixedUpdate()
     {
+        var m_lookAt = m_targetPos + Vector3.up * m_Height;
         // targetの移動量分、カメラも移動する
-        transform.position += target.transform.position - targetPos;
-        targetPos = target.transform.position;
+        transform.position = m_lookAt - transform.forward * m_Distance;
+        m_targetPos = m_target.transform.position;
 
         float h = m_pInput.Raxis_x * 150 * Time.deltaTime;
         float v = m_pInput.Raxis_y * 150 * Time.deltaTime;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 329ab8c946c6f89c2ba3a8c419766f1af9379fa0
 
+        transform.LookAt(m_lookAt);
 
         // targetの位置のY軸を中心に、回転する
+<<<<<<< HEAD
         transform.RotateAround(targetPos, Vector3.up, v);
 
         // targetの位置のY軸を中心に、回転する
@@ -48,5 +54,11 @@ public class RunnerCamera : MonoBehaviour
 
         // カメラの垂直移動（角度制限なし）
         //transform.RotateAround(targetPos, transform.right, h);
+=======
+        transform.RotateAround(m_targetPos, Vector3.up, -v);
+
+        //　レイを視覚的に確認
+        Debug.DrawLine(m_targetPos + Vector3.up, transform.position, Color.red, 0f, false);
+>>>>>>> 329ab8c946c6f89c2ba3a8c419766f1af9379fa0
     }
 }
