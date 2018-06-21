@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerMove : RunnerCore
+public class RunnerMove : MonoBehaviour
 {
 
 	public GameObject m_camera;
@@ -11,7 +11,11 @@ public class RunnerMove : RunnerCore
 
 	public Transform m_player;
 
-	public float m_itemspeed = 1000;
+    protected RunnerStatus m_status;
+    [HideInInspector]
+    public Rigidbody m_rigidbody;
+
+    public float m_itemspeed = 1000;
 	[HideInInspector]
 	public float m_timer;
 	[HideInInspector]
@@ -25,7 +29,9 @@ public class RunnerMove : RunnerCore
 	private void Awake()
 	{
 		m_runnerInput = GetComponent<RunnerInput>();
-	}
+        m_status = GetComponent<RunnerStatus>();
+        m_rigidbody = GetComponent<Rigidbody>();
+    }
 
 	public void Move()
 	{

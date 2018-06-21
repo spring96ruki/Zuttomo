@@ -13,6 +13,7 @@ public class SelectController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         allplayerSelectState = new int[] { 0, 0, 0, 0 };
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Lottery()
