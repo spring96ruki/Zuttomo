@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RunnerMove : MonoBehaviour
 {
+    Animator animator;
 
 	public GameObject m_camera;
 	public GameObject m_colliders;
@@ -40,7 +41,9 @@ public class RunnerMove : MonoBehaviour
 		PlayerRotation(horizontal, virtical);
 		PlayerAnimation(horizontal, virtical);
 		HealthControll();
-	}
+        //KillPlayerAnimation();
+
+    }
 
 	void PlayerRotation(float horizontal, float virtical)
 	{
@@ -66,21 +69,32 @@ public class RunnerMove : MonoBehaviour
 		{
 			if (m_status.speed <= m_status.firstSpeed)
 			{
-				m_status.animator.SetBool("Walk", true);
-				m_status.animator.SetBool("Run", false);
+				m_status.animator.SetBool("HalfRun", true);
+				m_status.animator.SetBool("FullRun", false);
 			}
 			else if (m_status.speed >= m_status.firstSpeed)
 			{
-				m_status.animator.SetBool("Run", true);
+				m_status.animator.SetBool("FullRun", true);
 			}
 		} else
 		{
-			m_status.animator.SetBool("Walk", false);
-			m_status.animator.SetBool("Run", false);
+			m_status.animator.SetBool("HalfRun", false);
+			m_status.animator.SetBool("FullRun", false);
 		}
 	}
 
-	void HealthControll()
+    //void KillPlayerAnimation()
+    //{
+    //    if (this.GetComponent<RunnerController>().ChaserFlag == true)
+    //    {
+    //        if (m_runnerInput.button_B == true)
+    //        {
+    //            animator.SetBool("Kill", true);
+    //        }
+    //    }
+    //}
+
+    void HealthControll()
 	{
 		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
 			m_status.speed = m_status.maxSpeed;
