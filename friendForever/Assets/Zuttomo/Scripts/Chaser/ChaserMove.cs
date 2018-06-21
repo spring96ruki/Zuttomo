@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaserMove : RunnerCore {
+public class ChaserMove : MonoBehaviour 
+{
 
     public GameObject m_camera;
     public GameObject m_touch;
 
     RunnerInput m_runnerInput;
+    protected RunnerStatus m_status;
+    [HideInInspector]
+    public Rigidbody m_rigidbody;
     float m_timer;
 
 
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
+        m_status = GetComponent<RunnerStatus>();
+        m_rigidbody = GetComponent<Rigidbody>();
     }
 
     public void Move()

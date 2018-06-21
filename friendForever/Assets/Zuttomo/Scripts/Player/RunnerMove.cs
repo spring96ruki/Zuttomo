@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerMove : RunnerCore
+public class RunnerMove : MonoBehaviour
 {
 
     public GameObject m_camera;
@@ -21,11 +21,16 @@ public class RunnerMove : RunnerCore
     public int m_itemNum;
 
     RunnerInput m_runnerInput;
+    protected RunnerStatus m_status;
+    [HideInInspector]
+    public Rigidbody m_rigidbody;
 
 
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
+        m_status = GetComponent<RunnerStatus>();
+        m_rigidbody = GetComponent<Rigidbody>();
     }
 
     public void Move()
@@ -187,7 +192,6 @@ public class RunnerMove : RunnerCore
 
                     case 3:
                         Debug.Log("無敵");
-                        m_status.isInvincible = false;
                         break;
                 }             
              }

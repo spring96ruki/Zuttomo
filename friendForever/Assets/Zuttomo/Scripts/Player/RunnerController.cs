@@ -111,10 +111,10 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timer += Time.deltaTime;
-            Vector3 force;
-            force = transform.position * 200;
+            //Vector3 force;
+            //force = transform.position * 200;
             // Rigidbodyに力を加えて発射
-            GetComponent<Rigidbody>().AddForce(force);
+            //GetComponent<Rigidbody>().AddForce(force);
             if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
