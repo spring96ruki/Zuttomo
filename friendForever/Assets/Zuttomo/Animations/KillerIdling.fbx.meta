@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: 30f1ed328d5ae66448f38336bdaa1bf7
-timeCreated: 1529598164
+guid: 64e66baa35e81ea499045e70da927c71
+timeCreated: 1529597429
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: AllRig
-    100004: body
-    100006: Head
-    100008: HeadRig
-    100010: Hips
-    100012: HipsRig
+    100000: AllRig
+    100002: body
+    100004: Head
+    100006: HeadRig
+    100008: Hips
+    100010: HipsRig
+    100012: //RootNode
     100014: LeftArm
     100016: LeftEye
     100018: LeftFinger1
@@ -59,13 +59,13 @@ ModelImporter:
     100102: transform4
     100104: transform5
     100106: transform6
-    400000: //RootNode
-    400002: AllRig
-    400004: body
-    400006: Head
-    400008: HeadRig
-    400010: Hips
-    400012: HipsRig
+    400000: AllRig
+    400002: body
+    400004: Head
+    400006: HeadRig
+    400008: Hips
+    400010: HipsRig
+    400012: //RootNode
     400014: LeftArm
     400016: LeftEye
     400018: LeftFinger1

@@ -74,18 +74,18 @@ public class RunnerMove : MonoBehaviour
             {
                 if (m_status.speed <= m_status.firstSpeed)
                 {
-                    m_status.animator.SetBool("Halfrun", true);
-                    m_status.animator.SetBool("FullRun", false);
+                    m_status.animator.SetBool("Walk", true);
+                    m_status.animator.SetBool("Run", false);
                 }
                 else if (m_status.speed >= m_status.firstSpeed)
                 {
-                    m_status.animator.SetBool("FullRun", true);
+                    m_status.animator.SetBool("Run", true);
                 }
             }
             else
             {
-                m_status.animator.SetBool("Halfrun", false);
-                m_status.animator.SetBool("FullRun", false);
+                m_status.animator.SetBool("Walk", false);
+                m_status.animator.SetBool("Run", false);
             }
         }
 

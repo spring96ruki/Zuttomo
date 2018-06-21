@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8a0e3d9ef2ed449498fbe51f14728401
-timeCreated: 1529553320
+guid: e1f83dedd66e32947a63ae6de0d74958
+timeCreated: 1529595990
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -115,7 +115,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -160,7 +160,7 @@ ModelImporter:
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2
