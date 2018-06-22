@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour {
 
-    public static int demonplayer = 0;
-
-    
+    public static int Chaserplayer = 0;
+    public static int player = 0;
     public int player_num;
+    
     public int selectstate;
     public SelectController selectController;
 
@@ -27,6 +27,8 @@ public class SelectButton : MonoBehaviour {
     {
         SceneController.Instance.LoadScene(SceneName.SELECT_SCENE);
     }
+
+
     public void Select()
     {
         //SelectControllerに選択結果を送っている
