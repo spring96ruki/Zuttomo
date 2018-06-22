@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 09e32f981f7b64f4e8141adc11be27a4
 timeCreated: 1529600885
+=======
+guid: 30f1ed328d5ae66448f38336bdaa1bf7
+timeCreated: 1529598164
+>>>>>>> newKamisato
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -114,7 +119,11 @@ ModelImporter:
     400104: transform5
     400106: transform6
     4300000: polySurface5
+<<<<<<< HEAD
     7400000: FullRun
+=======
+    7400000: Take 001
+>>>>>>> newKamisato
     9500000: //RootNode
     13700000: polySurface5
   materials:
@@ -139,6 +148,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+<<<<<<< HEAD
     clipAnimations:
     - serializedVersion: 16
       name: FullRun
@@ -276,6 +286,9 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
+=======
+    clipAnimations: []
+>>>>>>> newKamisato
     isReadable: 1
   meshes:
     lODScreenPercentages: []

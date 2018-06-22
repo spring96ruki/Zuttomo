@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0ab14ac4d6cc9be42824fb827afb255d
 folderAsset: yes
 timeCreated: 1529600885
+=======
+guid: 95fa65bd691f32c49b6916396986dc44
+folderAsset: yes
+timeCreated: 1529468821
+>>>>>>> newKamisato
 licenseType: Free
 DefaultImporter:
   userData: 

@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 3d5a1ca5ffaa6d146ababd3280e564a4
 timeCreated: 1529600885
+=======
+guid: 439b15b0accb56e4f8223c0abbabe97d
+timeCreated: 1529468821
+>>>>>>> newKamisato
 licenseType: Free
 NativeFormatImporter:
   mainObjectFileID: 2100000

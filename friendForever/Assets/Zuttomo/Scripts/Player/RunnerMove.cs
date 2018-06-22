@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RunnerMove : MonoBehaviour
 {
@@ -8,8 +9,11 @@ public class RunnerMove : MonoBehaviour
     public GameObject m_camera;
     public GameObject m_Push;
     public GameObject m_item;
-
     public Transform m_FiringPosition;
+    public Image m_healthUI;
+    public float m_healthTime = 5f;
+
+    public Transform m_player;
 
     public float m_itemspeed = 1000;
     [HideInInspector]
@@ -21,9 +25,9 @@ public class RunnerMove : MonoBehaviour
     public int m_itemNum;
 
     RunnerInput m_runnerInput;
-    protected RunnerStatus m_status;
+    RunnerStatus m_status;
     [HideInInspector]
-    public Rigidbody m_rigidbody;
+    Rigidbody m_rigidbody;
 
 
     private void Awake()

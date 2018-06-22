@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: fe28283069bd1ac4395652a4c08689a2
 timeCreated: 1529600885
+=======
+guid: 9935867305a184e46b11934da8b482ad
+timeCreated: 1529598705
+>>>>>>> newKamisato
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
