@@ -7,7 +7,7 @@ public class RunnerMove : MonoBehaviour
     Animator animator;
 
 	public GameObject m_camera;
-	public GameObject m_colliders;
+	public GameObject[] m_colliders;
 	public GameObject m_item;
 
 	public Transform m_player;
@@ -21,6 +21,7 @@ public class RunnerMove : MonoBehaviour
 	public float m_timer;
 	[HideInInspector]
 	public float m_bufftimer;
+    float m_coolTime;
 
 	[HideInInspector]
 	public int m_itemNum;
@@ -32,6 +33,7 @@ public class RunnerMove : MonoBehaviour
 		m_runnerInput = GetComponent<RunnerInput>();
         m_status = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
+        m_colliders[1].SetActive(false);
     }
 
 	public void Move()
@@ -41,7 +43,7 @@ public class RunnerMove : MonoBehaviour
 		PlayerRotation(horizontal, virtical);
 		PlayerAnimation(horizontal, virtical);
 		HealthControll();
-        //KillPlayerAnimation();
+        KillPlayerAnimation();
 
     }
 
@@ -83,16 +85,25 @@ public class RunnerMove : MonoBehaviour
 		}
 	}
 
-    //void KillPlayerAnimation()
-    //{
-    //    if (this.GetComponent<RunnerController>().ChaserFlag == true)
-    //    {
-    //        if (m_runnerInput.button_B == true)
-    //        {
-    //            animator.SetBool("Kill", true);
-    //        }
-    //    }
-    //}
+    void KillPlayerAnimation()
+    {
+        if (this.GetComponent<RunnerController>().ChaserFlag == true)
+        {
+            if (m_runnerInput.button_B == true)
+            {
+                m_status.animator.SetBool("Kill", true);
+                m_colliders[1].SetActive(true);
+                m_coolTime = 0;
+            }
+            m_coolTime += Time.deltaTime;
+            if(m_coolTime >= 3)
+            {
+                m_status.animator.SetBool("Kill", false);
+                m_colliders[1].SetActive(false);
+            }
+
+        }
+    }
 
     void HealthControll()
 	{
@@ -156,7 +167,7 @@ public class RunnerMove : MonoBehaviour
 		if (m_runnerInput.button_A == true)
 		{
 			Debug.Log("突き飛ばし");
-			m_colliders.SetActive(true);
+			m_colliders[0].SetActive(true);
 			m_timer = 0;
 		}
 		else
@@ -164,7 +175,7 @@ public class RunnerMove : MonoBehaviour
 			if (m_timer <= 0.5)
 			{
 				m_timer += Time.deltaTime;
-				m_colliders.SetActive(false);
+				m_colliders[0].SetActive(false);
 			}
 		}
 

@@ -10,7 +10,7 @@ public class FadeManager : MonoBehaviour {
     private GameObject m_image;
     private Image m_fadeimage;
     Color color;
-    float m_fadespeed = 0.006f;
+    float m_fadespeed = 1f;
 
     void Start()
     {

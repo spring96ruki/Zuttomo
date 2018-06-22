@@ -121,13 +121,8 @@ public class RunnerController : SingletonMono<RunnerController>
         else
         {
             State_timar += Time.deltaTime;
-			Vector3 force = Vector3.zero;
-			force = this.gameObject.transform.forward * 1000;
-			// Rigidbodyに力を加える
-			m_rigidBody.AddForce(force,ForceMode.Force);
-            force = transform.position * 200;
-            // Rigidbodyに力を加えて発射
-            GetComponent<Rigidbody>().AddForce(force);
+            m_runnerStatus.animator.SetBool("HalfRun", false);
+            m_runnerStatus.animator.SetBool("FullRun", false);
             if (State_timar >= 3)
             {
                 m_runnerStatus.isState = true;
