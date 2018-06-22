@@ -5,16 +5,33 @@ using UnityEngine;
 public class RunnerMove : MonoBehaviour
 {
     Animator animator;
+    public GameObject m_camera;
+    public GameObject m_Push;
+    public GameObject m_item;
 
-	public GameObject m_camera;
-	public GameObject[] m_colliders;
-	public GameObject m_item;
+    public Transform m_FiringPosition;
 
-	public Transform m_player;
+    public float m_itemspeed = 1000;
+    [HideInInspector]
+    public float m_timer;
+    [HideInInspector]
+    public float m_bufftimer;
+    protected RunnerStatus m_status;
+    [HideInInspector]
+    public int m_itemNum;
 
+    RunnerInput m_runnerInput;
     protected RunnerStatus m_status;
     [HideInInspector]
     public Rigidbody m_rigidbody;
+
+
+    private void Awake()
+    {
+        m_runnerInput = GetComponent<RunnerInput>();
+        m_status = GetComponent<RunnerStatus>();
+        m_rigidbody = GetComponent<Rigidbody>();
+    }
 
     public float m_itemspeed = 1000;
 	[HideInInspector]
@@ -161,66 +178,65 @@ public class RunnerMove : MonoBehaviour
 		}
 	}
 
-	public void Button()
-	{
+    public void Button()
+    {
 
-		if (m_runnerInput.button_A == true)
-		{
-			Debug.Log("突き飛ばし");
-			m_colliders[0].SetActive(true);
-			m_timer = 0;
-		}
-		else
-		{
-			if (m_timer <= 0.5)
-			{
-				m_timer += Time.deltaTime;
-				m_colliders[0].SetActive(false);
-			}
-		}
+        if (m_runnerInput.button_A == true)
+        {
+            Debug.Log("突き飛ばし");
+            m_Push.SetActive(true);
+            m_timer = 0;
+        }
+        else
+        {
+            if (m_timer <= 0.5)
+            {
+                m_timer += Time.deltaTime;
+                m_Push.SetActive(false);
+            }
+        }
 
-		if (m_runnerInput.button_B == true)
-		{
-			Debug.Log("決定");
-		}
+        if (m_runnerInput.button_B == true)
+        {
+            Debug.Log("決定");
+        }
 
-		if (m_runnerInput.button_X == true)
-		{
-			if (m_status.ishave == true)
-			{
-				switch (m_itemNum)
-				{
-				case 1:
-					Debug.Log("市松人形を投げたよ");
-					Vector3 force;
-					GameObject bullets = Instantiate(m_item) as GameObject;
-					force = this.gameObject.transform.forward * m_itemspeed;
-					// Rigidbodyに力を加えて発射
-					bullets.GetComponent<Rigidbody>().AddForce(force);
-					// アイテムの位置を調整
-					bullets.transform.position = m_player.position;
-					bullets.tag = "Itimathu";
-					m_status.ishave = false;
+        if (m_runnerInput.button_X == true)
+        {
+            if (m_status.ishave == true)
+            {
+                switch (m_itemNum)
+                {
+                    case 1:
+                        Debug.Log("市松人形を投げたよ");
+                        Vector3 force;
+                        GameObject bullets = Instantiate(m_item) as GameObject;
+                        force = this.gameObject.transform.forward * m_itemspeed;
+                        // Rigidbodyに力を加えて発射
+                        bullets.GetComponent<Rigidbody>().AddForce(force);
+                        // アイテムの位置を調整
+                        bullets.transform.position = m_FiringPosition.position;
+                        bullets.tag = "Itimathu";
+                        m_status.ishave = false;
 
-					break;
+                        break;
 
-				case 2:
-					Debug.Log("力が上がったよ");
-					m_status.ishave = false;
-					break;
+                    case 2:
+                        Debug.Log("力が上がったよ");
+                        m_status.ishave = false;
+                        break;
 
-				case 3:
-					Debug.Log("無敵");
-					m_status.isInvincible = false;
-					break;
-				}             
-			}
+                    case 3:
+                        Debug.Log("無敵");
+                        break;
+                }             
+             }
 
-		}
+        }
 
-		if (m_runnerInput.button_Y == true)
-		{
-			Debug.Log("Y");
-		}
-	}
+        if (m_runnerInput.button_Y == true)
+        {
+            Debug.Log("Y");
+        }
+    }
 }

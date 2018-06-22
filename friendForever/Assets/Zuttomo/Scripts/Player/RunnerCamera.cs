@@ -20,7 +20,7 @@ public class RunnerCamera : MonoBehaviour
     {
         m_pInput = GetComponent<RunnerInput>();
         m_targetPos = m_target.transform.position;
-        m_Distance = 1.7f;
+        m_Distance = 2.0f;
         m_Height = 1f;
     }
 
@@ -34,6 +34,7 @@ public class RunnerCamera : MonoBehaviour
         var m_lookAt = m_targetPos + Vector3.up * m_Height;
         // targetの移動量分、カメラも移動する
         transform.position = m_lookAt - transform.forward * m_Distance;
+        transform.LookAt(m_lookAt);
         m_targetPos = m_target.transform.position;
 
         float h = m_pInput.Raxis_x * 150 * Time.deltaTime;

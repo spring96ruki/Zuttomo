@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class ChaserArea : MonoBehaviour {
 	public int Kill_Count = 0;
-    
-
-    // Use this for initialization
-    void Start () {
-     
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     private void OnTriggerEnter(Collider other)
     {
