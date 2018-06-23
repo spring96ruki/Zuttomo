@@ -14,8 +14,8 @@ public class RunnerController : SingletonMono<RunnerController>
     float m_stanTime;
     public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
     [HideInInspector]
-    public float State_timar;
 	public bool ChaserFlag;
+    public float State_timer;
     float currentSpeed;
     Rigidbody m_rigidBody;
     //RunnerCore m_runnerCore;
@@ -74,7 +74,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log("スタン時間" + stanTime);
+        Debug.Log(stanTime);
         // isStanがtrueになったらスタン処理開始
         if (isStan == true)
         {
@@ -108,12 +108,6 @@ public class RunnerController : SingletonMono<RunnerController>
         }
     }
 
-	public void RunnerSkyHigh()
-	{
-		Debug.Log ("sky");
-		this.GetComponent<Rigidbody>().AddForce(0,500,0);
-	}
-
     private void FixedUpdate()
     {
         if (m_runnerStatus.isState == true)
@@ -123,15 +117,14 @@ public class RunnerController : SingletonMono<RunnerController>
         }
         else
         {
-            State_timar += Time.deltaTime;
-			Vector3 force = Vector3.zero;
-			force = this.gameObject.transform.forward * 1000;
-			// Rigidbodyに力を加える
-			m_rigidBody.AddForce(force,ForceMode.Force);
-            force = transform.position * 200;
+            m_runnerStatus.animator.SetBool("HalfRun", false);
+            m_runnerStatus.animator.SetBool("FullRun", false);
+            State_timer += Time.deltaTime;
+            //Vector3 force;
+            //force = transform.position * 200;
             // Rigidbodyに力を加えて発射
-            GetComponent<Rigidbody>().AddForce(force);
-            if (State_timar >= 3)
+            //GetComponent<Rigidbody>().AddForce(force);
+            if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
             }
@@ -144,7 +137,7 @@ public class RunnerController : SingletonMono<RunnerController>
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
-            State_timar = 0;
+            State_timer = 0;
         }
         if (hit.gameObject.tag == TagName.Itimatu)
         {
