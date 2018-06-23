@@ -19,8 +19,7 @@ public class RunnerMove : MonoBehaviour
     [HideInInspector]
     public float m_timer;
     [HideInInspector]
-    public float m_bufftimer;
-    protected RunnerStatus m_status;
+    public float m_buffTimer;
     [HideInInspector]
     public int m_itemNum;
 
@@ -28,6 +27,9 @@ public class RunnerMove : MonoBehaviour
     RunnerStatus m_status;
     [HideInInspector]
     Rigidbody m_rigidbody;
+    public float m_bufftimer;
+    float m_coolTime;
+
 
 
     private void Awake()
@@ -35,26 +37,6 @@ public class RunnerMove : MonoBehaviour
         m_runnerInput = GetComponent<RunnerInput>();
         m_status = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
-    }
-
-    public float m_itemspeed = 1000;
-	[HideInInspector]
-	public float m_timer;
-	[HideInInspector]
-	public float m_bufftimer;
-    float m_coolTime;
-
-	[HideInInspector]
-	public int m_itemNum;
-
-	RunnerInput m_runnerInput;
-
-	private void Awake()
-	{
-		m_runnerInput = GetComponent<RunnerInput>();
-        m_status = GetComponent<RunnerStatus>();
-        m_rigidbody = GetComponent<Rigidbody>();
-        m_colliders[1].SetActive(false);
     }
 
 	public void Move()
@@ -113,14 +95,12 @@ public class RunnerMove : MonoBehaviour
             if (m_runnerInput.button_B == true)
             {
                 m_status.animator.SetBool("Kill", true);
-                m_colliders[1].SetActive(true);
                 m_coolTime = 0;
             }
             m_coolTime += Time.deltaTime;
             if(m_coolTime >= 3)
             {
                 m_status.animator.SetBool("Kill", false);
-                m_colliders[1].SetActive(false);
             }
 
         }
