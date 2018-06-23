@@ -26,8 +26,6 @@ public class SceneController : SingletonMono<SceneController> {
     {
         m_sceneName.Length = 0;
         m_sceneName.Append(sceneName);
-        Debug.Log("第一関門");
-        Debug.Log("第一関門突破");
         StartCoroutine(LoadStart());
     }
 
@@ -38,11 +36,5 @@ public class SceneController : SingletonMono<SceneController> {
         yield return fadeManager.FadeOut();
         m_async.allowSceneActivation = true;
         yield return fadeManager.FadeIn();
-       
-        
-        
     }
-
-
-
 }

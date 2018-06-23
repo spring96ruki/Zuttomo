@@ -22,13 +22,15 @@ public static class TagName
     public const string Player_3P = "Player_3P";
     public const string Chaser = "Chaser";
     public const string TestTag = "TestTarget";
+    public const string Itimatu = "Itimatu";
+    public const string Push = "Push";
 }
 
 public static class SceneName
 {
     public const string TITLE_SCENE = "Title";
     public const string SELECT_SCENE = "Select";
-    public const string GAME_SCENE = "Main";
+    public const string GAME_SCENE = "okamoto";
     public const string RESULT_SCENE = "Result";
     public const string SCENE_TEST = "SceneTest";
     public const string SCENE_CHANGE = "SceneChange";
@@ -38,4 +40,11 @@ public static class SceneName
 public static class ScreenName
 {
 
+}
+
+public static class ItemName
+{
+    public const string itimatu = "itimatu";
+    public const string Bill = "Bill";
+    public const string Drug = "Drug";
 }
