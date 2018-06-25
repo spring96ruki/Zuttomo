@@ -18,10 +18,10 @@ public class RunnerController : SingletonMono<RunnerController>
     public float State_timer;
     float currentSpeed;
     Rigidbody m_rigidBody;
-    //RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
+    UIController m_uIController;
     protected RunnerStatus m_status;
     [HideInInspector]
     public Rigidbody m_rigidbody;
@@ -34,6 +34,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
+        m_uIController = GetComponent<UIController>();
         m_rigidBody = GetComponent<Rigidbody>();
     }
 
@@ -113,6 +114,7 @@ public class RunnerController : SingletonMono<RunnerController>
         if (m_runnerStatus.isState == true)
         {
             m_runnerMove.Move();
+            m_uIController.HealthUIControll();
             m_runnerMove.Button();
         }
         else

@@ -10,7 +10,6 @@ public class RunnerMove : MonoBehaviour
     public GameObject m_Push;
     public GameObject m_item;
     public Transform m_FiringPosition;
-    public Image m_healthUI;
     public float m_healthTime = 5f;
 
     public Transform m_player;
@@ -45,7 +44,6 @@ public class RunnerMove : MonoBehaviour
 		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
 		PlayerRotation(horizontal, virtical);
 		PlayerAnimation(horizontal, virtical);
-		HealthControll();
         KillPlayerAnimation();
 
     }
@@ -105,62 +103,6 @@ public class RunnerMove : MonoBehaviour
 
         }
     }
-
-    void HealthControll()
-	{
-		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
-			m_status.speed = m_status.maxSpeed;
-			m_status.health -= Time.deltaTime;
-		} else { 
-			if (m_status.isHealth == true) {
-				if (m_runnerInput.button_RB == true) {
-					Debug.Log ("ダッシュ");
-					m_status.speed = m_status.maxSpeed;
-					m_status.health -= Time.deltaTime;
-				}
-			} else {
-				m_status.speed = m_status.firstSpeed;
-			}
-
-			if (m_status.health > m_status.maxHealth) {
-				m_status.isHealth = true;
-			}
-
-			if (m_status.health <= 0f) {
-				m_status.isHealth = false;
-			}
-			//スタミナがなかったら
-			if (m_status.isHealth == false) {
-				//スタミナ回復
-				m_status.health += Time.deltaTime;
-			}
-			if (m_status.health >= m_status.maxHealth) {
-				m_status.health = m_status.maxHealth;
-			}
-
-			//ボタンが押されてなかったら
-			if (m_runnerInput.button_RB == false) {
-				m_status.speed = m_status.firstSpeed;
-				//スタミナがのっこていたら
-				if (m_status.health >= 0f) {
-					//スタミナ回復
-					m_status.health += Time.deltaTime;
-				}
-			}
-
-			if (m_status.isBuff == false) {
-				m_status.maxHealth = 5;
-				m_status.maxSpeed = 10;
-			} else {
-				m_bufftimer += Time.deltaTime;
-				m_status.maxHealth = 10;
-				m_status.maxSpeed = 15;
-				if (m_bufftimer > 4) {
-					m_status.isBuff = false;
-				}
-			}
-		}
-	}
 
     public void Button()
     {
