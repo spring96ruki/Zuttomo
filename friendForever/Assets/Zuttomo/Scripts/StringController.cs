@@ -22,7 +22,7 @@ public static class TagName
     public const string Player_3P = "Player_3P";
     public const string Chaser = "Chaser";
     public const string TestTag = "TestTarget";
-    public const string Itimatu = "Itimatu";
+    public const string Itimatu = "itimatu";
     public const string Push = "Push";
 }
 
@@ -45,6 +45,6 @@ public static class ScreenName
 public static class ItemName
 {
     public const string itimatu = "itimatu";
-    public const string Bill = "Bill";
+    public const string Ohuda = "ohuda";
     public const string Drug = "Drug";
 }

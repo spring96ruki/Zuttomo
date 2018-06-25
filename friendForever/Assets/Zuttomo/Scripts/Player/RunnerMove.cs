@@ -13,8 +13,6 @@ public class RunnerMove : MonoBehaviour
     public Image m_healthUI;
     public float m_healthTime = 5f;
 
-    public Transform m_player;
-
     public float m_itemspeed = 1000;
     [HideInInspector]
     public float m_timer;
@@ -25,17 +23,17 @@ public class RunnerMove : MonoBehaviour
 
     RunnerInput m_runnerInput;
     RunnerStatus m_status;
+	RunnerSkill m_runnerSkill;
     [HideInInspector]
     Rigidbody m_rigidbody;
     public float m_bufftimer;
     float m_coolTime;
 
-
-
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
         m_status = GetComponent<RunnerStatus>();
+		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -187,35 +185,7 @@ public class RunnerMove : MonoBehaviour
 
         if (m_runnerInput.button_X == true)
         {
-            if (m_status.ishave == true)
-            {
-                switch (m_itemNum)
-                {
-                    case 1:
-                        Debug.Log("市松人形を投げたよ");
-                        Vector3 force;
-                        GameObject bullets = Instantiate(m_item) as GameObject;
-                        force = this.gameObject.transform.forward * m_itemspeed;
-                        // Rigidbodyに力を加えて発射
-                        bullets.GetComponent<Rigidbody>().AddForce(force);
-                        // アイテムの位置を調整
-                        bullets.transform.position = m_FiringPosition.position;
-                        bullets.tag = "Itimathu";
-                        m_status.ishave = false;
-
-                        break;
-
-                    case 2:
-                        Debug.Log("力が上がったよ");
-                        m_status.ishave = false;
-                        break;
-
-                    case 3:
-                        Debug.Log("無敵");
-                        break;
-                }             
-             }
-
+            m_runnerSkill.ItemEvent();
         }
 
         if (m_runnerInput.button_Y == true)
