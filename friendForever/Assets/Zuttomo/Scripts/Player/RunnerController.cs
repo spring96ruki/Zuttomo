@@ -114,7 +114,6 @@ public class RunnerController : SingletonMono<RunnerController>
         if (m_runnerStatus.isState == true)
         {
             m_runnerMove.Move();
-            m_uIController.HealthUIControll();
             m_runnerMove.Button();
         }
         else
@@ -141,12 +140,12 @@ public class RunnerController : SingletonMono<RunnerController>
             Debug.Log("当たった");
             State_timer = 0;
         }
-        if (hit.gameObject.tag == TagName.Itimatu)
-        {
-            Debug.Log("当たった");
-            m_runnerStatus.isState = false;
-            Destroy(hit.gameObject);
-        }
+        //if (hit.gameObject.tag == TagName.Itimatu)
+        //{
+        //    Debug.Log("当たった");
+        //    m_runnerStatus.isState = false;
+        //    Destroy(hit.gameObject);
+        //}
     }
 
     void OnCollisionStay(Collision col)
@@ -159,7 +158,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            if (col.gameObject.name == ItemName.itimatu)
+            if (col.gameObject.tag == TagName.Itimatu)
             {
                 Debug.Log("市松人形だよ");
                 if (m_runnerInput.button_B == true)
@@ -168,6 +167,7 @@ public class RunnerController : SingletonMono<RunnerController>
                     m_runnerStatus.ishave = true;
                     //アイテムの番号を1に変更
                     m_runnerMove.m_itemNum = 1;
+                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(0);
                     //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
@@ -181,6 +181,7 @@ public class RunnerController : SingletonMono<RunnerController>
                     m_runnerStatus.ishave = true;
                     //アイテムの番号を2に変更
                     m_runnerMove.m_itemNum = 2;
+                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(1);
                     //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
@@ -194,6 +195,7 @@ public class RunnerController : SingletonMono<RunnerController>
                     m_runnerStatus.ishave = true;
                     //アイテムの番号を3に変更
                     m_runnerMove.m_itemNum = 3;
+                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(2);
                     //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
