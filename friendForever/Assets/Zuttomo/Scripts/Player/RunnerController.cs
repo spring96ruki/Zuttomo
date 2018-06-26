@@ -10,21 +10,17 @@ public enum RunnerState
 
 public class RunnerController : SingletonMono<RunnerController>
 {
-
-    float m_stanTime;
-    public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
-    [HideInInspector]
-	public bool ChaserFlag;
-    public float m_stateTimer;
-
-    float m_currentSpeed;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
-    RunnerStatus m_status;
+
+    public bool ChaserFlag;
+    public float m_stanTime;
+    public float m_stateTimer;
     [HideInInspector]
     public Rigidbody m_rigidBody;
 
+    float m_currentSpeed;
     bool isStan = false;
     RunnerState m_state;
 
@@ -34,21 +30,17 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
-    }
-
-	void Start()
-	{
+        m_runnerStatus.animator = GetComponent<Animator>();
         //初期ステータス
-        m_runnerStatus.firstSpeed = 5;
-        m_runnerStatus.maxSpeed = 10;
+        m_runnerStatus.firstSpeed = 3;
+        m_runnerStatus.maxSpeed = 5;
         m_runnerStatus.health = 5;
         m_runnerStatus.maxHealth = 5;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.isBuff = false;
         m_runnerStatus.isInvincible = false;
-        m_runnerStatus.animator = GetComponent<Animator>();
-	}
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -73,11 +65,11 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log(stanTime);
+        Debug.Log(m_stanTime);
         // isStanがtrueになったらスタン処理開始
-        if (isStan == true)
+        if (isStan)
         {
-            --stanTime;
+            --m_stanTime;
             Debug.Log("通った");
 
             // スタン処理
@@ -85,11 +77,11 @@ public class RunnerController : SingletonMono<RunnerController>
             m_currentSpeed = m_runnerStatus.speed;
             m_runnerStatus.speed = 0f;
 
-            if (stanTime < 0)
+            if (m_stanTime < 0)
             {
-                stanTime = 0;
+                m_stanTime = 0;
             }
-            if (stanTime == 0)
+            if (m_stanTime == 0)
             {
                 // stanTimeが0になったらisStanをfalseにする
                 // RunnerStanをnormalに変更
@@ -99,7 +91,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
                 // isStanがfalseに変更されたら、スタン処理終了
                 // スタン終了時に保持してたスピードをプレイヤーのステータスへ戻す
-                if (isStan == false)
+                if (!isStan)
                 {
                     m_runnerStatus.speed = m_currentSpeed;
                 }
@@ -148,10 +140,10 @@ public class RunnerController : SingletonMono<RunnerController>
 
     void OnCollisionStay(Collision col)
     {
-        CheckEvent(col);
+        PickUpCheckEvent(col);
     }
 
-    void CheckEvent(Collision col)
+    void PickUpCheckEvent(Collision col)
     {
 
         if (m_runnerStatus.ishave == false)

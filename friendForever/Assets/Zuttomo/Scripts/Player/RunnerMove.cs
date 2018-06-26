@@ -13,8 +13,6 @@ public class RunnerMove : MonoBehaviour
     public Image m_healthUI;
     public float m_healthTime = 5f;
 
-    public Transform m_player;
-
     public float m_itemspeed = 1000;
     [HideInInspector]
     public float m_timer;
@@ -24,7 +22,7 @@ public class RunnerMove : MonoBehaviour
     public int m_itemNum;
 
     RunnerInput m_runnerInput;
-    RunnerStatus m_status;
+    RunnerStatus m_runnerStatus;
     [HideInInspector]
     Rigidbody m_rigidbody;
     public float m_bufftimer;
@@ -35,14 +33,14 @@ public class RunnerMove : MonoBehaviour
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
-        m_status = GetComponent<RunnerStatus>();
+        m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
 	public void Move()
 	{
-		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
-		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
+		float horizontal = m_runnerInput.Laxis_x * m_runnerStatus.speed * Time.deltaTime;
+		float virtical = m_runnerInput.Laxis_y * m_runnerStatus.speed * Time.deltaTime;
 		PlayerRotation(horizontal, virtical);
 		PlayerAnimation(horizontal, virtical);
 		HealthControll();
@@ -72,19 +70,19 @@ public class RunnerMove : MonoBehaviour
 	{
 		if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
 		{
-			if (m_status.speed <= m_status.firstSpeed)
+			if (m_runnerStatus.speed <= m_runnerStatus.firstSpeed)
 			{
-				m_status.animator.SetBool("HalfRun", true);
-				m_status.animator.SetBool("FullRun", false);
+				m_runnerStatus.animator.SetBool("HalfRun", true);
+				m_runnerStatus.animator.SetBool("FullRun", false);
 			}
-			else if (m_status.speed >= m_status.firstSpeed)
+			else if (m_runnerStatus.speed >= m_runnerStatus.firstSpeed)
 			{
-				m_status.animator.SetBool("FullRun", true);
+				m_runnerStatus.animator.SetBool("FullRun", true);
 			}
 		} else
 		{
-			m_status.animator.SetBool("HalfRun", false);
-			m_status.animator.SetBool("FullRun", false);
+			m_runnerStatus.animator.SetBool("HalfRun", false);
+			m_runnerStatus.animator.SetBool("FullRun", false);
 		}
 	}
 
@@ -94,13 +92,13 @@ public class RunnerMove : MonoBehaviour
         {
             if (m_runnerInput.button_B == true)
             {
-                m_status.animator.SetBool("Kill", true);
+                m_runnerStatus.animator.SetBool("Kill", true);
                 m_coolTime = 0;
             }
             m_coolTime += Time.deltaTime;
             if(m_coolTime >= 3)
             {
-                m_status.animator.SetBool("Kill", false);
+                m_runnerStatus.animator.SetBool("Kill", false);
             }
 
         }
@@ -109,54 +107,54 @@ public class RunnerMove : MonoBehaviour
     void HealthControll()
 	{
 		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
-			m_status.speed = m_status.maxSpeed;
-			m_status.health -= Time.deltaTime;
+			m_runnerStatus.speed = m_runnerStatus.maxSpeed;
+			m_runnerStatus.health -= Time.deltaTime;
 		} else { 
-			if (m_status.isHealth == true) {
+			if (m_runnerStatus.isHealth == true) {
 				if (m_runnerInput.button_RB == true) {
 					Debug.Log ("ダッシュ");
-					m_status.speed = m_status.maxSpeed;
-					m_status.health -= Time.deltaTime;
+					m_runnerStatus.speed = m_runnerStatus.maxSpeed;
+					m_runnerStatus.health -= Time.deltaTime;
 				}
 			} else {
-				m_status.speed = m_status.firstSpeed;
+				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
 			}
 
-			if (m_status.health > m_status.maxHealth) {
-				m_status.isHealth = true;
+			if (m_runnerStatus.health > m_runnerStatus.maxHealth) {
+				m_runnerStatus.isHealth = true;
 			}
 
-			if (m_status.health <= 0f) {
-				m_status.isHealth = false;
+			if (m_runnerStatus.health <= 0f) {
+				m_runnerStatus.isHealth = false;
 			}
 			//スタミナがなかったら
-			if (m_status.isHealth == false) {
+			if (m_runnerStatus.isHealth == false) {
 				//スタミナ回復
-				m_status.health += Time.deltaTime;
+				m_runnerStatus.health += Time.deltaTime;
 			}
-			if (m_status.health >= m_status.maxHealth) {
-				m_status.health = m_status.maxHealth;
+			if (m_runnerStatus.health >= m_runnerStatus.maxHealth) {
+				m_runnerStatus.health = m_runnerStatus.maxHealth;
 			}
 
 			//ボタンが押されてなかったら
 			if (m_runnerInput.button_RB == false) {
-				m_status.speed = m_status.firstSpeed;
+				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
 				//スタミナがのっこていたら
-				if (m_status.health >= 0f) {
+				if (m_runnerStatus.health >= 0f) {
 					//スタミナ回復
-					m_status.health += Time.deltaTime;
+					m_runnerStatus.health += Time.deltaTime;
 				}
 			}
 
-			if (m_status.isBuff == false) {
-				m_status.maxHealth = 5;
-				m_status.maxSpeed = 10;
+			if (m_runnerStatus.isBuff == false) {
+				m_runnerStatus.maxHealth = 5;
+				m_runnerStatus.maxSpeed = 5f;
 			} else {
 				m_bufftimer += Time.deltaTime;
-				m_status.maxHealth = 10;
-				m_status.maxSpeed = 15;
+				m_runnerStatus.maxHealth = 10;
+				m_runnerStatus.maxSpeed = 15;
 				if (m_bufftimer > 4) {
-					m_status.isBuff = false;
+					m_runnerStatus.isBuff = false;
 				}
 			}
 		}
@@ -187,7 +185,7 @@ public class RunnerMove : MonoBehaviour
 
         if (m_runnerInput.button_X == true)
         {
-            if (m_status.ishave == true)
+            if (m_runnerStatus.ishave == true)
             {
                 switch (m_itemNum)
                 {
@@ -201,13 +199,13 @@ public class RunnerMove : MonoBehaviour
                         // アイテムの位置を調整
                         bullets.transform.position = m_FiringPosition.position;
                         bullets.tag = "Itimathu";
-                        m_status.ishave = false;
+                        m_runnerStatus.ishave = false;
 
                         break;
 
                     case 2:
                         Debug.Log("力が上がったよ");
-                        m_status.ishave = false;
+                        m_runnerStatus.ishave = false;
                         break;
 
                     case 3:

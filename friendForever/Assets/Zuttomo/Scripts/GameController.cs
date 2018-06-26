@@ -84,8 +84,8 @@ public class GameController : MonoBehaviour
                 }
                 camera.GetComponent<Camera>().rect = new Rect(rect_x, rect_y, 0.5f, 0.5f);
 
-                player.GetComponent<RunnerInput>().runnerNum = i + 1;
-                camera.GetComponent<RunnerInput>().runnerNum = i + 1;
+                player.GetComponent<RunnerStatus>().runnerNum = i + 1;
+                camera.GetComponent<RunnerStatus>().runnerNum = i + 1;
 
                 if (1 == i + 1)
                 {
