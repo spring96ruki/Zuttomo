@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerStatus : MonoBehaviour{
+public class RunnerStatus : MonoBehaviour {
 
     [Header("初速")]
     public float firstSpeed;
@@ -26,7 +26,5 @@ public class RunnerStatus : MonoBehaviour{
     public bool isInvincible;
     [Header("アニメーターを入れる")]
     public Animator animator;
-    [Header("プレイヤーの番号")]
-    public int runnerNum;
 
 }

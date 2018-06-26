@@ -10,19 +10,27 @@ public enum RunnerState
 
 public class RunnerController : SingletonMono<RunnerController>
 {
+
+    float m_stanTime;
+    public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
+    [HideInInspector]
+	public bool ChaserFlag;
+    public float State_timer;
+    float currentSpeed;
+    Rigidbody m_rigidBody;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
+    UIController m_uIController;
 
-    public bool ChaserFlag;
-    public float m_stanTime;
-    public float m_stateTimer;
+    protected RunnerStatus m_status;
     [HideInInspector]
-    public Rigidbody m_rigidBody;
-
-    float m_currentSpeed;
+    public Rigidbody m_rigidbody;
     bool isStan = false;
+
     RunnerState m_state;
+
+
 
     void Awake()
     {
@@ -30,26 +38,32 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
-        m_runnerStatus.animator = GetComponent<Animator>();
+        m_uIController = GetComponent<UIController>();
+    }
+
+	void Start()
+	{
         //初期ステータス
-        m_runnerStatus.firstSpeed = 3;
-        m_runnerStatus.maxSpeed = 5;
+        m_runnerStatus.firstSpeed = 5;
+        m_runnerStatus.maxSpeed = 10;
         m_runnerStatus.health = 5;
         m_runnerStatus.maxHealth = 5;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.isBuff = false;
         m_runnerStatus.isInvincible = false;
-    }
+        m_runnerStatus.animator = GetComponent<Animator>();
+	}
 
 	// Update is called once per frame
 	void Update()
     {
         RunnerStanTime();
         m_runnerInput.PController();
-		if (transform.position.y < -10) {
-			transform.position = new Vector3 (0, 3, 0);
-		} 
+        if (transform.position.y < -10)
+        {
+            transform.position = new Vector3(0, 3, 0);
+        }
     }
 
     public void RunnerStan(RunnerState state, float skilTime)
@@ -65,23 +79,23 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log(m_stanTime);
+        Debug.Log(stanTime);
         // isStanがtrueになったらスタン処理開始
-        if (isStan)
+        if (isStan == true)
         {
-            --m_stanTime;
+            --stanTime;
             Debug.Log("通った");
 
             // スタン処理
             // 現在のスピードを別の変数に保持し、スピードを0に変更
-            m_currentSpeed = m_runnerStatus.speed;
+            currentSpeed = m_runnerStatus.speed;
             m_runnerStatus.speed = 0f;
 
-            if (m_stanTime < 0)
+            if (stanTime < 0)
             {
-                m_stanTime = 0;
+                stanTime = 0;
             }
-            if (m_stanTime == 0)
+            if (stanTime == 0)
             {
                 // stanTimeが0になったらisStanをfalseにする
                 // RunnerStanをnormalに変更
@@ -91,9 +105,9 @@ public class RunnerController : SingletonMono<RunnerController>
 
                 // isStanがfalseに変更されたら、スタン処理終了
                 // スタン終了時に保持してたスピードをプレイヤーのステータスへ戻す
-                if (!isStan)
+                if (isStan == false)
                 {
-                    m_runnerStatus.speed = m_currentSpeed;
+                    m_runnerStatus.speed = currentSpeed;
                 }
             }
         }
@@ -110,12 +124,12 @@ public class RunnerController : SingletonMono<RunnerController>
         {
             m_runnerStatus.animator.SetBool("HalfRun", false);
             m_runnerStatus.animator.SetBool("FullRun", false);
-            m_stateTimer += Time.deltaTime;
+            State_timer += Time.deltaTime;
             //Vector3 force;
             //force = transform.position * 200;
             // Rigidbodyに力を加えて発射
             //GetComponent<Rigidbody>().AddForce(force);
-            if (m_stateTimer >= 3)
+            if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
             }
@@ -124,68 +138,74 @@ public class RunnerController : SingletonMono<RunnerController>
 
     void OnCollisionEnter(Collision hit)
     {
+        
         if (hit.gameObject.tag == TagName.Push)
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
-            m_stateTimer = 0;
+            State_timer = 0;
         }
-        if (hit.gameObject.tag == TagName.Itimatu)
-        {
-            Debug.Log("当たった");
-            m_runnerStatus.isState = false;
-            Destroy(hit.gameObject);
-        }
+        //if (hit.gameObject.tag == TagName.Itimatu)
+        //{
+        //    Debug.Log("当たった");
+        //    m_runnerStatus.isState = false;
+        //    Destroy(hit.gameObject);
+        //}
     }
 
     void OnCollisionStay(Collision col)
     {
-        PickUpCheckEvent(col);
+        
+        CheckEvent(col);
     }
 
-    void PickUpCheckEvent(Collision col)
+    void CheckEvent(Collision col)
     {
 
         if (m_runnerStatus.ishave == false)
         {
-            switch (col.gameObject.name)
+            Debug.Log(col.gameObject.name);
+            if (col.gameObject.tag == TagName.Itimatu)
             {
-                case ItemName.itimatu:
-                    Debug.Log("市松人形だよ");
-                    if (m_runnerInput.button_B == true)
-                    {
-                        //アイテムを持ったらtrueに変更
-                        m_runnerStatus.ishave = true;
-                        //アイテムの番号を1に変更
-                        m_runnerMove.m_itemNum = 1;
-                        //拾ったアイテムを消去
-                        Destroy(col.gameObject);
-                    }
-                    break;
-                case ItemName.Drug:
-                    Debug.Log("薬だよ");
-                    if (m_runnerInput.button_B == true)
-                    {
-                        //アイテムを持ったらtrueに変更
-                        m_runnerStatus.ishave = true;
-                        //アイテムの番号を2に変更
-                        m_runnerMove.m_itemNum = 2;
-                        //拾ったアイテムを消去
-                        Destroy(col.gameObject);
-                    }
-                    break;
-                case ItemName.Bill:
-                    Debug.Log("お札だよ");
-                    if (m_runnerInput.button_B == true)
-                    {
-                        //アイテムを持ったらtrueに変更
-                        m_runnerStatus.ishave = true;
-                        //アイテムの番号を3に変更
-                        m_runnerMove.m_itemNum = 3;
-                        //拾ったアイテムを消去
-                        Destroy(col.gameObject);
-                    }
-                    break;
+                Debug.Log("市松人形だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    //アイテムを持ったらtrueに変更
+                    m_runnerStatus.ishave = true;
+                    //アイテムの番号を1に変更
+                    m_runnerMove.m_itemNum = 1;
+                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(0);
+                    //拾ったアイテムを消去
+                    Destroy(col.gameObject);
+                }
+            }
+            if(col.gameObject.name == ItemName.Drug)
+            {
+                Debug.Log("薬だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    //アイテムを持ったらtrueに変更
+                    m_runnerStatus.ishave = true;
+                    //アイテムの番号を2に変更
+                    m_runnerMove.m_itemNum = 2;
+                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(1);
+                    //拾ったアイテムを消去
+                    Destroy(col.gameObject);
+                }
+            }
+            if (col.gameObject.name == ItemName.Bill)
+            {
+                Debug.Log("お札だよ");
+                if (m_runnerInput.button_B == true)
+                {
+                    //アイテムを持ったらtrueに変更
+                    m_runnerStatus.ishave = true;
+                    //アイテムの番号を3に変更
+                    m_runnerMove.m_itemNum = 3;
+                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(2);
+                    //拾ったアイテムを消去
+                    Destroy(col.gameObject);
+                }
             }
         }
         else

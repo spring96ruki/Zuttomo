@@ -10,8 +10,9 @@ public class RunnerMove : MonoBehaviour
     public GameObject m_Push;
     public GameObject m_item;
     public Transform m_FiringPosition;
-    public Image m_healthUI;
     public float m_healthTime = 5f;
+
+    public Transform m_player;
 
     public float m_itemspeed = 1000;
     [HideInInspector]
@@ -22,30 +23,35 @@ public class RunnerMove : MonoBehaviour
     public int m_itemNum;
 
     RunnerInput m_runnerInput;
-    RunnerStatus m_runnerStatus;
+    RunnerStatus m_status;
     [HideInInspector]
     Rigidbody m_rigidbody;
     public float m_bufftimer;
     float m_coolTime;
+
+    UIController m_uIController;
+
+    private Vector3 m_prevPos;
 
 
 
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
-        m_runnerStatus = GetComponent<RunnerStatus>();
+        m_uIController = GetComponent<UIController>();
+        m_status = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
 	public void Move()
 	{
-		float horizontal = m_runnerInput.Laxis_x * m_runnerStatus.speed * Time.deltaTime;
-		float virtical = m_runnerInput.Laxis_y * m_runnerStatus.speed * Time.deltaTime;
+		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
+		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
 		PlayerRotation(horizontal, virtical);
 		PlayerAnimation(horizontal, virtical);
-		HealthControll();
         KillPlayerAnimation();
-
+        HealthControll();
+        m_prevPos = transform.position;
     }
 
 	void PlayerRotation(float horizontal, float virtical)
@@ -70,19 +76,19 @@ public class RunnerMove : MonoBehaviour
 	{
 		if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
 		{
-			if (m_runnerStatus.speed <= m_runnerStatus.firstSpeed)
+			if (m_status.speed <= m_status.firstSpeed)
 			{
-				m_runnerStatus.animator.SetBool("HalfRun", true);
-				m_runnerStatus.animator.SetBool("FullRun", false);
+				m_status.animator.SetBool("HalfRun", true);
+				m_status.animator.SetBool("FullRun", false);
 			}
-			else if (m_runnerStatus.speed >= m_runnerStatus.firstSpeed)
+			else if (m_status.speed >= m_status.firstSpeed)
 			{
-				m_runnerStatus.animator.SetBool("FullRun", true);
+				m_status.animator.SetBool("FullRun", true);
 			}
 		} else
 		{
-			m_runnerStatus.animator.SetBool("HalfRun", false);
-			m_runnerStatus.animator.SetBool("FullRun", false);
+			m_status.animator.SetBool("HalfRun", false);
+			m_status.animator.SetBool("FullRun", false);
 		}
 	}
 
@@ -92,73 +98,72 @@ public class RunnerMove : MonoBehaviour
         {
             if (m_runnerInput.button_B == true)
             {
-                m_runnerStatus.animator.SetBool("Kill", true);
+                m_status.animator.SetBool("Kill", true);
                 m_coolTime = 0;
             }
             m_coolTime += Time.deltaTime;
             if(m_coolTime >= 3)
             {
-                m_runnerStatus.animator.SetBool("Kill", false);
+                m_status.animator.SetBool("Kill", false);
             }
 
         }
     }
 
-    void HealthControll()
-	{
-		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
-			m_runnerStatus.speed = m_runnerStatus.maxSpeed;
-			m_runnerStatus.health -= Time.deltaTime;
-		} else { 
-			if (m_runnerStatus.isHealth == true) {
-				if (m_runnerInput.button_RB == true) {
-					Debug.Log ("ダッシュ");
-					m_runnerStatus.speed = m_runnerStatus.maxSpeed;
-					m_runnerStatus.health -= Time.deltaTime;
-				}
-			} else {
-				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
-			}
+    public void HealthControll()
+    {
+        if (this.GetComponent<RunnerController>().ChaserFlag == true)
+        {
+            m_status.speed = m_status.maxSpeed;
+            m_status.health -= Time.deltaTime;
+        }
+        else
+        {
+            if (m_status.isHealth == true)
+            {
+                if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
+                {
+                    if (m_runnerInput.button_RB == true)
+                    {
+                        Debug.Log("ダッシュ");
+                        m_status.speed = m_status.maxSpeed;
+                        m_status.health -= Time.deltaTime;
+                        m_uIController.m_healthUI.fillAmount = m_status.health / m_status.maxHealth;
+                    }
+                }
+            }
+            else
+            {
+                m_status.speed = m_status.firstSpeed;
+            }
 
-			if (m_runnerStatus.health > m_runnerStatus.maxHealth) {
-				m_runnerStatus.isHealth = true;
-			}
+            if (m_status.health > m_status.maxHealth)
+            {
+                m_status.isHealth = true;
+            }
 
-			if (m_runnerStatus.health <= 0f) {
-				m_runnerStatus.isHealth = false;
-			}
-			//スタミナがなかったら
-			if (m_runnerStatus.isHealth == false) {
-				//スタミナ回復
-				m_runnerStatus.health += Time.deltaTime;
-			}
-			if (m_runnerStatus.health >= m_runnerStatus.maxHealth) {
-				m_runnerStatus.health = m_runnerStatus.maxHealth;
-			}
+            if (m_status.health <= 0f)
+            {
+                m_status.isHealth = false;
+            }
+            if (m_status.health >= m_status.maxHealth)
+            {
+                m_status.health = m_status.maxHealth;
+            }
 
-			//ボタンが押されてなかったら
-			if (m_runnerInput.button_RB == false) {
-				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
-				//スタミナがのっこていたら
-				if (m_runnerStatus.health >= 0f) {
-					//スタミナ回復
-					m_runnerStatus.health += Time.deltaTime;
-				}
-			}
 
-			if (m_runnerStatus.isBuff == false) {
-				m_runnerStatus.maxHealth = 5;
-				m_runnerStatus.maxSpeed = 5f;
-			} else {
-				m_bufftimer += Time.deltaTime;
-				m_runnerStatus.maxHealth = 10;
-				m_runnerStatus.maxSpeed = 15;
-				if (m_bufftimer > 4) {
-					m_runnerStatus.isBuff = false;
-				}
-			}
-		}
-	}
+            //ボタンが押されてなかったら
+            if (m_runnerInput.button_RB == false || m_prevPos == transform.position)
+            {
+                m_status.speed = m_status.firstSpeed;
+                //スタミナ回復
+                m_status.health += Time.deltaTime;
+                m_uIController.m_healthUI.fillAmount = m_status.health / m_status.maxHealth;
+            }
+        }
+    }
+
+
 
     public void Button()
     {
@@ -185,7 +190,7 @@ public class RunnerMove : MonoBehaviour
 
         if (m_runnerInput.button_X == true)
         {
-            if (m_runnerStatus.ishave == true)
+            if (m_status.ishave == true)
             {
                 switch (m_itemNum)
                 {
@@ -199,13 +204,13 @@ public class RunnerMove : MonoBehaviour
                         // アイテムの位置を調整
                         bullets.transform.position = m_FiringPosition.position;
                         bullets.tag = "Itimathu";
-                        m_runnerStatus.ishave = false;
+                        m_status.ishave = false;
 
                         break;
 
                     case 2:
                         Debug.Log("力が上がったよ");
-                        m_runnerStatus.ishave = false;
+                        m_status.ishave = false;
                         break;
 
                     case 3:

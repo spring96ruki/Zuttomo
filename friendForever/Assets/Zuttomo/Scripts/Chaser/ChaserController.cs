@@ -22,7 +22,7 @@ public class ChaserController : SingletonMono<ChaserController> {
     public float m_invisibleTime;
     public ChaserState m_chaserState;
     [HideInInspector]
-    public float m_stateTimer;
+    public float State_timer;
 
     // Use this for initialization
     private void Start()
@@ -65,12 +65,12 @@ public class ChaserController : SingletonMono<ChaserController> {
         }
         else
         {
-            m_stateTimer += Time.deltaTime;
+            State_timer += Time.deltaTime;
             //Vector3 force;
             //force = transform.position * 200;
             // Rigidbodyに力を加えて発射
             //GetComponent<Rigidbody>().AddForce(force);
-            if (m_stateTimer >= 3)
+            if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
             }
@@ -87,7 +87,7 @@ public class ChaserController : SingletonMono<ChaserController> {
         if (Input.GetKeyDown(KeyCode.R))
         {
             ChaserSkill.Instance.StanSkilStart(gameObject);
-            RunnerController.Instance.m_stanTime = m_stanTime;
+            RunnerController.Instance.stanTime = m_stanTime;
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -110,7 +110,7 @@ public class ChaserController : SingletonMono<ChaserController> {
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
-            m_stateTimer = 0;
+            State_timer = 0;
         }
     }
 }
