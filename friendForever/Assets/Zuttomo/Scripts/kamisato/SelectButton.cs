@@ -9,12 +9,16 @@ public class SelectButton : MonoBehaviour {
     public int selectstate;
     public bool PushSubmit;
     public SelectController selectController;
+    public GameObject RunnerSprite;
+    public GameObject ChaserSprite;
+    public GameObject SubmitSprite;
 
     // Use this for initialization
-    void Awake () { 
+    void Awake () {
         m_runnerInput = GetComponent<RunnerInput>();
         selectstate = 0;
         PushSubmit = false;
+        SubmitSprite.SetActive(false);
     }
 	
 	// Update is called once per frame
@@ -27,21 +31,27 @@ public class SelectButton : MonoBehaviour {
                 if (m_runnerInput.Laxis_x >= 0.7)
                 {
                     selectstate = 2;
+                    RunnerSprite.transform.localScale = new Vector3(700, 700, 1);
+                    ChaserSprite.transform.localScale = new Vector3(1300, 1300, 1);
                 }
                 else if (m_runnerInput.Laxis_x <= -0.7)
                 {
                     selectstate = 1;
+                    RunnerSprite.transform.localScale = new Vector3(1300, 1300, 1);
+                    ChaserSprite.transform.localScale = new Vector3(700, 700, 1);
                 }
 
                 if (m_runnerInput.button_A == true)
                 {
                     PushSubmit = true;
                     selectController.player_count++;
+                    SubmitSprite.SetActive(true);
                 }
             } else if (m_runnerInput.button_B == true)
             {
                 PushSubmit = false;
                 selectController.player_count--;
+                SubmitSprite.SetActive(false);
             }
 
             selectController.allplayerSelectState[player_num - 1] = selectstate;
