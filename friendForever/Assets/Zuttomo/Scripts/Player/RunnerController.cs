@@ -22,7 +22,6 @@ public class RunnerController : SingletonMono<RunnerController>
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
     UIController m_uIController;
-
     protected RunnerStatus m_status;
     [HideInInspector]
     public Rigidbody m_rigidbody;
@@ -30,15 +29,13 @@ public class RunnerController : SingletonMono<RunnerController>
 
     RunnerState m_state;
 
-
-
     void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
-        m_rigidBody = GetComponent<Rigidbody>();
         m_uIController = GetComponent<UIController>();
+        m_rigidBody = GetComponent<Rigidbody>();
     }
 
 	void Start()
@@ -60,10 +57,9 @@ public class RunnerController : SingletonMono<RunnerController>
     {
         RunnerStanTime();
         m_runnerInput.PController();
-        if (transform.position.y < -10)
-        {
-            transform.position = new Vector3(0, 3, 0);
-        }
+		if (transform.position.y < -10) {
+			transform.position = new Vector3 (0, 3, 0);
+		} 
     }
 
     public void RunnerStan(RunnerState state, float skilTime)
@@ -118,6 +114,7 @@ public class RunnerController : SingletonMono<RunnerController>
         if (m_runnerStatus.isState == true)
         {
             m_runnerMove.Move();
+            m_uIController.HealthUIControll();
             m_runnerMove.Button();
         }
         else
@@ -138,24 +135,22 @@ public class RunnerController : SingletonMono<RunnerController>
 
     void OnCollisionEnter(Collision hit)
     {
-        
         if (hit.gameObject.tag == TagName.Push)
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
             State_timer = 0;
         }
-        //if (hit.gameObject.tag == TagName.Itimatu)
-        //{
-        //    Debug.Log("当たった");
-        //    m_runnerStatus.isState = false;
-        //    Destroy(hit.gameObject);
-        //}
+        if (hit.gameObject.tag == TagName.Itimatu)
+        {
+            Debug.Log("当たった");
+            m_runnerStatus.isState = false;
+            Destroy(hit.gameObject);
+        }
     }
 
     void OnCollisionStay(Collision col)
     {
-        
         CheckEvent(col);
     }
 
@@ -164,8 +159,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            Debug.Log(col.gameObject.name);
-            if (col.gameObject.tag == TagName.Itimatu)
+            if (col.gameObject.name == ItemName.itimatu)
             {
                 Debug.Log("市松人形だよ");
                 if (m_runnerInput.button_B == true)
@@ -174,7 +168,6 @@ public class RunnerController : SingletonMono<RunnerController>
                     m_runnerStatus.ishave = true;
                     //アイテムの番号を1に変更
                     m_runnerMove.m_itemNum = 1;
-                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(0);
                     //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
@@ -188,7 +181,6 @@ public class RunnerController : SingletonMono<RunnerController>
                     m_runnerStatus.ishave = true;
                     //アイテムの番号を2に変更
                     m_runnerMove.m_itemNum = 2;
-                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(1);
                     //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
@@ -202,7 +194,6 @@ public class RunnerController : SingletonMono<RunnerController>
                     m_runnerStatus.ishave = true;
                     //アイテムの番号を3に変更
                     m_runnerMove.m_itemNum = 3;
-                    m_uIController.m_item.sprite = GameController.Instance.GetItemImage(2);
                     //拾ったアイテムを消去
                     Destroy(col.gameObject);
                 }
