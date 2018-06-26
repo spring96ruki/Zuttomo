@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
             player.GetComponent<RunnerInput>().runnerNum = i + 1;
             camera.GetComponent<RunnerInput>().runnerNum = i + 1;
 
-            if (1 == i + 1)
+            if (m_getChaserNum == i + 1)
             {
                 player.GetComponent<RunnerController>().ChaserFlag = true;
             }

@@ -25,7 +25,7 @@ public class SelectButton : MonoBehaviour {
 	void Update () {
         m_runnerInput.PController();
 
-        if (m_runnerInput.button_A == true || m_runnerInput.button_B == true || Mathf.Abs(m_runnerInput.Laxis_x) >= 0.7) {
+        if (m_runnerInput.button_A || m_runnerInput.button_B || m_runnerInput.button_Y || m_runnerInput.button_X || Mathf.Abs(m_runnerInput.Laxis_x) >= 0.7) {
             if (PushSubmit == false)
             {
                 if (m_runnerInput.Laxis_x >= 0.7)
@@ -41,13 +41,13 @@ public class SelectButton : MonoBehaviour {
                     ChaserSprite.transform.localScale = new Vector3(700, 700, 1);
                 }
 
-                if (m_runnerInput.button_A == true)
+                if (m_runnerInput.button_Y == true && selectstate != 0)
                 {
                     PushSubmit = true;
                     selectController.player_count++;
                     SubmitSprite.SetActive(true);
                 }
-            } else if (m_runnerInput.button_B == true)
+            } else if (m_runnerInput.button_B == true && selectstate != 0)
             {
                 PushSubmit = false;
                 selectController.player_count--;
