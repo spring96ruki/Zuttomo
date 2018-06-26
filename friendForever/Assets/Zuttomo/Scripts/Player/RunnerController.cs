@@ -15,18 +15,17 @@ public class RunnerController : SingletonMono<RunnerController>
     public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
     [HideInInspector]
 	public bool ChaserFlag;
-    public float State_timer;
-    float currentSpeed;
-    Rigidbody m_rigidBody;
-    //RunnerCore m_runnerCore;
+    public float m_stateTimer;
+
+    float m_currentSpeed;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
-    protected RunnerStatus m_status;
+    RunnerStatus m_status;
     [HideInInspector]
-    public Rigidbody m_rigidbody;
-    bool isStan = false;
+    public Rigidbody m_rigidBody;
 
+    bool isStan = false;
     RunnerState m_state;
 
     void Awake()
@@ -83,7 +82,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
             // スタン処理
             // 現在のスピードを別の変数に保持し、スピードを0に変更
-            currentSpeed = m_runnerStatus.speed;
+            m_currentSpeed = m_runnerStatus.speed;
             m_runnerStatus.speed = 0f;
 
             if (stanTime < 0)
@@ -102,7 +101,7 @@ public class RunnerController : SingletonMono<RunnerController>
                 // スタン終了時に保持してたスピードをプレイヤーのステータスへ戻す
                 if (isStan == false)
                 {
-                    m_runnerStatus.speed = currentSpeed;
+                    m_runnerStatus.speed = m_currentSpeed;
                 }
             }
         }
@@ -119,12 +118,12 @@ public class RunnerController : SingletonMono<RunnerController>
         {
             m_runnerStatus.animator.SetBool("HalfRun", false);
             m_runnerStatus.animator.SetBool("FullRun", false);
-            State_timer += Time.deltaTime;
+            m_stateTimer += Time.deltaTime;
             //Vector3 force;
             //force = transform.position * 200;
             // Rigidbodyに力を加えて発射
             //GetComponent<Rigidbody>().AddForce(force);
-            if (State_timer >= 3)
+            if (m_stateTimer >= 3)
             {
                 m_runnerStatus.isState = true;
             }
@@ -137,7 +136,7 @@ public class RunnerController : SingletonMono<RunnerController>
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
-            State_timer = 0;
+            m_stateTimer = 0;
         }
         if (hit.gameObject.tag == TagName.Itimatu)
         {
@@ -157,44 +156,44 @@ public class RunnerController : SingletonMono<RunnerController>
 
         if (m_runnerStatus.ishave == false)
         {
-            if (col.gameObject.name == ItemName.itimatu)
+            switch (col.gameObject.name)
             {
-                Debug.Log("市松人形だよ");
-                if (m_runnerInput.button_B == true)
-                {
-                    //アイテムを持ったらtrueに変更
-                    m_runnerStatus.ishave = true;
-                    //アイテムの番号を1に変更
-                    m_runnerMove.m_itemNum = 1;
-                    //拾ったアイテムを消去
-                    Destroy(col.gameObject);
-                }
-            }
-            if(col.gameObject.name == ItemName.Drug)
-            {
-                Debug.Log("薬だよ");
-                if (m_runnerInput.button_B == true)
-                {
-                    //アイテムを持ったらtrueに変更
-                    m_runnerStatus.ishave = true;
-                    //アイテムの番号を2に変更
-                    m_runnerMove.m_itemNum = 2;
-                    //拾ったアイテムを消去
-                    Destroy(col.gameObject);
-                }
-            }
-            if (col.gameObject.name == ItemName.Bill)
-            {
-                Debug.Log("お札だよ");
-                if (m_runnerInput.button_B == true)
-                {
-                    //アイテムを持ったらtrueに変更
-                    m_runnerStatus.ishave = true;
-                    //アイテムの番号を3に変更
-                    m_runnerMove.m_itemNum = 3;
-                    //拾ったアイテムを消去
-                    Destroy(col.gameObject);
-                }
+                case ItemName.itimatu:
+                    Debug.Log("市松人形だよ");
+                    if (m_runnerInput.button_B == true)
+                    {
+                        //アイテムを持ったらtrueに変更
+                        m_runnerStatus.ishave = true;
+                        //アイテムの番号を1に変更
+                        m_runnerMove.m_itemNum = 1;
+                        //拾ったアイテムを消去
+                        Destroy(col.gameObject);
+                    }
+                    break;
+                case ItemName.Drug:
+                    Debug.Log("薬だよ");
+                    if (m_runnerInput.button_B == true)
+                    {
+                        //アイテムを持ったらtrueに変更
+                        m_runnerStatus.ishave = true;
+                        //アイテムの番号を2に変更
+                        m_runnerMove.m_itemNum = 2;
+                        //拾ったアイテムを消去
+                        Destroy(col.gameObject);
+                    }
+                    break;
+                case ItemName.Bill:
+                    Debug.Log("お札だよ");
+                    if (m_runnerInput.button_B == true)
+                    {
+                        //アイテムを持ったらtrueに変更
+                        m_runnerStatus.ishave = true;
+                        //アイテムの番号を3に変更
+                        m_runnerMove.m_itemNum = 3;
+                        //拾ったアイテムを消去
+                        Destroy(col.gameObject);
+                    }
+                    break;
             }
         }
         else
