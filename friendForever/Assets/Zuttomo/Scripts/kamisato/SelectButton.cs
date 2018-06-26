@@ -4,37 +4,53 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour {
-
-    public static int Chaserplayer = 0;
-    public static int player = 0;
+    private RunnerInput m_runnerInput;
     public int player_num;
-    
     public int selectstate;
+    public bool PushSubmit;
     public SelectController selectController;
 
-
     // Use this for initialization
-    void Start () {
-        
+    void Awake () { 
+        m_runnerInput = GetComponent<RunnerInput>();
+        selectstate = 0;
+        PushSubmit = false;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        m_runnerInput.PController();
+
+        if (m_runnerInput.button_A == true || m_runnerInput.button_B == true || Mathf.Abs(m_runnerInput.Laxis_x) >= 0.7) {
+            if (PushSubmit == false)
+            {
+                if (m_runnerInput.Laxis_x >= 0.7)
+                {
+                    selectstate = 2;
+                }
+                else if (m_runnerInput.Laxis_x <= -0.7)
+                {
+                    selectstate = 1;
+                }
+
+                if (m_runnerInput.button_A == true)
+                {
+                    PushSubmit = true;
+                    selectController.player_count++;
+                }
+            } else if (m_runnerInput.button_B == true)
+            {
+                PushSubmit = false;
+                selectController.player_count--;
+            }
+
+            selectController.allplayerSelectState[player_num - 1] = selectstate;
+            selectController.Lottery();
+        }
 	}
 
     public void Title()
     {
         SceneController.Instance.LoadScene(SceneName.SELECT_SCENE);
-    }
-
-
-    public void Select()
-    {
-        //SelectControllerに選択結果を送っている
-        selectController.allplayerSelectState[player_num - 1] = selectstate;
-        selectController.Lottery();
-        //Debug.Log(selectController.allplayer_selectstate[player_num - 1]);
-       //FadeManager.Instance.LoadScene(SceneName.GAME_SCENE,1.0f);
     }
 }

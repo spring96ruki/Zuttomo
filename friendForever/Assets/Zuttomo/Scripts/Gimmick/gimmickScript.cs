@@ -31,6 +31,14 @@ public class gimmickScript : MonoBehaviour
         Instantiate(door, new Vector3(-3, 0f, 7), Quaternion.identity);
     }
 
+    internal void RunnerKill(int target)
+    {
+        Debug.Log("kill");
+        Debug.Log(target);
+        //throw new NotImplementedException();
+        
+    }
+
     public void GimmickStart()
     {
         for (int i = 0; i < 7; i++)
