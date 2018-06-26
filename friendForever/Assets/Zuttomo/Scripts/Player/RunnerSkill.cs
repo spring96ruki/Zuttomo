@@ -5,11 +5,14 @@ using UnityEngine;
 public class RunnerSkill : MonoBehaviour {
 
     [SerializeField]
-    GameObject m_playerArea;
+    GameObject m_runnerArea;
     RunnerInput m_runnerInput;
     RunnerStatus m_runnerStatus;
     RunnerController m_runnerController;
     RunnerMove m_runnerMove;
+
+    int m_itemNum;
+    float m_buffTimer;
 
 	void Start()
 	{
@@ -21,69 +24,74 @@ public class RunnerSkill : MonoBehaviour {
 
 	public void HitEvent(Collision hit)
     {
-        if (hit.gameObject.tag == TagName.Push)
+        switch(hit.gameObject.tag)
+        {
+            case TagName.Push:
+                m_runnerStatus.isState = false;
+                Debug.Log("当たった");
+                m_runnerController.State_timer = 0;
+                break;
+            case TagName.Itimatu:
+                Debug.Log("当たった");
+                m_runnerStatus.isState = false;
+                m_runnerController.State_timer = 0;
+                Destroy(hit.gameObject);
+                break;
+        }
+
+        if(hit.gameObject.name == "RunnerArea")
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
             m_runnerController.State_timer = 0;
         }
-
-        if (hit.gameObject.tag == TagName.Itimatu)
-        {
-            Debug.Log("当たった");
-            m_runnerStatus.isState = false;
-            Destroy(hit.gameObject);
-        }
     }
 
     public void CheckEvent(Collision check)
     {
-
         if (m_runnerStatus.ishave == false)
         {
-            if (check.gameObject.name == ItemName.itimatu)
+            switch (check.gameObject.name)
             {
-                Debug.Log("市松人形だよ");
-                if (m_runnerInput.button_B == true)
-                {
-                    //アイテムを持ったらtrueに変更
-                    m_runnerStatus.ishave = true;
-                    //アイテムの番号を1に変更
-                    m_runnerMove.m_itemNum = 1;
-                    //拾ったアイテムを消去
-                    Destroy(check.gameObject);
-                }
+                case ItemName.itimatu:
+                    Debug.Log("市松人形だよ");
+                    if (m_runnerInput.button_B == true)
+                    {
+                        //アイテムを持ったらtrueに変更
+                        m_runnerStatus.ishave = true;
+                        //アイテムの番号を1に変更
+                        m_itemNum = 1;
+                        //拾ったアイテムを消去
+                        Destroy(check.gameObject);
+                    }
+                    break;
+
+                case ItemName.Drug:
+                    Debug.Log("薬だよ");
+                    if (m_runnerInput.button_B == true)
+                    {
+                        //アイテムを持ったらtrueに変更
+                        m_runnerStatus.ishave = true;
+                        //アイテムの番号を2に変更
+                        m_itemNum = 2;
+                        //拾ったアイテムを消去
+                        Destroy(check.gameObject);
+                    }
+                    break;
+
+                case ItemName.Ohuda:
+                    Debug.Log("お札だよ");
+                    if (m_runnerInput.button_B == true)
+                    {
+                        //アイテムを持ったらtrueに変更
+                        m_runnerStatus.ishave = true;
+                        //アイテムの番号を3に変更
+                        m_itemNum = 3;
+                        //拾ったアイテムを消去
+                        Destroy(check.gameObject);
+                    }
+                    break;
             }
-            if (check.gameObject.name == ItemName.Drug)
-            {
-                Debug.Log("薬だよ");
-                if (m_runnerInput.button_B == true)
-                {
-                    //アイテムを持ったらtrueに変更
-                    m_runnerStatus.ishave = true;
-                    //アイテムの番号を2に変更
-                    m_runnerMove.m_itemNum = 2;
-                    //拾ったアイテムを消去
-                    Destroy(check.gameObject);
-                }
-            }
-            if (check.gameObject.name == ItemName.Ohuda)
-            {
-                Debug.Log("お札だよ");
-                if (m_runnerInput.button_B == true)
-                {
-                    //アイテムを持ったらtrueに変更
-                    m_runnerStatus.ishave = true;
-                    //アイテムの番号を3に変更
-                    m_runnerMove.m_itemNum = 3;
-                    //拾ったアイテムを消去
-                    Destroy(check.gameObject);
-                }
-            }
-        }
-        else
-        {
-            Debug.Log("これ以上は持てないよ");
         }
     }
 
@@ -91,7 +99,7 @@ public class RunnerSkill : MonoBehaviour {
 	{
         if (m_runnerStatus.ishave == true)
         {
-            switch (m_runnerMove.m_itemNum)
+            switch (m_itemNum)
             {
                 case 1:
                     Debug.Log("市松人形を投げたよ");
@@ -109,6 +117,7 @@ public class RunnerSkill : MonoBehaviour {
                 case 2:
                     Debug.Log("力が上がったよ");
                     m_runnerStatus.ishave = false;
+                    m_runnerStatus.isBuff = true;
                     break;
 
                 case 3:
@@ -120,12 +129,25 @@ public class RunnerSkill : MonoBehaviour {
         }
 	}
 
+    public void DrugEvent()
+    {
+        if (m_runnerStatus.isBuff == true)
+        {
+            m_buffTimer += Time.deltaTime;
+            m_runnerStatus.health = m_runnerStatus.maxHealth;
+            if (m_buffTimer > 4)
+            {
+                m_runnerStatus.isBuff = false;
+            }
+        }
+    }
+
     IEnumerator Invincible()
     {
         //レイヤーをPlayerInvincibleに変更
         gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
-        m_playerArea.SetActive(true);
-        //while文を50回ループ
+        m_runnerArea.SetActive(true);
+        //while文を3秒間ループする
         float m_invincibleTime = 3f;
         while (m_invincibleTime > 0)
         {
@@ -133,7 +155,7 @@ public class RunnerSkill : MonoBehaviour {
             yield return null;
             Debug.Log(m_invincibleTime);
         }
-        m_playerArea.SetActive(false);
+        m_runnerArea.SetActive(false);
         //レイヤーをPlayerに戻す
         gameObject.layer = LayerMask.NameToLayer("Player");
     }

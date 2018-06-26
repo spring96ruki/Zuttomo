@@ -57,6 +57,7 @@ public class RunnerController : SingletonMono<RunnerController>
     {
         RunnerStanTime();
         m_runnerInput.PController();
+        m_runnerSkill.DrugEvent();
 		if (transform.position.y < -10) {
 			transform.position = new Vector3 (0, 3, 0);
 		} 

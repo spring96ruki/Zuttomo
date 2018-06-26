@@ -46,5 +46,5 @@ public static class ItemName
 {
     public const string itimatu = "itimatu";
     public const string Ohuda = "ohuda";
-    public const string Drug = "Drug";
+    public const string Drug = "inrou";
 }

@@ -16,17 +16,11 @@ public class RunnerMove : MonoBehaviour
     public float m_itemspeed = 1000;
     [HideInInspector]
     public float m_timer;
-    [HideInInspector]
-    public float m_buffTimer;
-    [HideInInspector]
-    public int m_itemNum;
-
     RunnerInput m_runnerInput;
     RunnerStatus m_status;
 	RunnerSkill m_runnerSkill;
     [HideInInspector]
     Rigidbody m_rigidbody;
-    public float m_bufftimer;
     float m_coolTime;
 
     private void Awake()
@@ -108,7 +102,6 @@ public class RunnerMove : MonoBehaviour
 	{
 		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
 			m_status.speed = m_status.maxSpeed;
-			m_status.health -= Time.deltaTime;
 		} else { 
 			if (m_status.isHealth == true) {
 				if (m_runnerInput.button_RB == true) {
@@ -143,18 +136,6 @@ public class RunnerMove : MonoBehaviour
 				if (m_status.health >= 0f) {
 					//スタミナ回復
 					m_status.health += Time.deltaTime;
-				}
-			}
-
-			if (m_status.isBuff == false) {
-				m_status.maxHealth = 5;
-				m_status.maxSpeed = 10;
-			} else {
-				m_bufftimer += Time.deltaTime;
-				m_status.maxHealth = 10;
-				m_status.maxSpeed = 15;
-				if (m_bufftimer > 4) {
-					m_status.isBuff = false;
 				}
 			}
 		}
