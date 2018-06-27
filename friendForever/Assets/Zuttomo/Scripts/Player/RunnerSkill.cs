@@ -12,7 +12,8 @@ public class RunnerSkill : MonoBehaviour {
     RunnerMove m_runnerMove;
 
     int m_itemNum;
-    float m_buffTimer;
+    [SerializeField]
+    float m_EventaTimer;
 
 	void Start()
 	{
@@ -116,8 +117,8 @@ public class RunnerSkill : MonoBehaviour {
 
                 case 2:
                     Debug.Log("力が上がったよ");
+                    StartCoroutine("DrugEvent");
                     m_runnerStatus.ishave = false;
-                    m_runnerStatus.isBuff = true;
                     break;
 
                 case 3:
@@ -129,16 +130,16 @@ public class RunnerSkill : MonoBehaviour {
         }
 	}
 
-    public void DrugEvent()
+    IEnumerator DrugEvent()
     {
-        if (m_runnerStatus.isBuff == true)
+        float m_buffTimer;
+        m_buffTimer = m_EventaTimer;
+        while (m_buffTimer > 0)
         {
-            m_buffTimer += Time.deltaTime;
+            m_buffTimer -= Time.deltaTime;
             m_runnerStatus.health = m_runnerStatus.maxHealth;
-            if (m_buffTimer > 4)
-            {
-                m_runnerStatus.isBuff = false;
-            }
+            yield return null;
+            Debug.Log(m_buffTimer);
         }
     }
 
@@ -148,7 +149,7 @@ public class RunnerSkill : MonoBehaviour {
         gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
         m_runnerArea.SetActive(true);
         //while文を3秒間ループする
-        float m_invincibleTime = 3f;
+        float m_invincibleTime = m_EventaTimer;
         while (m_invincibleTime > 0)
         {
             m_invincibleTime -= Time.deltaTime;

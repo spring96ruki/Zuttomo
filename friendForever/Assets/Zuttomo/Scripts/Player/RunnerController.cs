@@ -48,7 +48,6 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus.maxHealth = 5;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
-        m_runnerStatus.isBuff = false;
         m_runnerStatus.animator = GetComponent<Animator>();
 	}
 
@@ -57,7 +56,6 @@ public class RunnerController : SingletonMono<RunnerController>
     {
         RunnerStanTime();
         m_runnerInput.PController();
-        m_runnerSkill.DrugEvent();
 		if (transform.position.y < -10) {
 			transform.position = new Vector3 (0, 3, 0);
 		} 
