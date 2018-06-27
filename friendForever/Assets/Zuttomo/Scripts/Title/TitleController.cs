@@ -15,9 +15,11 @@ public class TitleController : MonoBehaviour
     void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
-        SelectState = false;
-        StartSprite.transform.localScale = new Vector3(60, 60, 1);
+        SelectState = true;
+        StartSprite.transform.localScale = new Vector3(50, 50, 1);
         HowtoplaySprite.transform.localScale = new Vector3(20, 20, 1);
+        StartSprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+        HowtoplaySprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.75f);
     }
 
     // Update is called once per frame
@@ -29,21 +31,27 @@ public class TitleController : MonoBehaviour
         {
             if (m_runnerInput.Laxis_x >= 0.7)
             {
-                SelectState = true;
+                SelectState = false;
+
+                HowtoplaySprite.transform.localScale = new Vector3(50, 50, 1);
                 StartSprite.transform.localScale = new Vector3(20, 20, 1);
-                HowtoplaySprite.transform.localScale = new Vector3(60, 60, 1);
+                HowtoplaySprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                StartSprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.75f);
             }
             else if (m_runnerInput.Laxis_x <= -0.7)
             {
                 SelectState = true;
-                StartSprite.transform.localScale = new Vector3(60, 60, 1);
+
+                StartSprite.transform.localScale = new Vector3(50, 50, 1);
                 HowtoplaySprite.transform.localScale = new Vector3(20, 20, 1);
+                StartSprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+                HowtoplaySprite.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0.75f);
             }
 
             if (m_runnerInput.button_Y == true)
             {
                 SceneController.Instance.LoadScene(SceneName.SELECT_SCENE);
             }
-        }        
+        }
     }
 }
