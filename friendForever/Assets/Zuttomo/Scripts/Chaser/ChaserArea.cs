@@ -10,7 +10,7 @@ public class ChaserArea : MonoBehaviour {
             if (other.tag == "Runner")
             {
                 Debug.Log("捕まえたよ");
-            other.gameObject.SetActive(false);
+                other.gameObject.SetActive(false);
                 GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd();
         }
         }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaserSkill : FindObject {
+public class ChaserSkill
+{
 
     static ChaserSkill instance;
     public static ChaserSkill Instance
@@ -26,9 +27,6 @@ public class ChaserSkill : FindObject {
 
     public void StanSkilStart(GameObject chaserObject)
     {
-
-        FindPlayer(chaserObject);
-
         float coolTime = ChaserController.Instance.m_coolTime;
         float maxCoolTime = ChaserController.Instance.m_maxCoolTime;
         float skilTime = ChaserController.Instance.m_stanTime;
@@ -37,8 +35,6 @@ public class ChaserSkill : FindObject {
 
     void StanSkil(float coolTime, float skilTime)
     {
-
-        // Rayを飛ばして対象がいたらRunnerControllerへ登録
         if (coolTime == 0f)
         {
             Debug.Log("wan");

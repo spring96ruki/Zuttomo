@@ -13,7 +13,7 @@ public class ChaserController : SingletonMono<ChaserController> {
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
-    ChaserMove m_ChaserMove;
+    ChaserMove m_chaserMove;
     RunnerStatus m_runnerStatus;
 
     public float m_coolTime;
@@ -23,12 +23,13 @@ public class ChaserController : SingletonMono<ChaserController> {
     public ChaserState m_chaserState;
     [HideInInspector]
     public float m_stateTimer;
+    public Rigidbody m_rigidbody;
 
     // Use this for initialization
     private void Start()
     {
         m_runnerInput = GetComponent<RunnerInput>();
-        m_ChaserMove = GetComponent<ChaserMove>();
+        m_chaserMove = GetComponent<ChaserMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
 
@@ -60,8 +61,8 @@ public class ChaserController : SingletonMono<ChaserController> {
 
         if (m_runnerStatus.isState == true)
         {
-            m_ChaserMove.Move();
-            m_ChaserMove.DemonButton();
+            m_chaserMove.Move();
+            m_chaserMove.ChaserButton(m_runnerInput);
         }
         else
         {
