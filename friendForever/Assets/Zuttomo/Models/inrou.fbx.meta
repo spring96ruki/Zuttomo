@@ -1,16 +1,22 @@
 fileFormatVersion: 2
-guid: 7fbe2e24c9b6845c58dfb1c34da2aca0
-timeCreated: 1528447199
-licenseType: Free
+guid: 9c9bdabb745c6b1459792eceffb69c66
+timeCreated: 1529365709
+licenseType: Pro
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: inrou_huta
+    100004: inrou_youki
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: pCube46
-    9500000: //RootNode
+    400002: inrou_huta
+    400004: inrou_youki
+    2300000: inrou_huta
+    2300002: inrou_youki
+    3300000: inrou_huta
+    3300002: inrou_youki
+    4300000: inrou_huta
+    4300002: inrou_youki
   materials:
     importMaterials: 1
     materialName: 0
@@ -75,7 +81,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

@@ -10,13 +10,19 @@ public enum RunnerState
 
 public class RunnerController : SingletonMono<RunnerController>
 {
+
+    float m_stanTime;
+    public float stanTime { get { return m_stanTime; } set { m_stanTime = value; } }
+    [HideInInspector]
+    public bool ChaserFlag;
+    public float State_timer;
+    float currentSpeed;
+    //RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
-
-    public bool ChaserFlag;
-    public float m_stanTime;
-    public float m_stateTimer;
+    RunnerSkill m_runnerSkill;
+    protected RunnerStatus m_status;
     [HideInInspector]
     public Rigidbody m_rigidBody;
 
@@ -29,6 +35,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
+		m_runnerSkill = GetComponent<RunnerSkill> ();
         m_rigidBody = GetComponent<Rigidbody>();
         m_runnerStatus.animator = GetComponent<Animator>();
         //初期ステータス
@@ -38,9 +45,8 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus.maxHealth = 5;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
-        m_runnerStatus.isBuff = false;
-        m_runnerStatus.isInvincible = false;
-    }
+        m_runnerStatus.animator = GetComponent<Animator>();
+	}
 
 	// Update is called once per frame
 	void Update()
@@ -124,73 +130,11 @@ public class RunnerController : SingletonMono<RunnerController>
 
     void OnCollisionEnter(Collision hit)
     {
-        if (hit.gameObject.tag == TagName.Push)
-        {
-            m_runnerStatus.isState = false;
-            Debug.Log("当たった");
-            m_stateTimer = 0;
-        }
-        if (hit.gameObject.tag == TagName.Itimatu)
-        {
-            Debug.Log("当たった");
-            m_runnerStatus.isState = false;
-            Destroy(hit.gameObject);
-        }
+		m_runnerSkill.HitEvent (hit);
     }
 
-    void OnCollisionStay(Collision col)
+	void OnCollisionStay(Collision check)
     {
-        PickUpCheckEvent(col);
-    }
-
-    void PickUpCheckEvent(Collision col)
-    {
-
-        if (m_runnerStatus.ishave == false)
-        {
-            switch (col.gameObject.name)
-            {
-                case ItemName.itimatu:
-                    Debug.Log("市松人形だよ");
-                    if (m_runnerInput.button_B == true)
-                    {
-                        //アイテムを持ったらtrueに変更
-                        m_runnerStatus.ishave = true;
-                        //アイテムの番号を1に変更
-                        m_runnerMove.m_itemNum = 1;
-                        //拾ったアイテムを消去
-                        Destroy(col.gameObject);
-                    }
-                    break;
-                case ItemName.Drug:
-                    Debug.Log("薬だよ");
-                    if (m_runnerInput.button_B == true)
-                    {
-                        //アイテムを持ったらtrueに変更
-                        m_runnerStatus.ishave = true;
-                        //アイテムの番号を2に変更
-                        m_runnerMove.m_itemNum = 2;
-                        //拾ったアイテムを消去
-                        Destroy(col.gameObject);
-                    }
-                    break;
-                case ItemName.Bill:
-                    Debug.Log("お札だよ");
-                    if (m_runnerInput.button_B == true)
-                    {
-                        //アイテムを持ったらtrueに変更
-                        m_runnerStatus.ishave = true;
-                        //アイテムの番号を3に変更
-                        m_runnerMove.m_itemNum = 3;
-                        //拾ったアイテムを消去
-                        Destroy(col.gameObject);
-                    }
-                    break;
-            }
-        }
-        else
-        {
-            Debug.Log("これ以上は持てないよ");
-        }
+		m_runnerSkill.CheckEvent(check);
     }
 }

@@ -16,24 +16,18 @@ public class RunnerMove : MonoBehaviour
     public float m_itemspeed = 1000;
     [HideInInspector]
     public float m_timer;
-    [HideInInspector]
-    public float m_buffTimer;
-    [HideInInspector]
-    public int m_itemNum;
-
     RunnerInput m_runnerInput;
-    RunnerStatus m_runnerStatus;
+    RunnerStatus m_status;
+	RunnerSkill m_runnerSkill;
     [HideInInspector]
     Rigidbody m_rigidbody;
-    public float m_bufftimer;
     float m_coolTime;
-
-
 
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
-        m_runnerStatus = GetComponent<RunnerStatus>();
+        m_status = GetComponent<RunnerStatus>();
+		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -107,8 +101,7 @@ public class RunnerMove : MonoBehaviour
     void HealthControll()
 	{
 		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
-			m_runnerStatus.speed = m_runnerStatus.maxSpeed;
-			m_runnerStatus.health -= Time.deltaTime;
+			m_status.speed = m_status.maxSpeed;
 		} else { 
 			if (m_runnerStatus.isHealth == true) {
 				if (m_runnerInput.button_RB == true) {
@@ -145,18 +138,6 @@ public class RunnerMove : MonoBehaviour
 					m_runnerStatus.health += Time.deltaTime;
 				}
 			}
-
-			if (m_runnerStatus.isBuff == false) {
-				m_runnerStatus.maxHealth = 5;
-				m_runnerStatus.maxSpeed = 5f;
-			} else {
-				m_bufftimer += Time.deltaTime;
-				m_runnerStatus.maxHealth = 10;
-				m_runnerStatus.maxSpeed = 15;
-				if (m_bufftimer > 4) {
-					m_runnerStatus.isBuff = false;
-				}
-			}
 		}
 	}
 
@@ -185,35 +166,7 @@ public class RunnerMove : MonoBehaviour
 
         if (m_runnerInput.button_X == true)
         {
-            if (m_runnerStatus.ishave == true)
-            {
-                switch (m_itemNum)
-                {
-                    case 1:
-                        Debug.Log("市松人形を投げたよ");
-                        Vector3 force;
-                        GameObject bullets = Instantiate(m_item) as GameObject;
-                        force = this.gameObject.transform.forward * m_itemspeed;
-                        // Rigidbodyに力を加えて発射
-                        bullets.GetComponent<Rigidbody>().AddForce(force);
-                        // アイテムの位置を調整
-                        bullets.transform.position = m_FiringPosition.position;
-                        bullets.tag = "Itimathu";
-                        m_runnerStatus.ishave = false;
-
-                        break;
-
-                    case 2:
-                        Debug.Log("力が上がったよ");
-                        m_runnerStatus.ishave = false;
-                        break;
-
-                    case 3:
-                        Debug.Log("無敵");
-                        break;
-                }             
-             }
-
+            m_runnerSkill.ItemEvent();
         }
 
         if (m_runnerInput.button_Y == true)

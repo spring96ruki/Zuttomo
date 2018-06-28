@@ -40,8 +40,6 @@ public class ChaserController : SingletonMono<ChaserController> {
         m_runnerStatus.maxHealth = 0;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
-        m_runnerStatus.isBuff = false;
-        m_runnerStatus.isInvincible = false;
         m_runnerStatus.animator = GetComponent<Animator>();
 
         StanInit();
