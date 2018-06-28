@@ -15,6 +15,9 @@ public class ChaserController : SingletonMono<ChaserController> {
     RunnerInput m_runnerInput;
     ChaserMove m_ChaserMove;
     RunnerStatus m_runnerStatus;
+    UIController m_uIController;
+
+    public GameObject UIController;
 
     public float m_coolTime;
     public float m_maxCoolTime = 100f;
@@ -23,16 +26,19 @@ public class ChaserController : SingletonMono<ChaserController> {
     public ChaserState m_chaserState;
     [HideInInspector]
     public float State_timer;
+    
 
     // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
         m_ChaserMove = GetComponent<ChaserMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
 
-        //初期ステータス
+        m_uIController = UIController.GetComponent<UIController>();
+
+    //初期ステータス
         m_runnerStatus.firstSpeed = 10;
         m_runnerStatus.maxSpeed = 10;
         m_runnerStatus.speed = m_runnerStatus.firstSpeed;
@@ -60,8 +66,8 @@ public class ChaserController : SingletonMono<ChaserController> {
 
         if (m_runnerStatus.isState == true)
         {
-            m_ChaserMove.Move();
-            m_ChaserMove.DemonButton();
+            //m_ChaserMove.Move();
+           // m_ChaserMove.DemonButton();
         }
         else
         {
@@ -81,6 +87,7 @@ public class ChaserController : SingletonMono<ChaserController> {
         if (m_coolTime <= 0)
         {
             m_coolTime = 0;
+            StanInit();
         }
 
         // Rキー押して対象がいればスタン開始
@@ -88,6 +95,8 @@ public class ChaserController : SingletonMono<ChaserController> {
         {
             ChaserSkill.Instance.StanSkilStart(gameObject);
             RunnerController.Instance.stanTime = m_stanTime;
+            m_uIController.stanOn(m_coolTime, m_maxCoolTime);
+            m_uIController.InvisibleOn(m_coolTime, m_maxCoolTime);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -100,6 +109,8 @@ public class ChaserController : SingletonMono<ChaserController> {
         {
             Debug.Log("透明化");
             ChaserSkill.Instance.ChaserInvisible(gameObject, m_coolTime);
+            m_uIController.InvisibleOn(m_coolTime,m_maxCoolTime);
+            m_uIController.stanOn(m_coolTime, m_maxCoolTime);
         }
         m_runnerInput.PController();
 	}

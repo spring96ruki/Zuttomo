@@ -9,10 +9,10 @@ public class RunnerMove : MonoBehaviour
     public GameObject m_camera;
     public GameObject m_Push;
     public GameObject m_item;
+    public GameObject m_UIController;
     public Transform m_FiringPosition;
     public float m_healthTime = 5f;
 
-    public Transform m_player;
 
     public float m_itemspeed = 1000;
     [HideInInspector]
@@ -24,6 +24,7 @@ public class RunnerMove : MonoBehaviour
 
     RunnerInput m_runnerInput;
     RunnerStatus m_status;
+    RunnerSkill m_runnerSkill;
     [HideInInspector]
     Rigidbody m_rigidbody;
     public float m_bufftimer;
@@ -38,7 +39,8 @@ public class RunnerMove : MonoBehaviour
         m_runnerInput = GetComponent<RunnerInput>();
         m_status = GetComponent<RunnerStatus>();
         m_rigidbody = GetComponent<Rigidbody>();
-        m_uIController = GetComponent<UIController>();
+        m_runnerSkill = GetComponent<RunnerSkill>();
+        m_uIController = m_UIController.GetComponent<UIController>();
     }
 
 	public void Move()
@@ -127,7 +129,7 @@ public class RunnerMove : MonoBehaviour
                         Debug.Log("ダッシュ");
                         m_status.speed = m_status.maxSpeed;
                         m_status.health -= Time.deltaTime;
-                        m_uIController.m_healthUI.fillAmount = m_status.health / m_status.maxHealth;
+                        m_uIController.HealthUIControll();
                     }
                 }
             }
@@ -150,7 +152,7 @@ public class RunnerMove : MonoBehaviour
             {
                 //スタミナ回復
                 m_status.health += Time.deltaTime;
-                m_uIController.m_healthUI.fillAmount = m_status.health / m_status.maxHealth;
+                m_uIController.HealthUIControll();
             }
             if (m_status.health >= m_status.maxHealth)
             {
@@ -166,7 +168,7 @@ public class RunnerMove : MonoBehaviour
                 Debug.Log("1_" + m_status.health);
                 m_status.health += Time.deltaTime;
                 Debug.Log("2_" + m_status.health);
-                m_uIController.m_healthUI.fillAmount = m_status.health / m_status.maxHealth;
+                m_uIController.HealthUIControll();
 
             }
         }
@@ -197,35 +199,7 @@ public class RunnerMove : MonoBehaviour
 
         if (m_runnerInput.button_X == true)
         {
-            if (m_status.ishave == true)
-            {
-                switch (m_itemNum)
-                {
-                    case 1:
-                        Debug.Log("市松人形を投げたよ");
-                        Vector3 force;
-                        GameObject bullets = Instantiate(m_item) as GameObject;
-                        force = this.gameObject.transform.forward * m_itemspeed;
-                        // Rigidbodyに力を加えて発射
-                        bullets.GetComponent<Rigidbody>().AddForce(force);
-                        // アイテムの位置を調整
-                        bullets.transform.position = m_FiringPosition.position;
-                        bullets.tag = "Itimathu";
-                        m_status.ishave = false;
-
-                        break;
-
-                    case 2:
-                        Debug.Log("力が上がったよ");
-                        m_status.ishave = false;
-                        break;
-
-                    case 3:
-                        Debug.Log("無敵");
-                        break;
-                }             
-             }
-
+            m_runnerSkill.ItemEvent();
         }
 
         if (m_runnerInput.button_Y == true)

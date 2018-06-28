@@ -25,31 +25,31 @@ public class gimmickItemScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.GetComponent<RunnerController>().ChaserFlag == false)
-        {
-            GameObject GimmickScript = GameObject.Find("Gimmick Script");
-            if (Door)
-            {
-                if (GameObject.Find("GameController").GetComponent<GameController>().OpenDoor == true)
-                {
-                    if (GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_player[collision.gameObject.GetComponent<RunnerInput>().runnerNum - 1] == 1)
-                    {
-                        GameObject.Find("GameController").GetComponent<GameController>().GamePhaseChange();
-                        collision.gameObject.SetActive(false);
-                        Debug.Log("goal");
-                    }
-                }
-            }
-            else
-            {
-                if (GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_word[word_num - 1] == 0)
-                {
-                    GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_word[word_num - 1] = collision.gameObject.GetComponent<RunnerInput>().runnerNum;
-                    GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_player[collision.gameObject.GetComponent<RunnerInput>().runnerNum - 1]++;
-                }
-                GimmickScript.GetComponent<gimmickScript>().GetWord();
-                Destroy(gameObject, 0);
-            }
-        }
+        //if (collision.gameObject.GetComponent<RunnerController>().ChaserFlag == false)
+        //{
+        //    GameObject GimmickScript = GameObject.Find("Gimmick Script");
+        //    if (Door)
+        //    {
+        //        if (GameObject.Find("GameController").GetComponent<GameController>().OpenDoor == true)
+        //        {
+        //            if (GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_player[collision.gameObject.GetComponent<RunnerInput>().runnerNum - 1] == 1)
+        //            {
+        //                GameObject.Find("GameController").GetComponent<GameController>().GamePhaseChange();
+        //                collision.gameObject.SetActive(false);
+        //                Debug.Log("goal");
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        if (GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_word[word_num - 1] == 0)
+        //        {
+        //            GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_word[word_num - 1] = collision.gameObject.GetComponent<RunnerInput>().runnerNum;
+        //            GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_player[collision.gameObject.GetComponent<RunnerInput>().runnerNum - 1]++;
+        //        }
+        //        GimmickScript.GetComponent<gimmickScript>().GetWord();
+        //        Destroy(gameObject, 0);
+        //    }
+        //}
     }
 }

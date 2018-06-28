@@ -45,6 +45,6 @@ public static class ScreenName
 public static class ItemName
 {
     public const string itimatu = "itimatu";
-    public const string Bill = "Bill";
+    public const string Ohuda = "ohuda";
     public const string Drug = "Drug";
 }

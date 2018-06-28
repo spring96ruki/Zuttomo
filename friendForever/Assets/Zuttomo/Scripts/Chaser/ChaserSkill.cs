@@ -20,8 +20,10 @@ public class ChaserSkill : FindObject {
     bool m_isChaserAlpha = false;
     IEnumerator m_enumInvisible;
 
+
     private void Start()
     {
+
     }
 
     public void StanSkilStart(GameObject chaserObject)
@@ -51,10 +53,10 @@ public class ChaserSkill : FindObject {
     {
         Debug.Log("とぅっとぅるー");
         //m_chaserColor = new Color(m_chaserColor.r, m_chaserColor.g, m_chaserColor.b, Mathf.Lerp(1.0f, 0f, 0.1f));
-        Color chaserColor = chaserObject.GetComponent<MeshRenderer>().material.color;
-        if (coolTime == 0)
-        {
-            chaserObject.GetComponent<MeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
-        }
+        //Color chaserColor = chaserObject.GetComponent<MeshRenderer>().material.color;
+        //if (coolTime == 0)
+        //{
+        //    chaserObject.GetComponent<MeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
+        //}
     }
 }
