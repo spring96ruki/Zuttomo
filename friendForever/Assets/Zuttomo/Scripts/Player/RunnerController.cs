@@ -37,10 +37,6 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill> ();
         m_rigidBody = GetComponent<Rigidbody>();
-    }
-
-	void Start()
-	{
         //初期ステータス
         m_runnerStatus.firstSpeed = 5;
         m_runnerStatus.maxSpeed = 10;
@@ -49,7 +45,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.animator = GetComponent<Animator>();
-	}
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -120,13 +116,10 @@ public class RunnerController : SingletonMono<RunnerController>
             m_runnerStatus.animator.SetBool("HalfRun", false);
             m_runnerStatus.animator.SetBool("FullRun", false);
             State_timer += Time.deltaTime;
-            //Vector3 force;
-            //force = transform.position * 200;
-            // Rigidbodyに力を加えて発射
-            //GetComponent<Rigidbody>().AddForce(force);
             if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
+                State_timer = 0;
             }
         }
     }

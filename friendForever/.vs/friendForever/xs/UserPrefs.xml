@@ -1,16 +1,20 @@
 ﻿<Properties StartupConfiguration="{7C81EE0B-1A2D-22B9-6D37-46E6AE67EFBF}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Zuttomo/Scripts/Player/RunnerSkill.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Zuttomo/Scripts/Player/RunnerAnimator.cs">
     <Files>
       <File FileName="Assets/Zuttomo/Scripts/Player/RunnerCamera.cs" Line="46" Column="33" />
-      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerInput.cs" Line="5" Column="41" />
-      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerController.cs" Line="59" Column="37" />
-      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerMove.cs" Line="140" Column="5" />
-      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerSkill.cs" Line="13" Column="1" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerController.cs" Line="25" Column="28" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerMove.cs" Line="24" Column="23" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerSkill.cs" Line="79" Column="27" />
       <File FileName="Assets/Zuttomo/Scripts/Player/RunnerStatus.cs" Line="24" Column="24" />
       <File FileName="Assets/Zuttomo/Scripts/StringController.cs" Line="49" Column="38" />
-      <File FileName="Assets/Zuttomo/Scripts/Chaser/ChaserController.cs" Line="43" Column="39" />
-      <File FileName="Assets/Zuttomo/Scripts/Chaser/ChaserArea.cs" Line="13" Column="47" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerInput.cs" Line="78" Column="6" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/RunnerAnimator.cs" Line="59" Column="32" />
+      <File FileName="Assets/Zuttomo/Scripts/Player/AnimatorManager.cs" Line="18" Column="60" />
+      <File FileName="../../Desktop/HappyMagic/HappyMagic/Assets/Scripts/Cinderella/CinderellaAnimator.cs" Line="137" Column="25" NotebookId="1" />
+      <File FileName="../../Desktop/HappyMagic/HappyMagic/Assets/Scripts/Cinderella/CinderellaController.cs" Line="253" Column="48" NotebookId="1" />
+      <File FileName="../../Desktop/HappyMagic/HappyMagic/Assets/Scripts/Cinderella/CinderellaWandViewer.cs" Line="18" Column="1" NotebookId="1" />
+      <File FileName="../../Desktop/HappyMagic/HappyMagic/Assets/Scripts/Cinderella/CinderellaPumpkinViewer.cs" Line="39" Column="24" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

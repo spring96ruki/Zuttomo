@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class RunnerMove : MonoBehaviour
 {
-    Animator animator;
     public GameObject m_camera;
     public GameObject m_Push;
     public GameObject m_item;
     public Transform m_FiringPosition;
     public Image m_healthUI;
     public float m_healthTime = 5f;
-
-    public float m_itemspeed = 1000;
     [HideInInspector]
     public float m_timer;
     RunnerInput m_runnerInput;
     RunnerStatus m_status;
 	RunnerSkill m_runnerSkill;
+    RunnerAnimator m_animaton;
     [HideInInspector]
     Rigidbody m_rigidbody;
     float m_coolTime;
+    [SerializeField]
+    float m_moveSpeed;
 
     private void Awake()
     {
@@ -29,17 +29,17 @@ public class RunnerMove : MonoBehaviour
         m_status = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
+        m_animaton = GetComponent<RunnerAnimator>();
     }
 
 	public void Move()
 	{
 		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
 		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
-		PlayerRotation(horizontal, virtical);
-		PlayerAnimation(horizontal, virtical);
+        PlayerRotation(horizontal, virtical);
 		HealthControll();
         KillPlayerAnimation();
-
+        m_animaton.MoveAnimation(horizontal, virtical);
     }
 
 	void PlayerRotation(float horizontal, float virtical)
@@ -55,28 +55,6 @@ public class RunnerMove : MonoBehaviour
 			transform.position += cameraForward * virtical + m_camera.transform.right * horizontal;
 			//体の向きを変更
 			transform.rotation = Quaternion.LookRotation(moveForward);
-			//PlayerのAnimation管理
-			PlayerAnimation(horizontal, virtical);
-		}
-	}
-
-	void PlayerAnimation(float h, float v)
-	{
-		if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
-		{
-			if (m_status.speed <= m_status.firstSpeed)
-			{
-				m_status.animator.SetBool("HalfRun", true);
-				m_status.animator.SetBool("FullRun", false);
-			}
-			else if (m_status.speed >= m_status.firstSpeed)
-			{
-				m_status.animator.SetBool("FullRun", true);
-			}
-		} else
-		{
-			m_status.animator.SetBool("HalfRun", false);
-			m_status.animator.SetBool("FullRun", false);
 		}
 	}
 
@@ -104,12 +82,15 @@ public class RunnerMove : MonoBehaviour
 			m_status.speed = m_status.maxSpeed;
 		} else { 
 			if (m_status.isHealth == true) {
+                
 				if (m_runnerInput.button_RB == true) {
 					Debug.Log ("ダッシュ");
 					m_status.speed = m_status.maxSpeed;
 					m_status.health -= Time.deltaTime;
 				}
+
 			} else {
+                
 				m_status.speed = m_status.firstSpeed;
 			}
 
@@ -120,11 +101,7 @@ public class RunnerMove : MonoBehaviour
 			if (m_status.health <= 0f) {
 				m_status.isHealth = false;
 			}
-			//スタミナがなかったら
-			if (m_status.isHealth == false) {
-				//スタミナ回復
-				m_status.health += Time.deltaTime;
-			}
+			
 			if (m_status.health >= m_status.maxHealth) {
 				m_status.health = m_status.maxHealth;
 			}
@@ -132,11 +109,8 @@ public class RunnerMove : MonoBehaviour
 			//ボタンが押されてなかったら
 			if (m_runnerInput.button_RB == false) {
 				m_status.speed = m_status.firstSpeed;
-				//スタミナがのっこていたら
-				if (m_status.health >= 0f) {
-					//スタミナ回復
-					m_status.health += Time.deltaTime;
-				}
+                //スタミナ回復
+                m_status.health += Time.deltaTime;
 			}
 		}
 	}
@@ -147,6 +121,7 @@ public class RunnerMove : MonoBehaviour
         if (m_runnerInput.button_A == true)
         {
             Debug.Log("突き飛ばし");
+            m_animaton.PushAnimatio();
             m_Push.SetActive(true);
             m_timer = 0;
         }
