@@ -22,10 +22,10 @@ public class RunnerCamera : MonoBehaviour
         m_targetPos = m_target.transform.position;
     }
 
-    void Update()
-    {
-        m_pInput.PController();
-    }
+    //void Update()
+    //{
+    //    m_pInput.PController();
+    //}
 
 	void FixedUpdate()
     {

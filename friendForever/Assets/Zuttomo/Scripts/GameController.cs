@@ -15,7 +15,9 @@ public class GameController : MonoBehaviour
     public int GamePhase;
     public bool OpenDoor;
 
-
+    bool m_isRandom;
+    bool m_isInstace;
+    List<GameObject> ResponePoint = new List<GameObject>();
     public int m_randomNumber;
     public GameObject m_player;
     public GameObject m_chaser;
@@ -24,9 +26,6 @@ public class GameController : MonoBehaviour
     public GameObject m_responePointRightEnd;
     public GameObject m_responePointLeft;
     public GameObject m_responePointLeftEnd;
-    bool m_isRandom;
-    bool m_isInstace;
-    List<GameObject> ResponePoint = new List<GameObject>();
 
     void DebugScene()
     {

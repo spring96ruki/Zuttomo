@@ -23,49 +23,45 @@ public class RunnerInput : MonoBehaviour
     [HideInInspector]
     public bool button_Y;
 
-    RunnerStatus m_runnerStatus;
-    public int runnerNum;
-
-    public void PController()
+    public void PController(int playerNum)
     {
-        switch (runnerNum)
+        switch (playerNum)
         {
             case 1:
-                EscapePlayerInput();
+                PlayerInput(playerNum);
                 KeyBoardEvent();
                 break;
 
             case 2:
-                EscapePlayerInput();
+                PlayerInput(playerNum);
                 break;
 
             case 3:
-                EscapePlayerInput();
+                PlayerInput(playerNum);
                 break;
 
             case 4:
-                EscapePlayerInput();
+                PlayerInput(playerNum);
                 break;
         }
 
     }
 
-    void EscapePlayerInput()
+    void PlayerInput(int playerNum)
     {
-        Laxis_x = Input.GetAxis(GamePadName.GameStick_Left + runnerNum.ToString() + GamePadName.GameStick_X);
-        Laxis_y = Input.GetAxis(GamePadName.GameStick_Left + runnerNum.ToString() + GamePadName.GameStick_Y);
-        Raxis_x = Input.GetAxis(GamePadName.GameStick_Right + runnerNum.ToString() + GamePadName.GameStick_X);
-        Raxis_y = Input.GetAxis(GamePadName.GameStick_Right + runnerNum.ToString() + GamePadName.GameStick_Y);
-        button_RB = Input.GetButton(GamePadName.GamePad_RB + runnerNum.ToString());
-        button_A = Input.GetButtonDown(GamePadName.GamePad_A + runnerNum.ToString());
-        button_B = Input.GetButtonDown(GamePadName.GamePad_B + runnerNum.ToString());
-        button_X = Input.GetButtonDown(GamePadName.GamePad_X + runnerNum.ToString());
-        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + runnerNum.ToString());
+        Laxis_x = Input.GetAxis(GamePadName.GameStick_Left + playerNum.ToString() + GamePadName.GameStick_X);
+        Laxis_y = Input.GetAxis(GamePadName.GameStick_Left + playerNum.ToString() + GamePadName.GameStick_Y);
+        Raxis_x = Input.GetAxis(GamePadName.GameStick_Right + playerNum.ToString() + GamePadName.GameStick_X);
+        Raxis_y = Input.GetAxis(GamePadName.GameStick_Right + playerNum.ToString() + GamePadName.GameStick_Y);
+        button_RB = Input.GetButton(GamePadName.GamePad_RB + playerNum.ToString());
+        button_A = Input.GetButtonDown(GamePadName.GamePad_A + playerNum.ToString());
+        button_B = Input.GetButtonDown(GamePadName.GamePad_B + playerNum.ToString());
+        button_X = Input.GetButtonDown(GamePadName.GamePad_X + playerNum.ToString());
+        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + playerNum.ToString());
     }
 
     void KeyBoardEvent()
     {
-
         Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
         Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
         button_RB = Input.GetKey("z");

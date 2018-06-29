@@ -17,12 +17,6 @@ public class ChaserSkill : FindObject {
         }
     }
 
-    bool m_isChaserAlpha = false;
-
-    private void Start()
-    {
-    }
-
     public void StanSkilStart(GameObject chaserObject)
     {
 

@@ -10,25 +10,28 @@ public enum ChaserState
 
 public class ChaserController : SingletonMono<ChaserController> {
 
-    public Color m_chaserColor;
+    float m_invisibleTime;
     Rigidbody m_rigidBody;
     RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     ChaserMove m_ChaserMove;
     RunnerStatus m_runnerStatus;
 
+    public int m_playerNum;
+    public bool m_isInvisible;
+    public Color m_chaserColor;
     public float m_stanCoolTime;
     public float m_maxStanCoolTime = 100f;
     public float m_invisibleCoolTime;
-    public float m_maxInvisibleCoolTime;
+    public float m_maxInvisibleCoolTime = 100f;
     public float m_stanTime;
-    float m_invisibleTime;
     public float m_maxInvisibleTime;
-    public ChaserState m_chaserState;
-    [HideInInspector]
     public float m_stateTimer;
+    public ChaserState m_chaserState;
 
-    public bool m_isInvisible;
+    public float m_timer;
+    public GameObject m_camera;
+    public GameObject m_touch;
 
     // Use this for initialization
     private void Start()
@@ -39,18 +42,23 @@ public class ChaserController : SingletonMono<ChaserController> {
         m_rigidBody = GetComponent<Rigidbody>();
         m_chaserColor = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
 
+        StatusInit();
+        StanInit();
+        InvisibleInit();
+        m_chaserState = ChaserState.normal;
+    }
+
+    void StatusInit()
+    {
         //初期ステータス
-        m_runnerStatus.firstSpeed = 10;
-        m_runnerStatus.maxSpeed = 10;
+        m_runnerStatus.firstSpeed = 4;
+        m_runnerStatus.maxSpeed = 5;
         m_runnerStatus.speed = m_runnerStatus.firstSpeed;
         m_runnerStatus.health = 0;
         m_runnerStatus.maxHealth = 0;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.animator = GetComponent<Animator>();
-
-        StanInit();
-        m_chaserState = ChaserState.normal;
     }
 
     public void StanInit()
@@ -63,16 +71,43 @@ public class ChaserController : SingletonMono<ChaserController> {
         m_invisibleCoolTime = m_maxInvisibleCoolTime;
     }
 
+    void DebugSkil()
+    {
+        // Rキー押してcoolTimeが0ならスタン開始
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            ChaserSkill.Instance.StanSkilStart(gameObject);
+            RunnerController.Instance.stanTime = m_stanTime;
+        }
+
+        // Tキー押してcoolTimeが0なら透明化開始
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            m_chaserState = ChaserState.invisible;
+            m_invisibleTime = m_maxInvisibleTime;
+        }
+    }
+
+
     private void FixedUpdate()
     {
         //Debug.Log(m_coolTime);
         --m_stanCoolTime;
         --m_invisibleCoolTime;
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        CoolTime();
+        ChaserInvisibleTime();
+        m_runnerInput.PController(m_playerNum);
+        DebugSkil();
 
         if (m_runnerStatus.isState)
         {
-            m_ChaserMove.Move();
-            m_ChaserMove.DemonButton();
+            m_ChaserMove.Move(m_camera);
+            ChaserButton();
         }
         else
         {
@@ -86,34 +121,12 @@ public class ChaserController : SingletonMono<ChaserController> {
                 m_runnerStatus.isState = true;
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update () {
-
-        CoolTime();
-
-        // Rキー押してcoolTimeが0ならスタン開始
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ChaserSkill.Instance.StanSkilStart(gameObject);
-            RunnerController.Instance.stanTime = m_stanTime;
-        }
-
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            m_chaserState = ChaserState.invisible;
-            m_invisibleTime = m_maxInvisibleTime;
-        }
 
         if (m_chaserState == ChaserState.invisible)
         {
             Debug.Log("透明化");
             ChaserSkill.Instance.ChaserInvisible(gameObject, m_chaserState, m_invisibleCoolTime);
         }
-
-        m_runnerInput.PController();
-        ChaserInvisibleTime();
 	}
 
     void CoolTime()
@@ -159,6 +172,44 @@ public class ChaserController : SingletonMono<ChaserController> {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
             m_stateTimer = 0;
+        }
+    }
+
+    public void ChaserButton()
+    {
+
+        if (m_runnerInput.button_A)
+        {
+            Debug.Log("スキル_1");
+            ChaserSkill.Instance.StanSkilStart(gameObject);
+            RunnerController.Instance.stanTime = m_stanTime;
+        }
+
+        if (m_runnerInput.button_B)
+        {
+            Debug.Log("タッチ");
+            m_touch.SetActive(true);
+            m_timer = 0;
+        }
+        else
+        {
+            if (m_timer <= 0.5)
+            {
+                m_timer += Time.deltaTime;
+                m_touch.SetActive(false);
+            }
+        }
+
+        if (m_runnerInput.button_X)
+        {
+            Debug.Log("スキル_2");
+            m_chaserState = ChaserState.invisible;
+            m_invisibleTime = m_maxInvisibleTime;
+        }
+
+        if (m_runnerInput.button_Y)
+        {
+            Debug.Log("Y");
         }
     }
 }
