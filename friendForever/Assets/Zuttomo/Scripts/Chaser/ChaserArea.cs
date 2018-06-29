@@ -23,7 +23,6 @@ public class ChaserArea : MonoBehaviour {
             Debug.Log("捕まえたよ");
             other.gameObject.SetActive(false);
             GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd();
-            //RunnerKill(KillRunnerNum);
             KillRunnerNum = other.GetComponent<RunnerInput>().runnerNum;
             GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().RunnerKill(KillRunnerNum);
         }

@@ -37,7 +37,8 @@ public class gimmickScript : MonoBehaviour
 
         RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Door.Length);
         GimmickItem = GimmickArea_Door[RandomGimmickAreaNumber];
-        Instantiate(door, new Vector3(GimmickItem.transform.position.x, 0f, GimmickItem.transform.position.z), Quaternion.identity);
+        GameObject Door = Instantiate(door, new Vector3(GimmickItem.transform.position.x, 0f, GimmickItem.transform.position.z), GimmickItem.transform.localRotation) as GameObject;
+        Door.name = ("Door");
     }
 
     internal void RunnerKill(int KillRunnerNum)
@@ -66,12 +67,10 @@ public class gimmickScript : MonoBehaviour
 
         GetGimmickItem_word = new int[] { 0, 0, 0, 0, 0, 0, 0 };
         GetGimmickItem_player = new int[] { 0, 0, 0, 0 };
-
     }
 
     void WordSpawn(int i)
     {
-        //SelectGimmickAreaWord = new int[GimmickArea_Words.Length];
         while (true) {
             RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Words.Length);
             if (SelectGimmickAreaWord[RandomGimmickAreaNumber] == 0)
@@ -86,18 +85,19 @@ public class gimmickScript : MonoBehaviour
                 }
             }
         }
-
-        //Debug.Log(RandomGimmickAreaNumber);
+        
         GimmickItem = GimmickArea_Words[RandomGimmickAreaNumber];
         float x = UnityEngine.Random.Range(GimmickItem.transform.position.x - System.Math.Abs(GimmickItem.transform.localScale.x / 4), GimmickItem.transform.position.x + GimmickItem.transform.localScale.x / 4);
         float z = UnityEngine.Random.Range(GimmickItem.transform.position.z - System.Math.Abs(GimmickItem.transform.localScale.z / 4), GimmickItem.transform.position.z + GimmickItem.transform.localScale.z / 4);
         if (i < GetGimmickItem_word.Length)
         {
-            Instantiate(gimmickItem[i], new Vector3(x, 1.3f, z), Quaternion.identity);
+            GameObject Words = Instantiate(gimmickItem[i], new Vector3(x, 1.3f, z), Quaternion.identity)as GameObject;
+            Words.name = ("Word_" + (i+1));
         }
         else
         {
-            Instantiate(gimmickItem[UnityEngine.Random.Range(0, GetGimmickItem_word.Length - 1)], new Vector3(x, 1.3f, z), Quaternion.identity);
+            GameObject Words = Instantiate(gimmickItem[UnityEngine.Random.Range(0, GetGimmickItem_word.Length - 1)], new Vector3(x, 1.3f, z), Quaternion.identity)as GameObject;
+            Words.name = ("Word_" + (i+1));
         }
     }
 
