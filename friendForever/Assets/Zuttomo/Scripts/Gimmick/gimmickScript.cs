@@ -23,7 +23,8 @@ public class gimmickScript : MonoBehaviour
     public float ItemPosition_x;
     public float ItemPosition_z;
     public int RandomGimmickAreaNumber;
-    public int DammyWord;
+    public int DammyWord;                               //ダミー文字を置く個数
+    public int[] SelectGimmickAreaWord;                //すでに選ばれているギミックエリア番号
 
     // Use this for initialization
     void Start()
@@ -33,7 +34,7 @@ public class gimmickScript : MonoBehaviour
         {
             player[i] = GameObject.Find("Player" + (i + 1)).transform.GetChild(0).gameObject;
         }
-        
+
         RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Door.Length);
         GimmickItem = GimmickArea_Door[RandomGimmickAreaNumber];
         Instantiate(door, new Vector3(GimmickItem.transform.position.x, 0f, GimmickItem.transform.position.z), Quaternion.identity);
@@ -52,6 +53,12 @@ public class gimmickScript : MonoBehaviour
 
     public void GimmickStart()
     {
+        SelectGimmickAreaWord = new int[GimmickArea_Words.Length];
+        for (int i = 0; i < SelectGimmickAreaWord.Length; i++)
+        {
+            SelectGimmickAreaWord[i] = 0;
+        }
+
         for (int i = 0; i < GetGimmickItem_word.Length + DammyWord; i++)
         {
             WordSpawn(i);
@@ -59,11 +66,28 @@ public class gimmickScript : MonoBehaviour
 
         GetGimmickItem_word = new int[] { 0, 0, 0, 0, 0, 0, 0 };
         GetGimmickItem_player = new int[] { 0, 0, 0, 0 };
+
     }
 
     void WordSpawn(int i)
     {
-        RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Words.Length);
+        //SelectGimmickAreaWord = new int[GimmickArea_Words.Length];
+        while (true) {
+            RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Words.Length);
+            if (SelectGimmickAreaWord[RandomGimmickAreaNumber] == 0)
+            {
+                SelectGimmickAreaWord[RandomGimmickAreaNumber] = 1;
+                break;
+            }else if (SelectGimmickAreaWord.Min() == 1)
+            {
+                for (int j = 0; j < SelectGimmickAreaWord.Length - 1; j++)
+                {
+                    SelectGimmickAreaWord[j] = 0;
+                }
+            }
+        }
+
+        //Debug.Log(RandomGimmickAreaNumber);
         GimmickItem = GimmickArea_Words[RandomGimmickAreaNumber];
         float x = UnityEngine.Random.Range(GimmickItem.transform.position.x - System.Math.Abs(GimmickItem.transform.localScale.x / 4), GimmickItem.transform.position.x + GimmickItem.transform.localScale.x / 4);
         float z = UnityEngine.Random.Range(GimmickItem.transform.position.z - System.Math.Abs(GimmickItem.transform.localScale.z / 4), GimmickItem.transform.position.z + GimmickItem.transform.localScale.z / 4);
