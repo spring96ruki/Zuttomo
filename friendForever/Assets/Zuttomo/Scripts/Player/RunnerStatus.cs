@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerStatus : MonoBehaviour {
+public class RunnerStatus : MonoBehaviour{
 
     [Header("初速")]
     public float firstSpeed;
@@ -20,11 +20,9 @@ public class RunnerStatus : MonoBehaviour {
     public bool isState;
     [Header("アイテムを持っているかどうか")]
     public bool ishave;
-    [Header("バフがかかっているか")]
-    public bool isBuff;
-    [Header("お札を持っているか")]
-    public bool isInvincible;
     [Header("アニメーターを入れる")]
     public Animator animator;
+    [Header("プレイヤーの番号")]
+    public int runnerNum;
 
 }

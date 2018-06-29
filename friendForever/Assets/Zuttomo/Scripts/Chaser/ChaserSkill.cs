@@ -18,7 +18,6 @@ public class ChaserSkill : FindObject {
     }
 
     bool m_isChaserAlpha = false;
-    IEnumerator m_enumInvisible;
 
     private void Start()
     {
@@ -27,10 +26,9 @@ public class ChaserSkill : FindObject {
     public void StanSkilStart(GameObject chaserObject)
     {
 
-        FindPlayer(chaserObject);
+        //FindPlayer(chaserObject);
 
-        float coolTime = ChaserController.Instance.m_coolTime;
-        float maxCoolTime = ChaserController.Instance.m_maxCoolTime;
+        float coolTime = ChaserController.Instance.m_stanCoolTime;
         float skilTime = ChaserController.Instance.m_stanTime;
         StanSkil(coolTime, skilTime);
     }
@@ -43,18 +41,22 @@ public class ChaserSkill : FindObject {
         {
             Debug.Log("wan");
             // RunnerStateをStanに変更し、スタン時間を登録
-            RunnerController.Instance.RunnerStan(RunnerState.stan, skilTime);
+            RunnerController.Instance.RunnerStan(RunnerState.stan);
         }
     }
 
-    public void ChaserInvisible(GameObject chaserObject, float coolTime)
+    public void ChaserInvisible(GameObject chaserObject, ChaserState state, float coolTime)
     {
+        Color chaserColor = ChaserController.Instance.m_chaserColor;
+        ChaserController.Instance.m_chaserState = state;
         Debug.Log("とぅっとぅるー");
-        //m_chaserColor = new Color(m_chaserColor.r, m_chaserColor.g, m_chaserColor.b, Mathf.Lerp(1.0f, 0f, 0.1f));
-        Color chaserColor = chaserObject.GetComponent<MeshRenderer>().material.color;
-        if (coolTime == 0)
+        if (ChaserController.Instance.m_chaserState == ChaserState.invisible)
         {
-            chaserObject.GetComponent<MeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
+            if (coolTime == 0)
+            {
+                chaserObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
+                ChaserController.Instance.m_isInvisible = true;
+            }
         }
     }
 }

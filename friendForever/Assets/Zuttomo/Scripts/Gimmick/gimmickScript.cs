@@ -25,6 +25,7 @@ public class gimmickScript : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             player[i] = GameObject.Find("Player" + (i + 1)).transform.GetChild(0).gameObject;
+            //player[i] = GameObject.Find("Player" + (i + 1));
         }
 
         //Instantiate(door, new Vector3( UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_x), 0f, UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z) ), Quaternion.identity);

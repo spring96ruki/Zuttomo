@@ -20,8 +20,6 @@ public class RunnerCamera : MonoBehaviour
     {
         m_pInput = GetComponent<RunnerInput>();
         m_targetPos = m_target.transform.position;
-        m_Distance = 2.0f;
-        m_Height = 1f;
     }
 
     void Update()

@@ -1,12 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 09e32f981f7b64f4e8141adc11be27a4
-timeCreated: 1529600885
-=======
 guid: 30f1ed328d5ae66448f38336bdaa1bf7
-timeCreated: 1529598164
->>>>>>> newKamisato
-licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
@@ -119,11 +112,7 @@ ModelImporter:
     400104: transform5
     400106: transform6
     4300000: polySurface5
-<<<<<<< HEAD
-    7400000: FullRun
-=======
     7400000: Take 001
->>>>>>> newKamisato
     9500000: //RootNode
     13700000: polySurface5
   materials:
@@ -148,151 +137,11 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-<<<<<<< HEAD
-    clipAnimations:
-    - serializedVersion: 16
-      name: FullRun
-      takeName: Take 001
-      firstFrame: 1
-      lastFrame: 16
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: AllRig
-        weight: 1
-      - path: AllRig/HipsRig
-        weight: 1
-      - path: AllRig/HipsRig/Spine1Rig
-        weight: 1
-      - path: AllRig/HipsRig/Spine1Rig/Spine2Rig
-        weight: 1
-      - path: AllRig/HipsRig/Spine1Rig/Spine2Rig/HeadRig
-        weight: 1
-      - path: AllRig/LeftHandRig
-        weight: 1
-      - path: AllRig/LeftLegRig
-        weight: 1
-      - path: AllRig/RightHandRig
-        weight: 1
-      - path: AllRig/RightLegRig
-        weight: 1
-      - path: body
-        weight: 1
-      - path: body/pCube6
-        weight: 1
-      - path: body/pCube6/transform1
-        weight: 1
-      - path: body/polySurface1
-        weight: 1
-      - path: body/polySurface1/transform3
-        weight: 1
-      - path: body/polySurface2
-        weight: 1
-      - path: body/polySurface2/polySurface4
-        weight: 1
-      - path: body/polySurface2/polySurface4/polySurface5 1
-        weight: 1
-      - path: body/polySurface2/polySurface4/polySurface5 1/transform6
-        weight: 1
-      - path: body/polySurface2/polySurface4/polySurface6
-        weight: 1
-      - path: body/polySurface2/polySurface4/polySurface6/polySurface7
-        weight: 1
-      - path: body/polySurface2/polySurface4/polySurface6/polySurface7/transform5
-        weight: 1
-      - path: body/polySurface5
-        weight: 1
-      - path: body/polySurface9
-        weight: 1
-      - path: body/polySurface9/transform2
-        weight: 1
-      - path: body/pSphere1
-        weight: 1
-      - path: body/pSphere1/transform4
-        weight: 1
-      - path: Hips
-        weight: 1
-      - path: Hips/LeftUpLeg
-        weight: 1
-      - path: Hips/LeftUpLeg/LeftLeg
-        weight: 1
-      - path: Hips/LeftUpLeg/LeftLeg/LeftFoot
-        weight: 1
-      - path: Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToes
-        weight: 1
-      - path: Hips/RightUpLeg
-        weight: 1
-      - path: Hips/RightUpLeg/RightLeg
-        weight: 1
-      - path: Hips/RightUpLeg/RightLeg/RightFoot
-        weight: 1
-      - path: Hips/RightUpLeg/RightLeg/RightFoot/RightToes
-        weight: 1
-      - path: Hips/Spine1
-        weight: 1
-      - path: Hips/Spine1/Spine2
-        weight: 1
-      - path: Hips/Spine1/Spine2/LeftShoulder
-        weight: 1
-      - path: Hips/Spine1/Spine2/LeftShoulder/LeftArm
-        weight: 1
-      - path: Hips/Spine1/Spine2/LeftShoulder/LeftArm/LeftHand
-        weight: 1
-      - path: Hips/Spine1/Spine2/LeftShoulder/LeftArm/LeftHand/LeftFinger1
-        weight: 1
-      - path: Hips/Spine1/Spine2/LeftShoulder/LeftArm/LeftHand/LeftFinger1/LeftFinger2
-        weight: 1
-      - path: Hips/Spine1/Spine2/LeftShoulder/LeftArm/LeftHand/LeftFinger1/LeftFinger2/LeftFinger3
-        weight: 1
-      - path: Hips/Spine1/Spine2/Neck
-        weight: 1
-      - path: Hips/Spine1/Spine2/Neck/Head
-        weight: 1
-      - path: Hips/Spine1/Spine2/Neck/Head/LeftEye
-        weight: 1
-      - path: Hips/Spine1/Spine2/Neck/Head/RightEye
-        weight: 1
-      - path: Hips/Spine1/Spine2/RightShoulder
-        weight: 1
-      - path: Hips/Spine1/Spine2/RightShoulder/RightArm
-        weight: 1
-      - path: Hips/Spine1/Spine2/RightShoulder/RightArm/RightHand
-        weight: 1
-      - path: Hips/Spine1/Spine2/RightShoulder/RightArm/RightHand/RightFinger1
-        weight: 1
-      - path: Hips/Spine1/Spine2/RightShoulder/RightArm/RightHand/RightFinger1/RightFinger2
-        weight: 1
-      - path: Hips/Spine1/Spine2/RightShoulder/RightArm/RightHand/RightFinger1/RightFinger2/RightFinger3
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-=======
     clipAnimations: []
->>>>>>> newKamisato
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
