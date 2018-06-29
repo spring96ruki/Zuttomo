@@ -58,7 +58,7 @@ public class RunnerController : SingletonMono<RunnerController>
 		} 
     }
 
-    public void RunnerStan(RunnerState state, float skilTime)
+    public void RunnerStan(RunnerState state)
     {
         m_state = state;
         if (m_state == RunnerState.stan)
@@ -116,12 +116,12 @@ public class RunnerController : SingletonMono<RunnerController>
         {
             m_runnerStatus.animator.SetBool("HalfRun", false);
             m_runnerStatus.animator.SetBool("FullRun", false);
-            m_stateTimer += Time.deltaTime;
+            State_timer += Time.deltaTime;
             //Vector3 force;
             //force = transform.position * 200;
             // Rigidbodyに力を加えて発射
             //GetComponent<Rigidbody>().AddForce(force);
-            if (m_stateTimer >= 3)
+            if (State_timer >= 3)
             {
                 m_runnerStatus.isState = true;
             }

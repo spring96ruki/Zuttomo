@@ -24,10 +24,11 @@ public class RunnerInput : MonoBehaviour
     public bool button_Y;
 
     RunnerStatus m_runnerStatus;
+    public int runnerNum;
 
     public void PController()
     {
-        switch (m_runnerStatus.runnerNum)
+        switch (runnerNum)
         {
             case 1:
                 EscapePlayerInput();
@@ -51,15 +52,15 @@ public class RunnerInput : MonoBehaviour
 
     void EscapePlayerInput()
     {
-        Laxis_x = Input.GetAxis(GamePadName.GameStick_Left + m_runnerStatus.runnerNum.ToString() + GamePadName.GameStick_X);
-        Laxis_y = Input.GetAxis(GamePadName.GameStick_Left + m_runnerStatus.runnerNum.ToString() + GamePadName.GameStick_Y);
-        Raxis_x = Input.GetAxis(GamePadName.GameStick_Right + m_runnerStatus.runnerNum.ToString() + GamePadName.GameStick_X);
-        Raxis_y = Input.GetAxis(GamePadName.GameStick_Right + m_runnerStatus.runnerNum.ToString() + GamePadName.GameStick_Y);
-        button_RB = Input.GetButton(GamePadName.GamePad_RB + m_runnerStatus.runnerNum.ToString());
-        button_A = Input.GetButtonDown(GamePadName.GamePad_A + m_runnerStatus.runnerNum.ToString());
-        button_B = Input.GetButtonDown(GamePadName.GamePad_B + m_runnerStatus.runnerNum.ToString());
-        button_X = Input.GetButtonDown(GamePadName.GamePad_X + m_runnerStatus.runnerNum.ToString());
-        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + m_runnerStatus.runnerNum.ToString());
+        Laxis_x = Input.GetAxis(GamePadName.GameStick_Left + runnerNum.ToString() + GamePadName.GameStick_X);
+        Laxis_y = Input.GetAxis(GamePadName.GameStick_Left + runnerNum.ToString() + GamePadName.GameStick_Y);
+        Raxis_x = Input.GetAxis(GamePadName.GameStick_Right + runnerNum.ToString() + GamePadName.GameStick_X);
+        Raxis_y = Input.GetAxis(GamePadName.GameStick_Right + runnerNum.ToString() + GamePadName.GameStick_Y);
+        button_RB = Input.GetButton(GamePadName.GamePad_RB + runnerNum.ToString());
+        button_A = Input.GetButtonDown(GamePadName.GamePad_A + runnerNum.ToString());
+        button_B = Input.GetButtonDown(GamePadName.GamePad_B + runnerNum.ToString());
+        button_X = Input.GetButtonDown(GamePadName.GamePad_X + runnerNum.ToString());
+        button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + runnerNum.ToString());
     }
 
     void KeyBoardEvent()

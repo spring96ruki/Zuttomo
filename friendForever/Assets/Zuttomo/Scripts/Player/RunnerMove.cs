@@ -17,7 +17,7 @@ public class RunnerMove : MonoBehaviour
     [HideInInspector]
     public float m_timer;
     RunnerInput m_runnerInput;
-    RunnerStatus m_status;
+    RunnerStatus m_runnerStatus;
 	RunnerSkill m_runnerSkill;
     [HideInInspector]
     Rigidbody m_rigidbody;
@@ -26,7 +26,7 @@ public class RunnerMove : MonoBehaviour
     private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
-        m_status = GetComponent<RunnerStatus>();
+        m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
     }
@@ -101,7 +101,7 @@ public class RunnerMove : MonoBehaviour
     void HealthControll()
 	{
 		if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
-			m_status.speed = m_status.maxSpeed;
+			m_runnerStatus.speed = m_runnerStatus.maxSpeed;
 		} else { 
 			if (m_runnerStatus.isHealth == true) {
 				if (m_runnerInput.button_RB == true) {
