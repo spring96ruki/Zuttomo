@@ -25,12 +25,6 @@ public class gimmickItemScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Destroy(gameObject, 0);
-        if (collision.tag == "map")
-        {
-            Destroy(gameObject, 0);
-        }
-
         if (collision.gameObject.GetComponent<RunnerController>().ChaserFlag == false)
         {
             GameObject GimmickScript = GameObject.Find("Gimmick Script");

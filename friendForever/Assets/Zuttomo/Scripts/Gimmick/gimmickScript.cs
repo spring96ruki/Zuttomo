@@ -23,6 +23,7 @@ public class gimmickScript : MonoBehaviour
     public float ItemPosition_x;
     public float ItemPosition_z;
     public int RandomGimmickAreaNumber;
+    public int DammyWord;
 
     // Use this for initialization
     void Start()
@@ -32,46 +33,48 @@ public class gimmickScript : MonoBehaviour
         {
             player[i] = GameObject.Find("Player" + (i + 1)).transform.GetChild(0).gameObject;
         }
-
+        
         RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Door.Length);
         GimmickItem = GimmickArea_Door[RandomGimmickAreaNumber];
-        Instantiate(GimmickItem, new Vector3(GimmickItem.transform.position.x, 0f, GimmickItem.transform.position.z), Quaternion.identity);
+        Instantiate(door, new Vector3(GimmickItem.transform.position.x, 0f, GimmickItem.transform.position.z), Quaternion.identity);
     }
 
-    internal void RunnerKill(int target)
+    internal void RunnerKill(int KillRunnerNum)
     {
-        Debug.Log("kill");        
+        for (int i = 0; i < GetGimmickItem_word.Length + DammyWord; i++) {
+            if (GetGimmickItem_word[i] == KillRunnerNum)
+            {
+                GetGimmickItem_word[i] = 0;
+                WordSpawn(i);
+            }
+        }
     }
 
     public void GimmickStart()
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < GetGimmickItem_word.Length + DammyWord; i++)
         {
-            RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Words.Length);
-            GimmickItem = GimmickArea_Words[RandomGimmickAreaNumber];
-
-            //Debug.Log(GimmickItem.transform.localScale.x / 2);
-            float x = UnityEngine.Random.Range(-System.Math.Abs(GimmickItem.transform.localScale.x / 2), (GimmickItem.transform.localScale.x / 2) + GimmickItem.transform.position.x);
-            float z = UnityEngine.Random.Range(-System.Math.Abs(GimmickItem.transform.localScale.z / 2), (GimmickItem.transform.localScale.z / 2) + GimmickItem.transform.position.z);
-            Debug.Log(i + "(" + x + "," + z + ")");
-            Instantiate(gimmickItem[i], new Vector3(x, 1.3f, z), Quaternion.identity);
+            WordSpawn(i);
         }
 
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    float x = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
-        //    float z = UnityEngine.Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
-        //    Instantiate(gimmickItem[UnityEngine.Random.Range(0, 6)], new Vector3(x, 1.3f, z), Quaternion.identity);
-        //}
-        
         GetGimmickItem_word = new int[] { 0, 0, 0, 0, 0, 0, 0 };
         GetGimmickItem_player = new int[] { 0, 0, 0, 0 };
     }
 
-    // Update is called once per frame
-    void Update()
+    void WordSpawn(int i)
     {
-
+        RandomGimmickAreaNumber = (int)UnityEngine.Random.Range(0, GimmickArea_Words.Length);
+        GimmickItem = GimmickArea_Words[RandomGimmickAreaNumber];
+        float x = UnityEngine.Random.Range(GimmickItem.transform.position.x - System.Math.Abs(GimmickItem.transform.localScale.x / 4), GimmickItem.transform.position.x + GimmickItem.transform.localScale.x / 4);
+        float z = UnityEngine.Random.Range(GimmickItem.transform.position.z - System.Math.Abs(GimmickItem.transform.localScale.z / 4), GimmickItem.transform.position.z + GimmickItem.transform.localScale.z / 4);
+        if (i < GetGimmickItem_word.Length)
+        {
+            Instantiate(gimmickItem[i], new Vector3(x, 1.3f, z), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(gimmickItem[UnityEngine.Random.Range(0, GetGimmickItem_word.Length - 1)], new Vector3(x, 1.3f, z), Quaternion.identity);
+        }
     }
 
     public void GetWord()

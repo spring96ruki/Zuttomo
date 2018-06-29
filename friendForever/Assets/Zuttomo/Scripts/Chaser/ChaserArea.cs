@@ -26,14 +26,6 @@ public class ChaserArea : MonoBehaviour {
             //RunnerKill(KillRunnerNum);
             KillRunnerNum = other.GetComponent<RunnerInput>().runnerNum;
             GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().RunnerKill(KillRunnerNum);
-
-            GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GetGimmickItem_player[KillRunnerNum - 1] = 0;
-            for (int i = 0; i < 7; i++) {
-                if (GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GetGimmickItem_word[i] == KillRunnerNum) {
-                    Debug.Log("gimmick");
-                }
-            }
-
         }
     }
 }
