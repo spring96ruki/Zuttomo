@@ -1,0 +1,189 @@
+fileFormatVersion: 2
+guid: c1536aaca652740d9adc7a0e9b7d6f13
+timeCreated: 1530340222
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: RF_sotai:AllRig
+    100004: RF_sotai:body
+    100006: RF_sotai:Head
+    100008: RF_sotai:HeadRig
+    100010: RF_sotai:Hips
+    100012: RF_sotai:HipsRig
+    100014: RF_sotai:LeftArm
+    100016: RF_sotai:LeftEye
+    100018: RF_sotai:LeftFinger1
+    100020: RF_sotai:LeftFinger2
+    100022: RF_sotai:LeftFinger3
+    100024: RF_sotai:LeftFoot
+    100026: RF_sotai:LeftHand
+    100028: RF_sotai:LeftHandRig
+    100030: RF_sotai:LeftLeg
+    100032: RF_sotai:LeftLegRig
+    100034: RF_sotai:LeftShoulder
+    100036: RF_sotai:LeftToes
+    100038: RF_sotai:LeftUpLeg
+    100040: RF_sotai:Neck
+    100042: RF_sotai:pCube6
+    100044: RF_sotai:polySurface1
+    100046: RF_sotai:polySurface2
+    100048: RF_sotai:polySurface4
+    100050: RF_sotai:polySurface5
+    100052: RF_sotai:polySurface5 1
+    100054: RF_sotai:polySurface6
+    100056: RF_sotai:polySurface7
+    100058: RF_sotai:polySurface9
+    100060: RF_sotai:pSphere1
+    100062: RF_sotai:RightArm
+    100064: RF_sotai:RightEye
+    100066: RF_sotai:RightFinger1
+    100068: RF_sotai:RightFinger2
+    100070: RF_sotai:RightFinger3
+    100072: RF_sotai:RightFoot
+    100074: RF_sotai:RightHand
+    100076: RF_sotai:RightHandRig
+    100078: RF_sotai:RightLeg
+    100080: RF_sotai:RightLegRig
+    100082: RF_sotai:RightShoulder
+    100084: RF_sotai:RightToes
+    100086: RF_sotai:RightUpLeg
+    100088: RF_sotai:Spine1
+    100090: RF_sotai:Spine1Rig
+    100092: RF_sotai:Spine2
+    100094: RF_sotai:Spine2Rig
+    100096: RF_sotai:transform1
+    100098: RF_sotai:transform2
+    100100: RF_sotai:transform3
+    100102: RF_sotai:transform4
+    100104: RF_sotai:transform5
+    100106: RF_sotai:transform6
+    400000: //RootNode
+    400002: RF_sotai:AllRig
+    400004: RF_sotai:body
+    400006: RF_sotai:Head
+    400008: RF_sotai:HeadRig
+    400010: RF_sotai:Hips
+    400012: RF_sotai:HipsRig
+    400014: RF_sotai:LeftArm
+    400016: RF_sotai:LeftEye
+    400018: RF_sotai:LeftFinger1
+    400020: RF_sotai:LeftFinger2
+    400022: RF_sotai:LeftFinger3
+    400024: RF_sotai:LeftFoot
+    400026: RF_sotai:LeftHand
+    400028: RF_sotai:LeftHandRig
+    400030: RF_sotai:LeftLeg
+    400032: RF_sotai:LeftLegRig
+    400034: RF_sotai:LeftShoulder
+    400036: RF_sotai:LeftToes
+    400038: RF_sotai:LeftUpLeg
+    400040: RF_sotai:Neck
+    400042: RF_sotai:pCube6
+    400044: RF_sotai:polySurface1
+    400046: RF_sotai:polySurface2
+    400048: RF_sotai:polySurface4
+    400050: RF_sotai:polySurface5
+    400052: RF_sotai:polySurface5 1
+    400054: RF_sotai:polySurface6
+    400056: RF_sotai:polySurface7
+    400058: RF_sotai:polySurface9
+    400060: RF_sotai:pSphere1
+    400062: RF_sotai:RightArm
+    400064: RF_sotai:RightEye
+    400066: RF_sotai:RightFinger1
+    400068: RF_sotai:RightFinger2
+    400070: RF_sotai:RightFinger3
+    400072: RF_sotai:RightFoot
+    400074: RF_sotai:RightHand
+    400076: RF_sotai:RightHandRig
+    400078: RF_sotai:RightLeg
+    400080: RF_sotai:RightLegRig
+    400082: RF_sotai:RightShoulder
+    400084: RF_sotai:RightToes
+    400086: RF_sotai:RightUpLeg
+    400088: RF_sotai:Spine1
+    400090: RF_sotai:Spine1Rig
+    400092: RF_sotai:Spine2
+    400094: RF_sotai:Spine2Rig
+    400096: RF_sotai:transform1
+    400098: RF_sotai:transform2
+    400100: RF_sotai:transform3
+    400102: RF_sotai:transform4
+    400104: RF_sotai:transform5
+    400106: RF_sotai:transform6
+    4300000: RF_sotai:polySurface5
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: RF_sotai:polySurface5
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

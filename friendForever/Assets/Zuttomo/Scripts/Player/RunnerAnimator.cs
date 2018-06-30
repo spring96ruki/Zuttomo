@@ -52,6 +52,16 @@ public class RunnerAnimator : MonoBehaviour
         }));
     }
 
+    public void KillAnimatio()
+    {
+        m_action = true;
+        m_animator.SetKill();
+        StartCoroutine(ActionAnimation(() =>
+        {
+            m_action = false;
+        }));
+    }
+
     IEnumerator ActionAnimation(System.Action callback)
     {
         yield return null;
