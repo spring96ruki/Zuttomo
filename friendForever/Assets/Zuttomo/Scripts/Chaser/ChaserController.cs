@@ -96,6 +96,15 @@ public class ChaserController : SingletonMono<ChaserController> {
         --m_invisibleCoolTime;
     }
 
+    void DebugLog()
+    {
+        Debug.Log("buttonA: " + m_runnerInput.button_A);
+        Debug.Log("buttonRB: " + m_runnerInput.button_RB);
+        Debug.Log("buttonX: " + m_runnerInput.button_X);
+        Debug.Log("buttonY: " + m_runnerInput.button_Y);
+        Debug.Log("buttonB: " +m_runnerInput.button_B);
+    }
+
     // Update is called once per frame
     void Update () {
 
@@ -103,6 +112,7 @@ public class ChaserController : SingletonMono<ChaserController> {
         ChaserInvisibleTime();
         m_runnerInput.PController(m_playerNum);
         DebugSkil();
+        DebugLog();
 
         if (m_runnerStatus.isState)
         {
