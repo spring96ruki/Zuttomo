@@ -18,6 +18,7 @@ public class ChaserController : SingletonMono<ChaserController> {
     RunnerStatus m_runnerStatus;
 
     public int m_playerNum;
+    public bool m_isTakePlayer;
     public bool m_isInvisible;
     public Color m_chaserColor;
     public float m_stanCoolTime;
@@ -31,7 +32,6 @@ public class ChaserController : SingletonMono<ChaserController> {
 
     public float m_timer;
     public GameObject m_camera;
-    public GameObject m_touch;
 
     // Use this for initialization
     private void Start()
@@ -103,6 +103,8 @@ public class ChaserController : SingletonMono<ChaserController> {
         Debug.Log("buttonX: " + m_runnerInput.button_X);
         Debug.Log("buttonY: " + m_runnerInput.button_Y);
         Debug.Log("buttonB: " +m_runnerInput.button_B);
+
+        Debug.Log("捕まってるか" + m_isTakePlayer);
     }
 
     // Update is called once per frame
@@ -197,18 +199,19 @@ public class ChaserController : SingletonMono<ChaserController> {
 
         if (m_runnerInput.button_B)
         {
-            Debug.Log("タッチ");
-            m_touch.SetActive(true);
-            m_timer = 0;
-        }
-        else
-        {
-            if (m_timer <= 0.5)
+            if (m_isTakePlayer)
             {
-                m_timer += Time.deltaTime;
-                m_touch.SetActive(false);
+                Debug.Log("タッチ");
             }
+            //m_timer = 0;
         }
+        //else
+        //{
+        //    if (m_timer <= 0.5)
+        //    {
+        //        m_timer += Time.deltaTime;
+        //    }
+        //}
 
         if (m_runnerInput.button_X)
         {

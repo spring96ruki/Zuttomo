@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChaserArea : MonoBehaviour {
-	public int Kill_Count = 0;
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.tag == "Runner")
         {
-            Debug.Log("捕まえたよ");
-            other.gameObject.SetActive(false);
-            GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd();
+            Debug.Log("領域内");
+            ChaserController.Instance.m_isTakePlayer = true;
+            //other.gameObject.SetActive(false);
+            //GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd();
+
+
         }
     }
 }
