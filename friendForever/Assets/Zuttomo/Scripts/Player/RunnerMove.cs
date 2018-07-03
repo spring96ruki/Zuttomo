@@ -34,8 +34,8 @@ public class RunnerMove : MonoBehaviour
 
 	public void Move()
 	{
-		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
-		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
+		float horizontal = m_runnerInput.Laxis_x * m_runnerStatus.speed * Time.deltaTime;
+		float virtical = m_runnerInput.Laxis_y * m_runnerStatus.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
 		HealthControll();
         KillPlayerAnimation();
@@ -100,15 +100,15 @@ public class RunnerMove : MonoBehaviour
 				m_runnerStatus.isHealth = false;
 			}
 			
-			if (m_status.health >= m_status.maxHealth) {
-				m_status.health = m_status.maxHealth;
+			if (m_runnerStatus.health >= m_runnerStatus.maxHealth) {
+				m_runnerStatus.health = m_runnerStatus.maxHealth;
 			}
 
 			//ボタンが押されてなかったら
 			if (m_runnerInput.button_RB == false) {
-				m_status.speed = m_status.firstSpeed;
+				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
                 //スタミナ回復
-                m_status.health += Time.deltaTime;
+                m_runnerStatus.health += Time.deltaTime;
             }
 		}
 	}
