@@ -37,6 +37,10 @@ public class RunnerCamera : MonoBehaviour
 
         float h = m_pInput.Raxis_x * 150 * Time.deltaTime;
         float v = m_pInput.Raxis_y * 150 * Time.deltaTime;
+        Debug.Log("Raxis_x: " + m_pInput.Raxis_x);
+        Debug.Log("Raxis_y: " + m_pInput.Raxis_y);
+        Debug.Log("h: " + h);
+        Debug.Log("v: " + v);
 
 
 
