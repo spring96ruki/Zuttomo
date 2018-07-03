@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
-{
-
+{ 
     public static int m_getChasernum;
     public GameObject playerandcamera;
     public GameObject itimathu;
