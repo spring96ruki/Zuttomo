@@ -7,92 +7,82 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject m_chaserImage;
-    public GameObject m_runnerImage;
     public GameObject m_player;
-    public Image m_healthUI;
-    public Image m_item;
-    public Image img;
-    public Image m_stan;
-    public Image m_invisible;
+
     private int m_setitemNum;
+
+    public int m_setChasernum;
     public List<Sprite> itemList = new List<Sprite>();
-    RunnerInput m_runnerInput;
-    RunnerStatus m_status;
-    RunnerController m_runnerController;
-    RunnerSkill m_runnerSkill;
+    public GameObject[] playerList;
+    public List<Image> m_UI1List = new List<Image>();
+    public List<Image> m_UI2List = new List<Image>();
 
-
-
-
-
-    void Awake()
-    {
-
-        m_status = m_player.GetComponent<RunnerStatus>();
-        m_runnerSkill = m_player.GetComponent<RunnerSkill>();
-        m_runnerController = m_player.GetComponent<RunnerController>();
-        img = m_item.GetComponent<Image>();
-        Debug.Log(img);
-        //Debug.Log(img.sprite);
-
-
-    }
-
-    // Use this for initialization
     void Start()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void UICheck()
-    {
-        if (m_player.GetComponent<RunnerController>().ChaserFlag == true)
+        m_setChasernum = SelectController.GetChaserplayer() - 1;
+        Debug.Log("Pn:" + m_setChasernum);
+        for (int i = 0; i < 4; i++)
         {
-            m_chaserImage.SetActive(true);
-            m_runnerImage.SetActive(false);
-        }
-        else
-        {
-            m_chaserImage.SetActive(false);
-            m_runnerImage.SetActive(true);
+            playerList[i] = GameObject.Find("Player" + (i + 1)).transform.GetChild(0).gameObject;
+            if (m_setChasernum == i)
+            {
+                GameObject.Find("Player" + (i + 1) + "Stan").SetActive(true);
+                GameObject.Find("Player" + (i + 1) + "Invisible").SetActive(true);
+                m_UI1List[i] = GameObject.Find("Player" + (i + 1) + "Stanforward").GetComponent<Image>();
+                m_UI2List[i] = GameObject.Find("Player" + (i + 1) + "Invisibleforward").GetComponent<Image>();
+                GameObject.Find("Player" + (i + 1) + "Stamina").SetActive(false);
+                GameObject.Find("Player" + (i + 1) + "Item").SetActive(false);
+            }
+            else
+            {
+                GameObject.Find("Player" + (i + 1) + "Stamina").SetActive(true);
+                GameObject.Find("Player" + (i + 1) + "Item").SetActive(true);
+                m_UI1List[i] = GameObject.Find("Player" + (i + 1) + "Staminaforward").GetComponent<Image>();
+                m_UI2List[i] = GameObject.Find("Player" + (i + 1) + "Item").GetComponent<Image>();
+                GameObject.Find("Player" + (i + 1) + "Stan").SetActive(false);
+                GameObject.Find("Player" + (i + 1) + "Invisible").SetActive(false);
+            }
         }
     }
 
     public void HealthUIControll()
     {
-        m_healthUI.fillAmount = m_status.health / m_status.maxHealth;
+        for(int i = 0; i < 4; i++)
+        {
+            float health = playerList[i].GetComponent<RunnerStatus>().health;
+            float maxHealth = playerList[i].GetComponent<RunnerStatus>().maxHealth;
+            m_UI1List[i].GetComponent<Image>().fillAmount = health / maxHealth;
+        }
     }
 
-    public void ItemUIControll(int ItemNum)
+    public void ItemUIControll(int ItemNum,int playerNum)
     {
         Debug.Log("test" + ItemNum);
-        img.sprite = itemList[ItemNum - 1];
+        m_UI2List[playerNum - 1].sprite = itemList[ItemNum - 1];
     }
 
-    internal void stanOn(float m_coolTime, float m_maxCoolTime)
+    internal void StanOn(float m_coolTime, float m_maxCoolTime)
     {
+        m_UI1List[m_setChasernum].fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
         Debug.Log("スタン");
-        m_stan.fillAmount = 0;
-        m_stan.fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
     }
 
-    //public void InvisibleOn()
-    //{
-    //    Debug.Log("インビ");
-    //    m_invisible.fillAmount = 0;
-    //}
+    
 
     internal void InvisibleOn(float m_coolTime,float m_maxCoolTime)
     {
         Debug.Log("インビ");
-        Debug.Log("cool:"+m_coolTime);
-        m_invisible.fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
+        Debug.Log("cool:" + m_coolTime);
+        m_UI2List[m_setChasernum].fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
+    }
+
+    public Image GetStanImage()
+    {
+        return m_UI1List[m_setChasernum];
+    }
+
+    public Image GetInvisibleImage()
+    {
+        return m_UI2List[m_setChasernum];
     }
 }

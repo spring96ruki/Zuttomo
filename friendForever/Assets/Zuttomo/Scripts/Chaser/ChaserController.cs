@@ -5,7 +5,8 @@ using UnityEngine;
 public enum ChaserState
 {
     normal = 0,
-    invisible
+    invisible,
+    stan
 }
 
 public class ChaserController : SingletonMono<ChaserController> {
@@ -62,7 +63,6 @@ public class ChaserController : SingletonMono<ChaserController> {
     private void FixedUpdate()
     {
         //Debug.Log(m_coolTime);
-        --m_coolTime;
 
         if (m_runnerStatus.isState == true)
         {
@@ -95,22 +95,47 @@ public class ChaserController : SingletonMono<ChaserController> {
         {
             ChaserSkill.Instance.StanSkilStart(gameObject);
             RunnerController.Instance.stanTime = m_stanTime;
-            m_uIController.stanOn(m_coolTime, m_maxCoolTime);
-            m_uIController.InvisibleOn(m_coolTime, m_maxCoolTime);
+            m_uIController.StanOn(m_coolTime, m_maxCoolTime);
+            m_chaserState = ChaserState.stan;
+
+            //m_uIController.InvisibleOn(m_coolTime, m_maxCoolTime);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
         {
             m_chaserState = ChaserState.invisible;
+            m_uIController.GetInvisibleImage().fillAmount = 0;
             //ChaserSkill.Instance.InvisibleSkilStart(gameObject, m_coolTime, m_invisibleTime);
         }
 
         if (m_chaserState == ChaserState.invisible)
         {
             Debug.Log("透明化");
-            ChaserSkill.Instance.ChaserInvisible(gameObject, m_coolTime);
+            --m_coolTime;
+            //ChaserSkill.Instance.ChaserInvisible(gameObject, m_coolTime);
             m_uIController.InvisibleOn(m_coolTime,m_maxCoolTime);
-            m_uIController.stanOn(m_coolTime, m_maxCoolTime);
+            //m_uIController.StanOn(m_coolTime, m_maxCoolTime);
+
+            if (m_coolTime == 0)
+            {
+                m_uIController.GetInvisibleImage().fillAmount = 1f;
+                m_chaserState = ChaserState.normal;
+            }
+        }
+
+        if (m_chaserState == ChaserState.stan)
+        {
+            Debug.Log("透明化");
+            --m_coolTime;
+            //ChaserSkill.Instance.Chaser(gameObject, m_coolTime);
+            m_uIController.StanOn(m_coolTime, m_maxCoolTime);
+            //m_uIController.StanOn(m_coolTime, m_maxCoolTime);
+
+            if (m_coolTime == 0)
+            {
+                m_uIController.GetStanImage().fillAmount = 1f;
+                m_chaserState = ChaserState.normal;
+            }
         }
         m_runnerInput.PController();
 	}

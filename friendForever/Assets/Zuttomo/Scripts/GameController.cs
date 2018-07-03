@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public static GameController Instance
-    {
-        get;private set;
-    }
-
     public static int m_getChasernum;
     public GameObject playerandcamera;
     public GameObject itimathu;
@@ -24,7 +19,6 @@ public class GameController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Instance = this.GetComponent<GameController>();
         int m_getChaserNum = SelectController.GetChaserplayer();
 
         for (int i = 0; i < 4; i++)
@@ -62,6 +56,7 @@ public class GameController : MonoBehaviour
             if (1 == i + 1)
             {
                 player.GetComponent<RunnerController>().ChaserFlag = true;
+
             }
         }
 
@@ -103,8 +98,8 @@ public class GameController : MonoBehaviour
         Debug.Log(SceneController.Instance);
         SceneController.Instance.LoadScene(SceneName.TITLE_SCENE);
     }
-    public Sprite GetItemImage(int itemNum)
-    {
-        return itemList[itemNum];
-    }
+    //public Sprite GetItemImage(int itemNum)
+    //{
+    //    return itemList[itemNum];
+    //}
 }

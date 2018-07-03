@@ -64,7 +64,7 @@ public class RunnerSkill : MonoBehaviour {
                         m_runnerStatus.ishave = true;
                         //アイテムの番号を1に変更
                         m_itemNum = 1;
-                        m_uIController.ItemUIControll(m_itemNum);
+                        m_uIController.ItemUIControll(m_itemNum,m_runnerInput.runnerNum);
                         //拾ったアイテムを消去
                         Destroy(check.gameObject);
                     }
@@ -78,21 +78,21 @@ public class RunnerSkill : MonoBehaviour {
                         m_runnerStatus.ishave = true;
                         //アイテムの番号を2に変更
                         m_itemNum = 2;
-                        m_uIController.ItemUIControll(m_itemNum);
+                        m_uIController.ItemUIControll(m_itemNum, m_runnerInput.runnerNum);
                         //拾ったアイテムを消去
                         Destroy(check.gameObject);
                     }
                     break;
 
                 case ItemName.Ohuda:
-                    Debug.Log("お札だよ");
+                    //Debug.Log("お札だよ");
                     if (m_runnerInput.button_B == true)
                     {
                         //アイテムを持ったらtrueに変更
                         m_runnerStatus.ishave = true;
                         //アイテムの番号を3に変更
                         m_itemNum = 3;
-                        m_uIController.ItemUIControll(m_itemNum);
+                        m_uIController.ItemUIControll(m_itemNum, m_runnerInput.runnerNum);
                         //拾ったアイテムを消去
                         Destroy(check.gameObject);
                     }
@@ -117,7 +117,7 @@ public class RunnerSkill : MonoBehaviour {
                     // アイテムの位置を調整
                     bullets.transform.position = m_runnerMove.m_FiringPosition.position;
                     bullets.tag = "Itimatu";
-                    m_uIController.ItemUIControll(4);
+                    m_uIController.ItemUIControll(4, m_runnerInput.runnerNum);
                     m_runnerStatus.ishave = false;
                     break;
 
@@ -149,12 +149,12 @@ public class RunnerSkill : MonoBehaviour {
         while (m_DrugTimer > 0)
         {
             m_runnerStatus.health = m_runnerStatus.maxHealth;
-            m_uIController.m_item.fillAmount = m_DrugTimer / m_EventTime;
+            m_uIController.m_UI2List[m_runnerInput.runnerNum - 1].fillAmount = m_DrugTimer / m_EventTime;
             m_DrugTimer -= Time.deltaTime;
             yield return null;
         }
-        m_uIController.m_item.fillAmount = 1;
-        m_uIController.ItemUIControll(4);
+        m_uIController.m_UI2List[m_runnerInput.runnerNum - 1].fillAmount = 1;
+        m_uIController.ItemUIControll(4, m_runnerInput.runnerNum);
         Debug.Log("終わったよ");
     }
 
@@ -168,13 +168,13 @@ public class RunnerSkill : MonoBehaviour {
         float m_invincibleTime = m_EventTime;
         while (m_invincibleTime > 0)
         {
-            m_uIController.m_item.fillAmount = m_invincibleTime / m_EventTime;
+            m_uIController.m_UI2List[m_runnerInput.runnerNum - 1].fillAmount = m_invincibleTime / m_EventTime;
             m_invincibleTime -= Time.deltaTime;
             yield return null;
         }
         m_runnerArea.SetActive(false);
-        m_uIController.m_item.fillAmount = 1;
-        m_uIController.ItemUIControll(4);
+        m_uIController.m_UI2List[m_runnerInput.runnerNum - 1].fillAmount = 1;
+        m_uIController.ItemUIControll(4, m_runnerInput.runnerNum);
         //レイヤーをPlayerに戻す
         gameObject.layer = LayerMask.NameToLayer("Player");
         Debug.Log("終わったよ");

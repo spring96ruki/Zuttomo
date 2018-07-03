@@ -15,7 +15,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
     float m_stanTime;
     public float stanTime{ get { return m_stanTime; } set { m_stanTime = value; } }
-    [HideInInspector]
+    //[HideInInspector]
 	public bool ChaserFlag;
     public float State_timer;
     float currentSpeed;
@@ -39,9 +39,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidBody = GetComponent<Rigidbody>();
-        m_uIController = m_runnerMove.m_UIController.GetComponent<UIController>();
-        m_uIController.UICheck();
-        
+        m_uIController = m_runnerMove.m_UIController.GetComponent<UIController>(); 
     }
 
 	void Start()
@@ -81,7 +79,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log(stanTime);
+        //Debug.Log(stanTime);
         // isStanがtrueになったらスタン処理開始
         if (isStan == true)
         {

@@ -48,7 +48,7 @@ public class RunnerMove : MonoBehaviour
 		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
 		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
 		PlayerRotation(horizontal, virtical);
-		PlayerAnimation(horizontal, virtical);
+		//PlayerAnimation(horizontal, virtical);
         KillPlayerAnimation();
         HealthControll();
         m_prevPos = transform.position;
@@ -68,29 +68,29 @@ public class RunnerMove : MonoBehaviour
 			//体の向きを変更
 			transform.rotation = Quaternion.LookRotation(moveForward);
 			//PlayerのAnimation管理
-			PlayerAnimation(horizontal, virtical);
+			//PlayerAnimation(horizontal, virtical);
 		}
 	}
 
-	void PlayerAnimation(float h, float v)
-	{
-		if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
-		{
-			if (m_status.speed <= m_status.firstSpeed)
-			{
-				m_status.animator.SetBool("HalfRun", true);
-				m_status.animator.SetBool("FullRun", false);
-			}
-			else if (m_status.speed >= m_status.firstSpeed)
-			{
-				m_status.animator.SetBool("FullRun", true);
-			}
-		} else
-		{
-			m_status.animator.SetBool("HalfRun", false);
-			m_status.animator.SetBool("FullRun", false);
-		}
-	}
+	//void PlayerAnimation(float h, float v)
+	//{
+	//	if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
+	//	{
+	//		if (m_status.speed <= m_status.firstSpeed)
+	//		{
+	//			m_status.animator.SetBool("HalfRun", true);
+	//			m_status.animator.SetBool("FullRun", false);
+	//		}
+	//		else if (m_status.speed >= m_status.firstSpeed)
+	//		{
+	//			m_status.animator.SetBool("FullRun", true);
+	//		}
+	//	} else
+	//	{
+	//		m_status.animator.SetBool("HalfRun", false);
+	//		m_status.animator.SetBool("FullRun", false);
+	//	}
+	//}
 
     void KillPlayerAnimation()
     {
@@ -104,7 +104,7 @@ public class RunnerMove : MonoBehaviour
             m_coolTime += Time.deltaTime;
             if(m_coolTime >= 3)
             {
-                m_status.animator.SetBool("Kill", false);
+                //m_status.animator.SetBool("Kill", false);
             }
 
         }
@@ -165,9 +165,9 @@ public class RunnerMove : MonoBehaviour
                 
                 m_status.speed = m_status.firstSpeed;
                 //スタミナ回復
-                Debug.Log("1_" + m_status.health);
+                ;
                 m_status.health += Time.deltaTime;
-                Debug.Log("2_" + m_status.health);
+                
                 m_uIController.HealthUIControll();
 
             }

@@ -39,18 +39,6 @@ public class RunnerInput : MonoBehaviour
             case 1:
                 EscapePlayerInput();
 
-                Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
-                Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
-                button_RB = Input.GetKey("z");
-                button_A = Input.GetKeyDown("x");
-                button_B = Input.GetKeyDown("c");
-                button_X = Input.GetKeyDown("v");
-                button_Y = Input.GetKeyDown("b");
-
-                break;
-
-            case 2:
-                EscapePlayerInput();
                 //Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
                 //Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
                 //button_RB = Input.GetKey("z");
@@ -58,6 +46,18 @@ public class RunnerInput : MonoBehaviour
                 //button_B = Input.GetKeyDown("c");
                 //button_X = Input.GetKeyDown("v");
                 //button_Y = Input.GetKeyDown("b");
+
+                break;
+
+            case 2:
+                EscapePlayerInput();
+                Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
+                Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
+                button_RB = Input.GetKey("z");
+                button_A = Input.GetKeyDown("x");
+                button_B = Input.GetKeyDown("c");
+                button_X = Input.GetKeyDown("v");
+                button_Y = Input.GetKeyDown("b");
                 break;
 
             case 3:
