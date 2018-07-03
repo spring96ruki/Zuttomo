@@ -18,11 +18,11 @@ public class RunnerController : SingletonMono<RunnerController>
     public float State_timer;
     float currentSpeed;
     Rigidbody m_rigidBody;
-    //RunnerCore m_runnerCore;
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
 	RunnerSkill m_runnerSkill;
+    RunnerAnimator m_runnerAnimator;
     protected RunnerStatus m_status;
     [HideInInspector]
     public Rigidbody m_rigidbody;
@@ -37,6 +37,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill> ();
         m_rigidBody = GetComponent<Rigidbody>();
+        m_runnerAnimator = GetComponent<RunnerAnimator>();
         //初期ステータス
         m_runnerStatus.firstSpeed = 5;
         m_runnerStatus.maxSpeed = 10;
@@ -113,8 +114,6 @@ public class RunnerController : SingletonMono<RunnerController>
         }
         else
         {
-            m_runnerStatus.animator.SetBool("HalfRun", false);
-            m_runnerStatus.animator.SetBool("FullRun", false);
             State_timer += Time.deltaTime;
             if (State_timer >= 3)
             {
@@ -122,6 +121,7 @@ public class RunnerController : SingletonMono<RunnerController>
                 State_timer = 0;
             }
         }
+        m_runnerAnimator.DownAnimation();
     }
 
     void OnCollisionEnter(Collision hit)

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: dc4ede4d3cd334319865ebe22356dbfe
-timeCreated: 1530340226
+guid: 7b3bf3537115a407ea0761c382c3ca93
+timeCreated: 1530522093
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -12,53 +12,56 @@ ModelImporter:
     100008: RF_sotai:HeadRig
     100010: RF_sotai:Hips
     100012: RF_sotai:HipsRig
-    100014: RF_sotai:LeftArm
-    100016: RF_sotai:LeftEye
-    100018: RF_sotai:LeftFinger1
-    100020: RF_sotai:LeftFinger2
-    100022: RF_sotai:LeftFinger3
-    100024: RF_sotai:LeftFoot
-    100026: RF_sotai:LeftHand
-    100028: RF_sotai:LeftHandRig
-    100030: RF_sotai:LeftLeg
-    100032: RF_sotai:LeftLegRig
-    100034: RF_sotai:LeftShoulder
-    100036: RF_sotai:LeftToes
-    100038: RF_sotai:LeftUpLeg
-    100040: RF_sotai:Neck
-    100042: RF_sotai:pCube6
-    100044: RF_sotai:polySurface1
-    100046: RF_sotai:polySurface2
-    100048: RF_sotai:polySurface4
-    100050: RF_sotai:polySurface5
-    100052: RF_sotai:polySurface5 1
-    100054: RF_sotai:polySurface6
-    100056: RF_sotai:polySurface7
-    100058: RF_sotai:polySurface9
-    100060: RF_sotai:pSphere1
-    100062: RF_sotai:RightArm
-    100064: RF_sotai:RightEye
-    100066: RF_sotai:RightFinger1
-    100068: RF_sotai:RightFinger2
-    100070: RF_sotai:RightFinger3
-    100072: RF_sotai:RightFoot
-    100074: RF_sotai:RightHand
-    100076: RF_sotai:RightHandRig
-    100078: RF_sotai:RightLeg
-    100080: RF_sotai:RightLegRig
-    100082: RF_sotai:RightShoulder
-    100084: RF_sotai:RightToes
-    100086: RF_sotai:RightUpLeg
-    100088: RF_sotai:Spine1
-    100090: RF_sotai:Spine1Rig
-    100092: RF_sotai:Spine2
-    100094: RF_sotai:Spine2Rig
-    100096: RF_sotai:transform1
-    100098: RF_sotai:transform2
-    100100: RF_sotai:transform3
-    100102: RF_sotai:transform4
-    100104: RF_sotai:transform5
-    100106: RF_sotai:transform6
+    100014: RF_sotai:IKGP
+    100016: RF_sotai:LeftArm
+    100018: RF_sotai:LeftEye
+    100020: RF_sotai:LeftFinger1
+    100022: RF_sotai:LeftFinger2
+    100024: RF_sotai:LeftFinger3
+    100026: RF_sotai:LeftFoot
+    100028: RF_sotai:LeftHand
+    100030: RF_sotai:LeftHandRig
+    100032: RF_sotai:LeftLeg
+    100034: RF_sotai:LeftLegIK
+    100036: RF_sotai:LeftLegRig
+    100038: RF_sotai:LeftShoulder
+    100040: RF_sotai:LeftToes
+    100042: RF_sotai:LeftUpLeg
+    100044: RF_sotai:Neck
+    100046: RF_sotai:pCube6
+    100048: RF_sotai:polySurface1
+    100050: RF_sotai:polySurface2
+    100052: RF_sotai:polySurface4
+    100054: RF_sotai:polySurface5
+    100056: RF_sotai:polySurface5 1
+    100058: RF_sotai:polySurface6
+    100060: RF_sotai:polySurface7
+    100062: RF_sotai:polySurface9
+    100064: RF_sotai:pSphere1
+    100066: RF_sotai:RightArm
+    100068: RF_sotai:RightEye
+    100070: RF_sotai:RightFinger1
+    100072: RF_sotai:RightFinger2
+    100074: RF_sotai:RightFinger3
+    100076: RF_sotai:RightFoot
+    100078: RF_sotai:RightHand
+    100080: RF_sotai:RightHandRig
+    100082: RF_sotai:RightLeg
+    100084: RF_sotai:RightLegIK
+    100086: RF_sotai:RightLegRig
+    100088: RF_sotai:RightShoulder
+    100090: RF_sotai:RightToes
+    100092: RF_sotai:RightUpLeg
+    100094: RF_sotai:Spine1
+    100096: RF_sotai:Spine1Rig
+    100098: RF_sotai:Spine2
+    100100: RF_sotai:Spine2Rig
+    100102: RF_sotai:transform1
+    100104: RF_sotai:transform2
+    100106: RF_sotai:transform3
+    100108: RF_sotai:transform4
+    100110: RF_sotai:transform5
+    100112: RF_sotai:transform6
     400000: //RootNode
     400002: RF_sotai:AllRig
     400004: RF_sotai:body
@@ -66,53 +69,56 @@ ModelImporter:
     400008: RF_sotai:HeadRig
     400010: RF_sotai:Hips
     400012: RF_sotai:HipsRig
-    400014: RF_sotai:LeftArm
-    400016: RF_sotai:LeftEye
-    400018: RF_sotai:LeftFinger1
-    400020: RF_sotai:LeftFinger2
-    400022: RF_sotai:LeftFinger3
-    400024: RF_sotai:LeftFoot
-    400026: RF_sotai:LeftHand
-    400028: RF_sotai:LeftHandRig
-    400030: RF_sotai:LeftLeg
-    400032: RF_sotai:LeftLegRig
-    400034: RF_sotai:LeftShoulder
-    400036: RF_sotai:LeftToes
-    400038: RF_sotai:LeftUpLeg
-    400040: RF_sotai:Neck
-    400042: RF_sotai:pCube6
-    400044: RF_sotai:polySurface1
-    400046: RF_sotai:polySurface2
-    400048: RF_sotai:polySurface4
-    400050: RF_sotai:polySurface5
-    400052: RF_sotai:polySurface5 1
-    400054: RF_sotai:polySurface6
-    400056: RF_sotai:polySurface7
-    400058: RF_sotai:polySurface9
-    400060: RF_sotai:pSphere1
-    400062: RF_sotai:RightArm
-    400064: RF_sotai:RightEye
-    400066: RF_sotai:RightFinger1
-    400068: RF_sotai:RightFinger2
-    400070: RF_sotai:RightFinger3
-    400072: RF_sotai:RightFoot
-    400074: RF_sotai:RightHand
-    400076: RF_sotai:RightHandRig
-    400078: RF_sotai:RightLeg
-    400080: RF_sotai:RightLegRig
-    400082: RF_sotai:RightShoulder
-    400084: RF_sotai:RightToes
-    400086: RF_sotai:RightUpLeg
-    400088: RF_sotai:Spine1
-    400090: RF_sotai:Spine1Rig
-    400092: RF_sotai:Spine2
-    400094: RF_sotai:Spine2Rig
-    400096: RF_sotai:transform1
-    400098: RF_sotai:transform2
-    400100: RF_sotai:transform3
-    400102: RF_sotai:transform4
-    400104: RF_sotai:transform5
-    400106: RF_sotai:transform6
+    400014: RF_sotai:IKGP
+    400016: RF_sotai:LeftArm
+    400018: RF_sotai:LeftEye
+    400020: RF_sotai:LeftFinger1
+    400022: RF_sotai:LeftFinger2
+    400024: RF_sotai:LeftFinger3
+    400026: RF_sotai:LeftFoot
+    400028: RF_sotai:LeftHand
+    400030: RF_sotai:LeftHandRig
+    400032: RF_sotai:LeftLeg
+    400034: RF_sotai:LeftLegIK
+    400036: RF_sotai:LeftLegRig
+    400038: RF_sotai:LeftShoulder
+    400040: RF_sotai:LeftToes
+    400042: RF_sotai:LeftUpLeg
+    400044: RF_sotai:Neck
+    400046: RF_sotai:pCube6
+    400048: RF_sotai:polySurface1
+    400050: RF_sotai:polySurface2
+    400052: RF_sotai:polySurface4
+    400054: RF_sotai:polySurface5
+    400056: RF_sotai:polySurface5 1
+    400058: RF_sotai:polySurface6
+    400060: RF_sotai:polySurface7
+    400062: RF_sotai:polySurface9
+    400064: RF_sotai:pSphere1
+    400066: RF_sotai:RightArm
+    400068: RF_sotai:RightEye
+    400070: RF_sotai:RightFinger1
+    400072: RF_sotai:RightFinger2
+    400074: RF_sotai:RightFinger3
+    400076: RF_sotai:RightFoot
+    400078: RF_sotai:RightHand
+    400080: RF_sotai:RightHandRig
+    400082: RF_sotai:RightLeg
+    400084: RF_sotai:RightLegIK
+    400086: RF_sotai:RightLegRig
+    400088: RF_sotai:RightShoulder
+    400090: RF_sotai:RightToes
+    400092: RF_sotai:RightUpLeg
+    400094: RF_sotai:Spine1
+    400096: RF_sotai:Spine1Rig
+    400098: RF_sotai:Spine2
+    400100: RF_sotai:Spine2Rig
+    400102: RF_sotai:transform1
+    400104: RF_sotai:transform2
+    400106: RF_sotai:transform3
+    400108: RF_sotai:transform4
+    400110: RF_sotai:transform5
+    400112: RF_sotai:transform6
     4300000: RF_sotai:polySurface5
     7400000: FullRun
     9500000: //RootNode
@@ -144,7 +150,7 @@ ModelImporter:
       name: FullRun
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 20
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -274,6 +280,12 @@ ModelImporter:
       - path: RF_sotai:Hips/RF_sotai:Spine1/RF_sotai:Spine2/RF_sotai:RightShoulder/RF_sotai:RightArm/RF_sotai:RightHand/RF_sotai:RightFinger1/RF_sotai:RightFinger2
         weight: 1
       - path: RF_sotai:Hips/RF_sotai:Spine1/RF_sotai:Spine2/RF_sotai:RightShoulder/RF_sotai:RightArm/RF_sotai:RightHand/RF_sotai:RightFinger1/RF_sotai:RightFinger2/RF_sotai:RightFinger3
+        weight: 1
+      - path: RF_sotai:IKGP
+        weight: 1
+      - path: RF_sotai:IKGP/RF_sotai:LeftLegIK
+        weight: 1
+      - path: RF_sotai:IKGP/RF_sotai:RightLegIK
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

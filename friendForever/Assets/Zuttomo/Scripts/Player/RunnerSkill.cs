@@ -10,6 +10,7 @@ public class RunnerSkill : MonoBehaviour {
     RunnerStatus m_runnerStatus;
     RunnerController m_runnerController;
     RunnerMove m_runnerMove;
+    RunnerAnimator m_runnerAnimator;
 
     int m_itemNum;
     [SerializeField]
@@ -22,6 +23,7 @@ public class RunnerSkill : MonoBehaviour {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerController = GetComponent<RunnerController>();
+        m_runnerAnimator = GetComponent<RunnerAnimator>();
 	}
 
 	public void HitEvent(Collision hit)
@@ -102,23 +104,25 @@ public class RunnerSkill : MonoBehaviour {
             {
                 case 1:
                     Debug.Log("市松人形を投げたよ");
-                    ItimatuEvent();
+                    m_runnerAnimator.ThrowAnimation();
                     break;
 
                 case 2:
                     Debug.Log("力が上がったよ");
-                    StartCoroutine("DrugEvent");
+                    m_runnerAnimator.PillAnimation();
+                    m_runnerStatus.ishave = false;
                     break;
 
                 case 3:
                     Debug.Log("無敵");
-                    StartCoroutine("Invincible");
+                    m_runnerAnimator.BarrierAnimation();
+                    m_runnerStatus.ishave = false;
                     break;
             }
         }
 	}
 
-    void ItimatuEvent()
+    public void ItimatuEvent()
     {
         Vector3 force;
         GameObject bullets = Instantiate(m_runnerMove.m_item) as GameObject;
@@ -143,7 +147,6 @@ public class RunnerSkill : MonoBehaviour {
             m_runnerStatus.health = m_runnerStatus.maxHealth;
             yield return null;
         }
-        m_runnerStatus.ishave = false;
         Debug.Log("効果が切れたよ");
     }
 
@@ -161,7 +164,6 @@ public class RunnerSkill : MonoBehaviour {
             yield return null;
         }
         m_runnerArea.SetActive(false);
-        m_runnerStatus.ishave = false;
         //レイヤーをPlayerに戻す
         gameObject.layer = LayerMask.NameToLayer("Player");
         Debug.Log("効果が切れたよ");

@@ -117,36 +117,38 @@ public class RunnerMove : MonoBehaviour
 
     public void Button()
     {
-
-        if (m_runnerInput.button_A == true)
+        if (m_animaton.m_action == false)
         {
-            Debug.Log("突き飛ばし");
-            m_animaton.PushAnimatio();
-            m_Push.SetActive(true);
-            m_timer = 0;
-        }
-        else
-        {
-            if (m_timer <= 0.5)
+            if (m_runnerInput.button_A == true)
             {
-                m_timer += Time.deltaTime;
-                m_Push.SetActive(false);
+                Debug.Log("突き飛ばし");
+                m_animaton.PushAnimation();
+                m_Push.SetActive(true);
+                m_timer = 0;
             }
-        }
+            else
+            {
+                if (m_timer <= 0.5)
+                {
+                    m_timer += Time.deltaTime;
+                    m_Push.SetActive(false);
+                }
+            }
 
-        if (m_runnerInput.button_B == true)
-        {
-            Debug.Log("決定");
-        }
+            if (m_runnerInput.button_B == true)
+            {
+                Debug.Log("決定");
+            }
 
-        if (m_runnerInput.button_X == true)
-        {
-            m_runnerSkill.ItemEvent();
-        }
+            if (m_runnerInput.button_X == true)
+            {
+                m_runnerSkill.ItemEvent();
+            }
 
-        if (m_runnerInput.button_Y == true)
-        {
-            Debug.Log("Y");
+            if (m_runnerInput.button_Y == true)
+            {
+                Debug.Log("Y");
+            }
         }
     }
 }
