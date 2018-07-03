@@ -10,10 +10,12 @@ public class RunnerSkill : MonoBehaviour {
     RunnerStatus m_runnerStatus;
     RunnerController m_runnerController;
     RunnerMove m_runnerMove;
+    RunnerAnimator m_runnerAnimator;
 
     int m_itemNum;
     [SerializeField]
     float m_EventaTimer;
+    float m_itemspeed = 1000;
 
 	void Start()
 	{
@@ -21,6 +23,7 @@ public class RunnerSkill : MonoBehaviour {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerController = GetComponent<RunnerController>();
+        m_runnerAnimator = GetComponent<RunnerAnimator>();
 	}
 
 	public void HitEvent(Collision hit)
@@ -30,12 +33,10 @@ public class RunnerSkill : MonoBehaviour {
             case TagName.Push:
                 m_runnerStatus.isState = false;
                 Debug.Log("当たった");
-                m_runnerController.State_timer = 0;
                 break;
             case TagName.Itimatu:
                 Debug.Log("当たった");
                 m_runnerStatus.isState = false;
-                m_runnerController.State_timer = 0;
                 Destroy(hit.gameObject);
                 break;
         }
@@ -44,7 +45,6 @@ public class RunnerSkill : MonoBehaviour {
         {
             m_runnerStatus.isState = false;
             Debug.Log("当たった");
-            m_runnerController.State_timer = 0;
         }
     }
 
@@ -104,60 +104,68 @@ public class RunnerSkill : MonoBehaviour {
             {
                 case 1:
                     Debug.Log("市松人形を投げたよ");
-                    Vector3 force;
-                    GameObject bullets = Instantiate(m_runnerMove.m_item) as GameObject;
-                    force = this.gameObject.transform.forward * m_runnerMove.m_itemspeed;
-                    // Rigidbodyに力を加えて発射
-                    bullets.GetComponent<Rigidbody>().AddForce(force);
-                    // アイテムの位置を調整
-                    bullets.transform.position = m_runnerMove.m_FiringPosition.position;
-                    bullets.tag = "itimatu";
-                    m_runnerStatus.ishave = false;
+                    m_runnerAnimator.ThrowAnimation();
                     break;
 
                 case 2:
                     Debug.Log("力が上がったよ");
-                    StartCoroutine("DrugEvent");
+                    m_runnerAnimator.PillAnimation();
                     m_runnerStatus.ishave = false;
                     break;
 
                 case 3:
                     Debug.Log("無敵");
-                    StartCoroutine("Invincible");
+                    m_runnerAnimator.BarrierAnimation();
                     m_runnerStatus.ishave = false;
                     break;
             }
         }
 	}
 
+    public void ItimatuEvent()
+    {
+        Vector3 force;
+        GameObject bullets = Instantiate(m_runnerMove.m_item) as GameObject;
+        force = gameObject.transform.forward * m_itemspeed;
+        // Rigidbodyに力を加えて発射
+        bullets.GetComponent<Rigidbody>().AddForce(force);
+        // アイテムの位置を調整
+        bullets.transform.position = m_runnerMove.m_FiringPosition.position;
+        bullets.tag = "itimatu";
+        m_runnerStatus.ishave = false;
+    }
+
     IEnumerator DrugEvent()
     {
+        Debug.Log("発動したよ");
         float m_buffTimer;
+        //while文を指定した回数ループする
         m_buffTimer = m_EventaTimer;
         while (m_buffTimer > 0)
         {
             m_buffTimer -= Time.deltaTime;
             m_runnerStatus.health = m_runnerStatus.maxHealth;
             yield return null;
-            Debug.Log(m_buffTimer);
         }
+        Debug.Log("効果が切れたよ");
     }
 
     IEnumerator Invincible()
     {
+        Debug.Log("発動したよ");
         //レイヤーをPlayerInvincibleに変更
         gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
         m_runnerArea.SetActive(true);
-        //while文を3秒間ループする
+        //while文を指定した回数ループする
         float m_invincibleTime = m_EventaTimer;
         while (m_invincibleTime > 0)
         {
             m_invincibleTime -= Time.deltaTime;
             yield return null;
-            Debug.Log(m_invincibleTime);
         }
         m_runnerArea.SetActive(false);
         //レイヤーをPlayerに戻す
         gameObject.layer = LayerMask.NameToLayer("Player");
+        Debug.Log("効果が切れたよ");
     }
 }

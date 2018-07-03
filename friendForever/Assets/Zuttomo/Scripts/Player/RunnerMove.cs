@@ -5,23 +5,23 @@ using UnityEngine.UI;
 
 public class RunnerMove : MonoBehaviour
 {
-    Animator animator;
     public GameObject m_camera;
     public GameObject m_Push;
     public GameObject m_item;
     public Transform m_FiringPosition;
     public Image m_healthUI;
     public float m_healthTime = 5f;
-
-    public float m_itemspeed = 1000;
     [HideInInspector]
     public float m_timer;
     RunnerInput m_runnerInput;
     RunnerStatus m_runnerStatus;
 	RunnerSkill m_runnerSkill;
+    RunnerAnimator m_animaton;
     [HideInInspector]
     Rigidbody m_rigidbody;
     float m_coolTime;
+    [SerializeField]
+    float m_moveSpeed;
 
     private void Awake()
     {
@@ -29,17 +29,17 @@ public class RunnerMove : MonoBehaviour
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
+        m_animaton = GetComponent<RunnerAnimator>();
     }
 
 	public void Move()
 	{
-		float horizontal = m_runnerInput.Laxis_x * m_runnerStatus.speed * Time.deltaTime;
-		float virtical = m_runnerInput.Laxis_y * m_runnerStatus.speed * Time.deltaTime;
-		PlayerRotation(horizontal, virtical);
-		PlayerAnimation(horizontal, virtical);
+		float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
+		float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
+        PlayerRotation(horizontal, virtical);
 		HealthControll();
         KillPlayerAnimation();
-
+        m_animaton.MoveAnimation(horizontal, virtical);
     }
 
 	void PlayerRotation(float horizontal, float virtical)
@@ -55,28 +55,6 @@ public class RunnerMove : MonoBehaviour
 			transform.position += cameraForward * virtical + m_camera.transform.right * horizontal;
 			//体の向きを変更
 			transform.rotation = Quaternion.LookRotation(moveForward);
-			//PlayerのAnimation管理
-			PlayerAnimation(horizontal, virtical);
-		}
-	}
-
-	void PlayerAnimation(float h, float v)
-	{
-		if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
-		{
-			if (m_runnerStatus.speed <= m_runnerStatus.firstSpeed)
-			{
-				m_runnerStatus.animator.SetBool("HalfRun", true);
-				m_runnerStatus.animator.SetBool("FullRun", false);
-			}
-			else if (m_runnerStatus.speed >= m_runnerStatus.firstSpeed)
-			{
-				m_runnerStatus.animator.SetBool("FullRun", true);
-			}
-		} else
-		{
-			m_runnerStatus.animator.SetBool("HalfRun", false);
-			m_runnerStatus.animator.SetBool("FullRun", false);
 		}
 	}
 
@@ -109,6 +87,7 @@ public class RunnerMove : MonoBehaviour
 					m_runnerStatus.speed = m_runnerStatus.maxSpeed;
 					m_runnerStatus.health -= Time.deltaTime;
 				}
+
 			} else {
 				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
 			}
@@ -120,58 +99,54 @@ public class RunnerMove : MonoBehaviour
 			if (m_runnerStatus.health <= 0f) {
 				m_runnerStatus.isHealth = false;
 			}
-			//スタミナがなかったら
-			if (m_runnerStatus.isHealth == false) {
-				//スタミナ回復
-				m_runnerStatus.health += Time.deltaTime;
-			}
-			if (m_runnerStatus.health >= m_runnerStatus.maxHealth) {
-				m_runnerStatus.health = m_runnerStatus.maxHealth;
+			
+			if (m_status.health >= m_status.maxHealth) {
+				m_status.health = m_status.maxHealth;
 			}
 
 			//ボタンが押されてなかったら
 			if (m_runnerInput.button_RB == false) {
-				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
-				//スタミナがのっこていたら
-				if (m_runnerStatus.health >= 0f) {
-					//スタミナ回復
-					m_runnerStatus.health += Time.deltaTime;
-				}
-			}
+				m_status.speed = m_status.firstSpeed;
+                //スタミナ回復
+                m_status.health += Time.deltaTime;
+            }
 		}
 	}
 
     public void Button()
     {
-
-        if (m_runnerInput.button_A == true)
+        if (m_animaton.m_action == false)
         {
-            Debug.Log("突き飛ばし");
-            m_Push.SetActive(true);
-            m_timer = 0;
-        }
-        else
-        {
-            if (m_timer <= 0.5)
+            if (m_runnerInput.button_A == true)
             {
-                m_timer += Time.deltaTime;
-                m_Push.SetActive(false);
+                Debug.Log("突き飛ばし");
+                m_animaton.PushAnimation();
+                m_Push.SetActive(true);
+                m_timer = 0;
             }
-        }
+            else
+            {
+                if (m_timer <= 0.5)
+                {
+                    m_timer += Time.deltaTime;
+                    m_Push.SetActive(false);
+                }
+            }
 
-        if (m_runnerInput.button_B == true)
-        {
-            Debug.Log("決定");
-        }
+            if (m_runnerInput.button_B == true)
+            {
+                Debug.Log("決定");
+            }
 
-        if (m_runnerInput.button_X == true)
-        {
-            m_runnerSkill.ItemEvent();
-        }
+            if (m_runnerInput.button_X == true)
+            {
+                m_runnerSkill.ItemEvent();
+            }
 
-        if (m_runnerInput.button_Y == true)
-        {
-            Debug.Log("Y");
+            if (m_runnerInput.button_Y == true)
+            {
+                Debug.Log("Y");
+            }
         }
     }
 }

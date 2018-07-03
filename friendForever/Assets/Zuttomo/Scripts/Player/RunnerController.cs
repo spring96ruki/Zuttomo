@@ -16,6 +16,7 @@ public class RunnerController : SingletonMono<RunnerController>
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
     RunnerSkill m_runnerSkill;
+    RunnerAnimator m_runnerAnimator;
 
     float m_currentSpeed;
     float m_stanTime;
@@ -32,7 +33,9 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill> ();
-        m_runnerStatus.animator = GetComponent<Animator>();
+        m_rigidBody = GetComponent<Rigidbody>();
+        m_runnerAnimator = GetComponent<RunnerAnimator>();
+
         //初期ステータス
         m_runnerStatus.firstSpeed = 2;
         m_runnerStatus.maxSpeed = 3;
@@ -41,7 +44,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.animator = GetComponent<Animator>();
-	}
+    }
 
 	// Update is called once per frame
 	void Update()
@@ -52,26 +55,6 @@ public class RunnerController : SingletonMono<RunnerController>
         if (transform.position.y < -10) {
 			transform.position = new Vector3 (0, 3, 0);
 		}
-
-        if (m_runnerStatus.isState == true)
-        {
-            m_runnerMove.Move();
-            m_runnerMove.Button();
-        }
-        else
-        {
-            m_runnerStatus.animator.SetBool("HalfRun", false);
-            m_runnerStatus.animator.SetBool("FullRun", false);
-            State_timer += Time.deltaTime;
-            //Vector3 force;
-            //force = transform.position * 200;
-            // Rigidbodyに力を加えて発射
-            //GetComponent<Rigidbody>().AddForce(force);
-            if (State_timer >= 3)
-            {
-                m_runnerStatus.isState = true;
-            }
-        }
     }
 
     public void RunnerStan(RunnerState state)
@@ -119,6 +102,25 @@ public class RunnerController : SingletonMono<RunnerController>
                 }
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (m_runnerStatus.isState == true)
+        {
+            m_runnerMove.Move();
+            m_runnerMove.Button();
+        }
+        else
+        {
+            State_timer += Time.deltaTime;
+            if (State_timer >= 3)
+            {
+                m_runnerStatus.isState = true;
+                State_timer = 0;
+            }
+        }
+        m_runnerAnimator.DownAnimation();
     }
 
     void OnCollisionEnter(Collision hit)
