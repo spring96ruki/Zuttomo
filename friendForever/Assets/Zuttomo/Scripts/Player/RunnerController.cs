@@ -20,7 +20,6 @@ public class RunnerController : SingletonMono<RunnerController>
     protected RunnerStatus m_status;
     [HideInInspector]
     public Rigidbody m_rigidbody;
-    bool isStan = false;
 
     float m_currentSpeed;
     float m_stanTime;
