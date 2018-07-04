@@ -70,7 +70,7 @@ public class RunnerController : SingletonMono<RunnerController>
 
     public void RunnerStanTime()
     {
-        Debug.Log(m_stanTime);
+        //Debug.Log(m_stanTime);
         // isStanがtrueになったらスタン処理開始
         if (isStan)
         {
@@ -108,6 +108,7 @@ public class RunnerController : SingletonMono<RunnerController>
     {
         if (m_runnerStatus.isState == true)
         {
+            //Debug.Log("RBINPUT" + m_runnerInput.button_RB);
             m_runnerMove.Move();
             m_runnerMove.Button();
         }
