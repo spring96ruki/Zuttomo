@@ -15,8 +15,12 @@ public class RunnerController : SingletonMono<RunnerController>
     RunnerInput m_runnerInput;
     RunnerMove m_runnerMove;
     RunnerStatus m_runnerStatus;
-    RunnerSkill m_runnerSkill;
-    RunnerAnimator m_runnerAnimator;
+	RunnerSkill m_runnerSkill;
+    PlayerAnimator m_runnerAnimator;
+    protected RunnerStatus m_status;
+    [HideInInspector]
+    public Rigidbody m_rigidbody;
+    bool isStan = false;
 
     float m_currentSpeed;
     float m_stanTime;
@@ -34,8 +38,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill> ();
         m_rigidBody = GetComponent<Rigidbody>();
-        m_runnerAnimator = GetComponent<RunnerAnimator>();
-
+        m_runnerAnimator = GetComponent<PlayerAnimator>();
         //初期ステータス
         m_runnerStatus.firstSpeed = 2;
         m_runnerStatus.maxSpeed = 3;

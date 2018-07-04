@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunnerAnimator : MonoBehaviour
+public class PlayerAnimator : MonoBehaviour
 {
 
     RunnerInput m_runnerInput;
@@ -135,7 +135,15 @@ public class RunnerAnimator : MonoBehaviour
     {
         yield return null;
         yield return new WaitForSeconds(1f);
-        //yield return new WaitForAnimation(m_animatorManeger.ActiveComponent, 0);
+        Debug.Log("終わったよ");
         callback();
+    }
+
+    public float GetAnimationTime
+    {
+        get
+        {
+            return m_animatorManeger.ActiveComponent.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        }
     }
 }

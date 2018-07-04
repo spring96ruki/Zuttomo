@@ -13,7 +13,7 @@ public class RunnerSkill : MonoBehaviour {
     RunnerStatus m_runnerStatus;
     RunnerController m_runnerController;
     RunnerMove m_runnerMove;
-    RunnerAnimator m_runnerAnimator;
+    PlayerAnimator m_runnerAnimator;
 
     [SerializeField]
     float m_EventTime;
@@ -27,7 +27,8 @@ public class RunnerSkill : MonoBehaviour {
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerController = GetComponent<RunnerController>();
         //m_uIController = m_UIController.GetComponent<UIController>();
-        m_runnerAnimator = GetComponent<RunnerAnimator>();
+        m_runnerAnimator = GetComponent<PlayerAnimator>();
+
 	}
 
 	public void HitEvent(Collision hit)
