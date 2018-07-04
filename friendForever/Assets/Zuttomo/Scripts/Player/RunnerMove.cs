@@ -16,7 +16,7 @@ public class RunnerMove : MonoBehaviour
     RunnerInput m_runnerInput;
     RunnerStatus m_status;
 	RunnerSkill m_runnerSkill;
-    RunnerAnimator m_animaton;
+    PlayerAnimator m_animaton;
     [HideInInspector]
     Rigidbody m_rigidbody;
     float m_coolTime;
@@ -29,7 +29,7 @@ public class RunnerMove : MonoBehaviour
         m_status = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
-        m_animaton = GetComponent<RunnerAnimator>();
+        m_animaton = GetComponent<PlayerAnimator>();
     }
 
 	public void Move()
