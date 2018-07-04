@@ -88,14 +88,6 @@ public class ChaserController : SingletonMono<ChaserController> {
         }
     }
 
-
-    private void FixedUpdate()
-    {
-        //Debug.Log(m_coolTime);
-        --m_stanCoolTime;
-        --m_invisibleCoolTime;
-    }
-
     void DebugLog()
     {
         Debug.Log("buttonA: " + m_runnerInput.button_A);
@@ -143,6 +135,9 @@ public class ChaserController : SingletonMono<ChaserController> {
 
     void CoolTime()
     {
+        --m_stanCoolTime;
+        --m_invisibleCoolTime;
+
         if (m_invisibleCoolTime <= 0)
         {
             m_invisibleCoolTime = 0;
