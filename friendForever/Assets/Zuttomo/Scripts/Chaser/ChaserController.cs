@@ -53,7 +53,7 @@ public class ChaserController : SingletonMono<ChaserController> {
 
     void StatusInit()
     {
-        m_uIController = UIController.GetComponent<UIController>();
+        //m_uIController = UIController.GetComponent<UIController>();
         //初期ステータス
         m_runnerStatus.firstSpeed = 4;
         m_runnerStatus.maxSpeed = 5;
@@ -142,16 +142,16 @@ public class ChaserController : SingletonMono<ChaserController> {
 
         --m_stanCoolTime;
         --m_invisibleCoolTime;
-        m_uIController.InvisibleOn(m_invisibleCoolTime, m_maxInvisibleCoolTime);
-        m_uIController.StanOn(m_stanCoolTime, m_maxStanCoolTime);
+        //m_uIController.InvisibleOn(m_invisibleCoolTime, m_maxInvisibleCoolTime);
+        //m_uIController.StanOn(m_stanCoolTime, m_maxStanCoolTime);
         if (m_invisibleCoolTime <= 0)
         {
-            m_uIController.GetInvisibleImage().fillAmount = 0;
+            //m_uIController.GetInvisibleImage().fillAmount = 0;
             m_invisibleCoolTime = 0;
         }
         if (m_stanCoolTime <= 0)
         {
-            m_uIController.GetStanImage().fillAmount = 0;
+            //m_uIController.GetStanImage().fillAmount = 0;
             m_stanCoolTime = 0;
         }
     }
@@ -196,9 +196,9 @@ public class ChaserController : SingletonMono<ChaserController> {
         if (m_runnerInput.button_A)
         {
             Debug.Log("スキル_1");
-            ChaserSkill.Instance.StanSkilStart(gameObject);
-            RunnerController.Instance.stanTime = m_stanTime;
-            m_uIController.GetStanImage().fillAmount = 1f;
+            //ChaserSkill.Instance.StanSkilStart(gameObject);
+            //RunnerController.Instance.stanTime = m_stanTime;
+            //m_uIController.GetStanImage().fillAmount = 1f;
         }
 
         if (m_runnerInput.button_B)
@@ -222,7 +222,7 @@ public class ChaserController : SingletonMono<ChaserController> {
             Debug.Log("スキル_2");
             m_chaserState = ChaserState.invisible;
             m_invisibleTime = m_maxInvisibleTime;
-            m_uIController.GetInvisibleImage().fillAmount = 1f;
+            //m_uIController.GetInvisibleImage().fillAmount = 1f;
         }
 
         if (m_runnerInput.button_Y)

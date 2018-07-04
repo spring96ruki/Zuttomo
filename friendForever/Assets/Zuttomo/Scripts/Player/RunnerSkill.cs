@@ -26,7 +26,7 @@ public class RunnerSkill : MonoBehaviour {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerController = GetComponent<RunnerController>();
-        m_uIController = m_UIController.GetComponent<UIController>();
+        //m_uIController = m_UIController.GetComponent<UIController>();
         m_runnerAnimator = GetComponent<RunnerAnimator>();
 	}
 

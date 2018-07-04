@@ -29,7 +29,7 @@ public class RunnerInput : MonoBehaviour
         {
             case 1:
                 PlayerInput(playerNum);
-                KeyBoardEvent();
+                //KeyBoardEvent();
                 break;
 
             case 2:

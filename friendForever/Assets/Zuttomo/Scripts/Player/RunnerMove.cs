@@ -29,7 +29,7 @@ public class RunnerMove : MonoBehaviour
 
     private void Awake()
     {
-        m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
+        //m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
@@ -126,7 +126,7 @@ public class RunnerMove : MonoBehaviour
 				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
                 //スタミナ回復
                 m_runnerStatus.health += Time.deltaTime;
-                m_uIController.HealthUIControll();
+                //m_uIController.HealthUIControll();
             }
 		}
 	}
