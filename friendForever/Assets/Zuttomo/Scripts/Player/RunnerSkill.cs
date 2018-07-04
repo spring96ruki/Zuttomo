@@ -6,15 +6,18 @@ public class RunnerSkill : MonoBehaviour {
 
     [SerializeField]
     GameObject m_runnerArea;
+    [SerializeField]
+    GameObject m_UIController;
+    UIController m_uIController;
     RunnerInput m_runnerInput;
     RunnerStatus m_runnerStatus;
     RunnerController m_runnerController;
     RunnerMove m_runnerMove;
     RunnerAnimator m_runnerAnimator;
 
-    int m_itemNum;
     [SerializeField]
-    float m_EventaTimer;
+    float m_EventTime;
+    public static int m_itemNum;
     float m_itemspeed = 1000;
 
 	void Start()
@@ -23,6 +26,7 @@ public class RunnerSkill : MonoBehaviour {
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerController = GetComponent<RunnerController>();
+        m_uIController = m_UIController.GetComponent<UIController>();
         m_runnerAnimator = GetComponent<RunnerAnimator>();
 	}
 
@@ -62,6 +66,7 @@ public class RunnerSkill : MonoBehaviour {
                         m_runnerStatus.ishave = true;
                         //アイテムの番号を1に変更
                         m_itemNum = 1;
+                        m_uIController.ItemUIControll(m_itemNum, m_runnerStatus.runnerNum);
                         //拾ったアイテムを消去
                         Destroy(check.gameObject);
                     }
@@ -75,6 +80,7 @@ public class RunnerSkill : MonoBehaviour {
                         m_runnerStatus.ishave = true;
                         //アイテムの番号を2に変更
                         m_itemNum = 2;
+                        m_uIController.ItemUIControll(m_itemNum, m_runnerStatus.runnerNum);
                         //拾ったアイテムを消去
                         Destroy(check.gameObject);
                     }
@@ -88,6 +94,7 @@ public class RunnerSkill : MonoBehaviour {
                         m_runnerStatus.ishave = true;
                         //アイテムの番号を3に変更
                         m_itemNum = 3;
+                        m_uIController.ItemUIControll(m_itemNum, m_runnerStatus.runnerNum);
                         //拾ったアイテムを消去
                         Destroy(check.gameObject);
                     }
@@ -104,6 +111,7 @@ public class RunnerSkill : MonoBehaviour {
             {
                 case 1:
                     Debug.Log("市松人形を投げたよ");
+                    m_uIController.ItemUIControll(4, m_runnerStatus.runnerNum);
                     m_runnerAnimator.ThrowAnimation();
                     break;
 
@@ -121,6 +129,11 @@ public class RunnerSkill : MonoBehaviour {
             }
         }
 	}
+
+    public static int getItemNum()
+    {
+        return m_itemNum;
+    }
 
     public void ItimatuEvent()
     {
@@ -140,14 +153,18 @@ public class RunnerSkill : MonoBehaviour {
         Debug.Log("発動したよ");
         float m_buffTimer;
         //while文を指定した回数ループする
-        m_buffTimer = m_EventaTimer;
+        m_buffTimer = m_EventTime;
         while (m_buffTimer > 0)
         {
             m_buffTimer -= Time.deltaTime;
             m_runnerStatus.health = m_runnerStatus.maxHealth;
+            m_uIController.m_UI2List[m_runnerStatus.runnerNum - 1].fillAmount = m_buffTimer / m_EventTime;
+
             yield return null;
         }
-        Debug.Log("効果が切れたよ");
+        m_uIController.m_UI2List[m_runnerStatus.runnerNum - 1].fillAmount = 1;
+        m_uIController.ItemUIControll(4, m_runnerStatus.runnerNum);
+        Debug.Log("終わったよ");
     }
 
     IEnumerator Invincible()
@@ -157,13 +174,16 @@ public class RunnerSkill : MonoBehaviour {
         gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
         m_runnerArea.SetActive(true);
         //while文を指定した回数ループする
-        float m_invincibleTime = m_EventaTimer;
+        float m_invincibleTime = m_EventTime;
         while (m_invincibleTime > 0)
         {
+            m_uIController.m_UI2List[m_runnerStatus.runnerNum - 1].fillAmount = m_invincibleTime / m_EventTime;
             m_invincibleTime -= Time.deltaTime;
             yield return null;
         }
         m_runnerArea.SetActive(false);
+        m_uIController.m_UI2List[m_runnerStatus.runnerNum - 1].fillAmount = 1;
+        m_uIController.ItemUIControll(4, m_runnerStatus.runnerNum);
         //レイヤーをPlayerに戻す
         gameObject.layer = LayerMask.NameToLayer("Player");
         Debug.Log("効果が切れたよ");

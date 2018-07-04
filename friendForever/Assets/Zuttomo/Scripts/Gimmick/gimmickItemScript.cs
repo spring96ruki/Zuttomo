@@ -4,24 +4,11 @@ using UnityEngine;
 
 public class gimmickItemScript : MonoBehaviour
 {
-
     [SerializeField, Header("文字の番号")]
     private int word_num;
     [SerializeField, Header("ドアか否か")]
     private bool Door;  //trueがドア
                         //falseがアイテム
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     private void OnTriggerEnter(Collider collision)
     {

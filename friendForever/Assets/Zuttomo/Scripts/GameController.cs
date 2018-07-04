@@ -27,6 +27,8 @@ public class GameController : MonoBehaviour
     public GameObject m_responePointLeft;
     public GameObject m_responePointLeftEnd;
 
+    UIController m_uIController;
+
     void DebugScene()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -48,55 +50,58 @@ public class GameController : MonoBehaviour
 
     // Use this for initialization
     void Start()
-        {
-            AddResponePoint();
+    {
+        Debug.Log("for3");
+        AddResponePoint();
+
+        m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
             
-            int m_getChaserNum = SelectController.GetChaserplayer();
+        int m_getChaserNum = SelectController.GetChaserplayer();
 
-            for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
+        {
+            float x = Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
+            float z = Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
+            GameObject PlayerAndCamera = Instantiate(playerandcamera, new Vector3(x, 1.3f, z), Quaternion.identity);
+
+            PlayerAndCamera.name = ("Player" + (i + 1));
+            var player = PlayerAndCamera.transform.GetChild(0).gameObject;
+            var camera = PlayerAndCamera.transform.GetChild(1).gameObject;
+
+            if (i == 0 || i == 2)
             {
-                float x = Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
-                float z = Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
-                GameObject PlayerAndCamera = Instantiate(playerandcamera, new Vector3(x, 1.3f, z), Quaternion.identity);
-
-
-                PlayerAndCamera.name = ("Player" + (i + 1));
-                var player = PlayerAndCamera.transform.GetChild(0).gameObject;
-                var camera = PlayerAndCamera.transform.GetChild(1).gameObject;
-
-                if (i == 0 || i == 2)
-                {
-                    rect_x = 0f;
-                }
-                else
-                {
-                    rect_x = 0.5f;
-                }
-
-                if (i == 0 || i == 1)
-                {
-                    rect_y = 0.5f;
-                }
-                else
-                {
-                    rect_y = 0f;
-                }
-                camera.GetComponent<Camera>().rect = new Rect(rect_x, rect_y, 0.5f, 0.5f);
-
-                player.GetComponent<RunnerStatus>().runnerNum = i + 1;
-                camera.GetComponent<RunnerStatus>().runnerNum = i + 1;
-
-                if (1 == i + 1)
-                {
-                    player.GetComponent<RunnerController>().ChaserFlag = true;
-                }
+                rect_x = 0f;
+            }
+            else
+            {
+                rect_x = 0.5f;
             }
 
-            GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
-            for (int i = 0; i < 2; i++)
+            if (i == 0 || i == 1)
             {
-                ItemSpawn();
+                rect_y = 0.5f;
             }
+            else
+            {
+                rect_y = 0f;
+            }
+            camera.GetComponent<Camera>().rect = new Rect(rect_x, rect_y, 0.5f, 0.5f);
+
+            player.GetComponent<RunnerStatus>().runnerNum = i + 1;
+            player.GetComponent<RunnerController>().m_playerNum = i + 1;
+
+            if (m_getChaserNum == i + 1)
+            {
+                player.GetComponent<RunnerController>().ChaserFlag = true;
+            }
+        }
+
+        GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
+        for (int i = 0; i < 2; i++)
+        {
+            ItemSpawn();
+        }
+        m_uIController.GetComponent<UIController>().UIStart();
     }
 
     // Update is called once per frame
