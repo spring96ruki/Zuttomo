@@ -21,8 +21,7 @@ public class UIController : MonoBehaviour
     }
 
     public void UIStart()
-    {
-        Debug.Log("for1");
+    { 
         m_Chasernum = SelectController.GetChaserplayer() - 1;
         Debug.Log("Pn:" + m_Chasernum);
         for (int i = 0; i < 4; i++)
