@@ -21,7 +21,6 @@ public class ChaserMove : MonoBehaviour
         float horizontal = m_runnerInput.Laxis_x * m_status.speed * Time.deltaTime;
         float virtical = m_runnerInput.Laxis_y * m_status.speed * Time.deltaTime;
         PlayerRotation(cameraObject, horizontal, virtical);
-        PlayerAnimation(horizontal, virtical);
     }
 
     void PlayerRotation(GameObject cameraObject, float horizontal, float virtical)
@@ -37,20 +36,6 @@ public class ChaserMove : MonoBehaviour
             transform.position += cameraForward * virtical + cameraObject.transform.right * horizontal;
             //体の向きを変更
             transform.rotation = Quaternion.LookRotation(moveForward);
-            //PlayerのAnimation管理
-            PlayerAnimation(horizontal, virtical);
-        }
-    }
-
-    void PlayerAnimation(float h, float v)
-    {
-        if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
-        {
-            m_status.animator.SetBool("Run", true);
-        }
-        else
-        {
-            m_status.animator.SetBool("Run", false);
         }
     }
 }

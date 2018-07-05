@@ -8,7 +8,8 @@ public enum ChaserState
     invisible
 }
 
-public class ChaserController : SingletonMono<ChaserController> {
+public class ChaserController : SingletonMono<ChaserController>
+{
 
     float m_invisibleTime;
     Rigidbody m_rigidBody;
@@ -17,6 +18,7 @@ public class ChaserController : SingletonMono<ChaserController> {
     ChaserMove m_ChaserMove;
     RunnerStatus m_runnerStatus;
     UIController m_uIController;
+    PlayerAnimator m_playerAnimator;
 
     public GameObject UIController;
 
@@ -36,14 +38,16 @@ public class ChaserController : SingletonMono<ChaserController> {
     public float m_timer;
     public GameObject m_camera;
 
-    // Use this for initialization
-    private void Start()
+    private void Awake()
     {
         m_runnerInput = GetComponent<RunnerInput>();
         m_ChaserMove = GetComponent<ChaserMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
         m_rigidBody = GetComponent<Rigidbody>();
         m_chaserColor = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
+        m_playerAnimator = GetComponent<PlayerAnimator>();
+        m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
+        //m_uIController = GetComponent<UIController>();
 
         StatusInit();
         StanInit();
@@ -51,18 +55,32 @@ public class ChaserController : SingletonMono<ChaserController> {
         m_chaserState = ChaserState.normal;
     }
 
+    //public void PlayerStart()
+    //{
+    //    m_runnerInput = GetComponent<RunnerInput>();
+    //    m_ChaserMove = GetComponent<ChaserMove>();
+    //    m_runnerStatus = GetComponent<RunnerStatus>();
+    //    m_rigidBody = GetComponent<Rigidbody>();
+    //    m_chaserColor = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
+    //    m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
+    //    //m_uIController = GetComponent<UIController>();
+
+    //    StatusInit();
+    //    StanInit();
+    //    InvisibleInit();
+    //    m_chaserState = ChaserState.normal;
+    //}
+
     void StatusInit()
     {
-        //m_uIController = UIController.GetComponent<UIController>();
         //初期ステータス
         m_runnerStatus.firstSpeed = 4;
         m_runnerStatus.maxSpeed = 5;
         m_runnerStatus.speed = m_runnerStatus.firstSpeed;
-        m_runnerStatus.health = 0;
-        m_runnerStatus.maxHealth = 0;
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.animator = GetComponent<Animator>();
+        m_runnerStatus.animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Chaser");
     }
 
     public void StanInit()
@@ -142,16 +160,16 @@ public class ChaserController : SingletonMono<ChaserController> {
 
         --m_stanCoolTime;
         --m_invisibleCoolTime;
-        //m_uIController.InvisibleOn(m_invisibleCoolTime, m_maxInvisibleCoolTime);
-        //m_uIController.StanOn(m_stanCoolTime, m_maxStanCoolTime);
+        m_uIController.InvisibleOn(m_invisibleCoolTime, m_maxInvisibleCoolTime);
+        m_uIController.StanOn(m_stanCoolTime, m_maxStanCoolTime);
         if (m_invisibleCoolTime <= 0)
         {
-            //m_uIController.GetInvisibleImage().fillAmount = 0;
+            m_uIController.GetInvisibleImage().fillAmount = 0;
             m_invisibleCoolTime = 0;
         }
         if (m_stanCoolTime <= 0)
         {
-            //m_uIController.GetStanImage().fillAmount = 0;
+            m_uIController.GetStanImage().fillAmount = 0;
             m_stanCoolTime = 0;
         }
     }
@@ -180,16 +198,6 @@ public class ChaserController : SingletonMono<ChaserController> {
         }
     }
 
-    void OnCollisionEnter(Collision hit)
-    {
-        if (hit.gameObject.tag == TagName.Push)
-        {
-            m_runnerStatus.isState = false;
-            Debug.Log("当たった");
-            m_stateTimer = 0;
-        }
-    }
-
     public void ChaserButton()
     {
 
@@ -207,6 +215,7 @@ public class ChaserController : SingletonMono<ChaserController> {
             {
                 Debug.Log("タッチ");
             }
+            m_playerAnimator.KillAnimation();
             //m_timer = 0;
         }
         //else

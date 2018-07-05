@@ -9,6 +9,8 @@ public class PlayerAnimator : MonoBehaviour
     RunnerStatus m_status;
     AnimatorManager m_animatorManeger;
     RunnerSkill m_runnerSkill;
+    [SerializeField]
+    GameObject m_ChaserArea;
 
     public bool m_action;
 
@@ -111,10 +113,12 @@ public class PlayerAnimator : MonoBehaviour
     public void KillAnimation()
     {
         m_action = true;
+        m_ChaserArea.SetActive(true);
         m_animatorManeger.SetKill();
         //アニメーション再生後の処理
         StartCoroutine(ActionAnimation(() =>
         {
+            m_ChaserArea.SetActive(false);
             m_action = false;
         }));
     }
@@ -127,7 +131,7 @@ public class PlayerAnimator : MonoBehaviour
         //アニメーション再生後の処理
         StartCoroutine(ActionAnimation(() =>
         {
-            m_action = false;
+            gameObject.SetActive(false);
         }));
     }
 
