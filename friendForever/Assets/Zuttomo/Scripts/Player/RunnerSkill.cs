@@ -14,7 +14,7 @@ public class RunnerSkill : MonoBehaviour {
 
     int m_itemNum;
     [SerializeField]
-    float m_EventaTimer;
+    float m_EventTime;
     float m_itemspeed = 1000;
 
 	void Start()
@@ -140,7 +140,7 @@ public class RunnerSkill : MonoBehaviour {
         Debug.Log("発動したよ");
         float m_buffTimer;
         //while文を指定した回数ループする
-        m_buffTimer = m_EventaTimer;
+        m_buffTimer = m_EventTime;
         while (m_buffTimer > 0)
         {
             m_buffTimer -= Time.deltaTime;
@@ -157,7 +157,7 @@ public class RunnerSkill : MonoBehaviour {
         gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
         m_runnerArea.SetActive(true);
         //while文を指定した回数ループする
-        float m_invincibleTime = m_EventaTimer;
+        float m_invincibleTime = m_EventTime;
         while (m_invincibleTime > 0)
         {
             m_invincibleTime -= Time.deltaTime;
