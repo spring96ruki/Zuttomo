@@ -17,7 +17,7 @@ public class RunnerMove : MonoBehaviour
     RunnerInput m_runnerInput;
     RunnerStatus m_runnerStatus;
 	RunnerSkill m_runnerSkill;
-    RunnerAnimator m_animaton;
+    PlayerAnimator m_animaton;
     [HideInInspector]
     Rigidbody m_rigidbody;
     float m_coolTime;
@@ -29,13 +29,13 @@ public class RunnerMove : MonoBehaviour
 
     private void Awake()
     {
-        m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
+        //m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
-        m_animaton = GetComponent<RunnerAnimator>();
         //m_uIController = GetComponent<UIController>();
+        m_animaton = GetComponent<PlayerAnimator>();
     }
 
 	public void Move()
@@ -132,8 +132,12 @@ public class RunnerMove : MonoBehaviour
                 m_runnerStatus.speed = m_runnerStatus.firstSpeed;
                 //スタミナ回復
                 m_runnerStatus.health += Time.deltaTime;
+<<<<<<< HEAD
                 Debug.Log("kaihuku");
                 m_uIController.HealthUIControll();
+=======
+                //m_uIController.HealthUIControll();
+>>>>>>> cee1186d24bf671859b7d950bc650bf3581eca6b
             }
 		}
 	}

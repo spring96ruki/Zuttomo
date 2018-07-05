@@ -26,9 +26,9 @@ public class AnimatorManager
         { ParamName.Kill,       Animator.StringToHash("Kill")},
         { ParamName.Pill,       Animator.StringToHash("Pill")},
         { ParamName.Down,       Animator.StringToHash("Down")},
-        { ParamName.Death,       Animator.StringToHash("Death")},
-        { ParamName.Barrier,       Animator.StringToHash("Barrier")},
-        { ParamName.Throw,       Animator.StringToHash("Throw")},
+        { ParamName.Death,      Animator.StringToHash("Death")},
+        { ParamName.Barrier,    Animator.StringToHash("Barrier")},
+        { ParamName.Throw,      Animator.StringToHash("Throw")},
 
     };
 
@@ -49,13 +49,13 @@ public class AnimatorManager
     {
         { StateName.Idle,       Animator.StringToHash("Base Layer.Idle") },
         { StateName.Move,       Animator.StringToHash("Base Layer.Move") },
-        { StateName.Push,     Animator.StringToHash("Bass Leyer.Push")},
+        { StateName.Push,       Animator.StringToHash("Bass Leyer.Push")},
         { StateName.Kill,       Animator.StringToHash("Bass Leyer.Kill")},
         { StateName.Pill,       Animator.StringToHash("Bass Leyer.Pill")},
         { StateName.Down,       Animator.StringToHash("Bass Leyer.Down")},
-        { StateName.Death,       Animator.StringToHash("Bass Leyer.Death")},
-        { StateName.Barrier,       Animator.StringToHash("Bass Leyer.Barrier")},
-        { StateName.Throw,       Animator.StringToHash("Bass Leyer.Throw")},
+        { StateName.Death,      Animator.StringToHash("Bass Leyer.Death")},
+        { StateName.Barrier,    Animator.StringToHash("Bass Leyer.Barrier")},
+        { StateName.Throw,      Animator.StringToHash("Bass Leyer.Throw")},
     };
 
     List<Animator> m_animatorList;
@@ -69,7 +69,7 @@ public class AnimatorManager
     {
         get
         {
-            var ret = m_animatorList.Find(async => async.gameObject.activeSelf);
+            var ret = m_animatorList.Find(a => a.gameObject.activeSelf);
             return ret ?? m_animatorList[0];
         }
     }

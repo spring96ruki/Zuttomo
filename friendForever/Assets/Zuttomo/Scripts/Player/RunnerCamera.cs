@@ -10,6 +10,7 @@ public class RunnerCamera : MonoBehaviour
     [SerializeField]
     RaycastHit m_hit;
     RunnerInput m_pInput;
+    public int playerNum;
 
     [SerializeField,Header("プレイヤーとの距離")]
     float m_Distance;
@@ -22,10 +23,10 @@ public class RunnerCamera : MonoBehaviour
         m_targetPos = m_target.transform.position;
     }
 
-    //void Update()
-    //{
-    //    m_pInput.PController();
-    //}
+    void Update()
+    {
+        m_pInput.PController(playerNum);
+    }
 
     void FixedUpdate()
     {
