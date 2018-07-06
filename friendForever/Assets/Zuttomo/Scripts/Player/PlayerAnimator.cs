@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-
+    RunnerController m_runnerController;
     RunnerInput m_runnerInput;
     RunnerStatus m_status;
     AnimatorManager m_animatorManeger;
@@ -16,6 +16,7 @@ public class PlayerAnimator : MonoBehaviour
 
     void Awake()
     {
+        m_runnerController = GetComponent<RunnerController>();
         m_runnerInput = GetComponent<RunnerInput>();
         m_status = GetComponent<RunnerStatus>();
         m_runnerSkill = GetComponent<RunnerSkill>();
@@ -131,6 +132,7 @@ public class PlayerAnimator : MonoBehaviour
         //アニメーション再生後の処理
         StartCoroutine(ActionAnimation(() =>
         {
+            GameObject.Find("ResultController").GetComponent<ResultController>().RunnerEnd(this.m_runnerController.m_playerNum, false);
             GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd(this.GetComponent<RunnerController>().m_playerNum);
             gameObject.SetActive(false);
         }));

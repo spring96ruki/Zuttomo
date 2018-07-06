@@ -12,7 +12,7 @@ public class ResultController : MonoBehaviour
     public GameObject TimeController;
     public GameObject UIController;
     private Text targetText;
-    private int GetChaserNum;
+    static int GetChaserNum;
     public bool RunnerEndFlag;
     public string[] ResultString = new string[3];
 
@@ -20,6 +20,7 @@ public class ResultController : MonoBehaviour
     void Start()
     {
         int GetChaserNum = SelectController.GetChaserplayer();
+        Debug.Log(GetChaserNum);
         ResultStatus = new float[,]{
             { 0, 0, 0},
             { 0, 0, 0},
@@ -40,14 +41,7 @@ public class ResultController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("z"))
-        {
-            RunnerEnd(Runner_PCount, RunnerEndFlag = true);
-        }
-        if (Input.GetKeyDown("x"))
-        {
-            RunnerEnd(Runner_PCount, RunnerEndFlag = false);
-        }
+
     }
 
     public void RunnerEnd(int Count, bool flag)
@@ -64,37 +58,38 @@ public class ResultController : MonoBehaviour
         }
         ResultStatus[Count - 1, 0] = GameObject.Find("TimeController").GetComponent<TimeController>().time;
 
-        ChaserResult();
         ResultOn(Count);
     }
 
     public void ChaserResult()
     {
-        if (Runner_DeathCount + Runner_EscapeCount == 3)
-        {
-            ResultStatus[GetChaserNum, 0] = GameObject.Find("TimeController").GetComponent<TimeController>().time;
-            ResultStatus[GetChaserNum, 1] = Runner_EscapeCount;
-            ResultStatus[GetChaserNum, 2] = Runner_DeathCount;
-        }
+        int GetChaserNum = SelectController.GetChaserplayer();
+        ResultStatus[GetChaserNum-1, 0] = GameObject.Find("TimeController").GetComponent<TimeController>().time;
+        ResultStatus[GetChaserNum-1, 1] = Runner_EscapeCount;
+        ResultStatus[GetChaserNum-1, 2] = Runner_DeathCount;
+        Debug.Log(GetChaserNum);
+        ResultOn(GetChaserNum);
     }
 
     public void ResultOn(int Count)
     {
-        if (Count - 1 != GetChaserNum)
+        int GetChaserNum = SelectController.GetChaserplayer();
+        if (Count == GetChaserNum)
         {
-            //Runnerのリザルト表示
-            ResultString[0] = "かかった時間";
-            ResultString[1] = "何番目に逃げたか";
-            ResultString[2] = "何番目に捕まったか";
+            //Chaserのリザルト表示
+            ResultString[0] = "時間:";
+            ResultString[1] = "逃げられた:";
+            ResultString[2] = "捕まえた:";
         }
         else
         {
-            //Chaserのリザルト表示
-            ResultString[0] = "かかった時間";
-            ResultString[1] = "何人に逃げられたか";
-            ResultString[2] = "何人捕まえたか";
+            //Runnerのリザルト表示
+            ResultString[0] = "時間:";
+            ResultString[1] = "逃げ番目:";
+            ResultString[2] = "捕まり番目:";
         }
 
+        Debug.Log(Count);
         UIController.GetComponent<UIController>().Result[Count - 1].SetActive(true);
         targetText = UIController.GetComponent<UIController>().ResultText1[Count - 1];
         targetText.GetComponent<Text>().text = ("かかった時間" + ResultStatus[Count - 1, 0]);

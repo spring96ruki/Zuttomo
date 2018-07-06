@@ -23,6 +23,7 @@ public class gimmickItemScript : MonoBehaviour
                     {
                         GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd(collision.GetComponent<RunnerController>().m_playerNum);
                         GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
+                        GameObject.Find("ResultController").GetComponent<ResultController>().RunnerEnd(collision.GetComponent<RunnerController>().m_playerNum, true);
                         collision.gameObject.SetActive(false);
                         Debug.Log("goal");
                     }

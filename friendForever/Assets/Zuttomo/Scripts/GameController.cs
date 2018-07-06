@@ -148,13 +148,15 @@ public class GameController : MonoBehaviour
         GamePhase[count - 1] = 1;
 
         if (GamePhase.Min() == 1) {
+            Invoke("ChaserResult", 1.0f);
             Invoke("EndGame", 15.0f);
         }
     }
 
-    public void PlayerChange()
+    public void ChaserResult()
     {
-
+        Debug.Log("resresc");
+        GameObject.Find("ResultController").GetComponent<ResultController>().ChaserResult();
     }
    
 
