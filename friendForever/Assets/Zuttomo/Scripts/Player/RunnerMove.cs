@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class RunnerMove : MonoBehaviour
 {
     public GameObject m_camera;
+    public GameObject m_player;
     public GameObject m_Push;
     public GameObject m_item;
     public GameObject m_UIController;
@@ -22,31 +23,26 @@ public class RunnerMove : MonoBehaviour
     Rigidbody m_rigidbody;
     float m_coolTime;
     UIController m_uIController;
-
-    private Vector3 m_prevPos;
+    public Vector3 m_prevPos;
     [SerializeField]
     float m_moveSpeed;
 
     private void Awake()
     {
-        //m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
+        m_uIController = GameObject.Find("UIController").GetComponent<UIController>(); ;
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerStatus = GetComponent<RunnerStatus>();
 		m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidbody = GetComponent<Rigidbody>();
-        //m_uIController = GetComponent<UIController>();
         m_animaton = GetComponent<PlayerAnimator>();
     }
 
 	public void Move()
 	{
-        //Debug.Log("MOVE_INPUT" + m_runnerInput.button_RB);
 		float horizontal = m_runnerInput.Laxis_x * m_runnerStatus.speed * Time.deltaTime;
 		float virtical = m_runnerInput.Laxis_y * m_runnerStatus.speed * Time.deltaTime;
         PlayerRotation(horizontal, virtical);
-        //Debug.Log("MOVE_INPUT" + m_runnerInput.button_RB);
         HealthControll();
-        KillPlayerAnimation();
         m_animaton.MoveAnimation(horizontal, virtical);
     }
 
@@ -66,41 +62,22 @@ public class RunnerMove : MonoBehaviour
 		}
 	}
 
-    void KillPlayerAnimation()
-    {
-        if (this.GetComponent<RunnerController>().ChaserFlag == true)
-        {
-            if (m_runnerInput.button_B == true)
-            {
-                m_runnerStatus.animator.SetBool("Kill", true);
-                m_coolTime = 0;
-            }
-            m_coolTime += Time.deltaTime;
-            if(m_coolTime >= 3)
-            {
-                m_runnerStatus.animator.SetBool("Kill", false);
-            }
 
-        }
-    }
-
-    void HealthControll()
+    public void HealthControll()
 	{
-        Debug.Log("----MOVE_INPUT" + m_runnerInput.button_RB + "   " + this.gameObject.transform.parent.gameObject.name);
         if (this.GetComponent<RunnerController> ().ChaserFlag == true) {
 			m_runnerStatus.speed = m_runnerStatus.maxSpeed;
 		} else {
-            Debug.Log("MOVE_INPUT" + m_runnerInput.button_RB + "   " + this.gameObject.transform.parent.gameObject.name);
-            if (m_runnerStatus.isHealth == true) {
+            if (m_runnerStatus.isHealth == true){
                 if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
                 {
-                    //Debug.Log("MOVE_INPUT" + m_runnerInput.button_RB);
-                    //Debug.Log("RBDASH" + m_runnerInput.button_RB);
                     if (m_runnerInput.button_RB == true)
                     {
                         Debug.Log("ダッシュ");
                         m_runnerStatus.speed = m_runnerStatus.maxSpeed;
                         m_runnerStatus.health -= Time.deltaTime;
+                        Debug.Log("減る");
+                        m_uIController.HealthUIControll();
                     }
                 }   
 
@@ -115,18 +92,19 @@ public class RunnerMove : MonoBehaviour
 			if (m_runnerStatus.health <= 0f) {
 				m_runnerStatus.isHealth = false;
 			}
-			
 
-			if (m_runnerStatus.health >= m_runnerStatus.maxHealth) {
+
+                if (m_runnerStatus.health >= m_runnerStatus.maxHealth) {
 				m_runnerStatus.health = m_runnerStatus.maxHealth;
 			}
 
-			//ボタンが押されてなかったら
-			if (m_runnerInput.button_RB == false || m_prevPos == transform.position) {
-				m_runnerStatus.speed = m_runnerStatus.firstSpeed;
+            //ボタンが押されてなかったら
+            if (m_runnerInput.button_RB == false || m_prevPos == m_player.transform.position || m_runnerStatus.isHealth == false) {
+                m_runnerStatus.speed = m_runnerStatus.firstSpeed;
                 //スタミナ回復
                 m_runnerStatus.health += Time.deltaTime;
-                //m_uIController.HealthUIControll();
+                Debug.Log("kaihuku");
+                m_uIController.HealthUIControll();
             }
 		}
 	}

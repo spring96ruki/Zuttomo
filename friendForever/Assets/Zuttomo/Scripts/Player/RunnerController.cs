@@ -35,7 +35,7 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerInput = GetComponent<RunnerInput>();
         m_runnerMove = GetComponent<RunnerMove>();
         m_runnerStatus = GetComponent<RunnerStatus>();
-		m_runnerSkill = GetComponent<RunnerSkill> ();
+        m_runnerSkill = GetComponent<RunnerSkill>();
         m_rigidBody = GetComponent<Rigidbody>();
         m_runnerAnimator = GetComponent<PlayerAnimator>();
         //初期ステータス
@@ -46,10 +46,15 @@ public class RunnerController : SingletonMono<RunnerController>
         m_runnerStatus.isState = true;
         m_runnerStatus.ishave = false;
         m_runnerStatus.animator = GetComponent<Animator>();
+        if (ChaserFlag == false) {
+            m_runnerStatus.animator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Runner");
+        }
     }
 
-	// Update is called once per frame
-	void Update()
+
+
+    // Update is called once per frame
+    void Update()
     {
         RunnerStanTime();
         m_runnerInput.PController(m_playerNum);
@@ -57,6 +62,9 @@ public class RunnerController : SingletonMono<RunnerController>
         if (transform.position.y < -10) {
 			transform.position = new Vector3 (0, 3, 0);
 		}
+        Debug.Log(m_playerNum +"aaa"+ m_stanTime);
+        Debug.Log("bbb"+isStan);
+        Debug.Log("ccc"+m_state);
     }
 
     public void RunnerStan(RunnerState state)
@@ -81,8 +89,10 @@ public class RunnerController : SingletonMono<RunnerController>
 
             // スタン処理
             // 現在のスピードを別の変数に保持し、スピードを0に変更
-            m_currentSpeed = m_runnerStatus.speed;
-            m_runnerStatus.speed = 0f;
+            //m_currentSpeed = m_runnerStatus.speed;
+            m_runnerStatus.firstSpeed = 0f;
+            m_runnerStatus.maxSpeed = 0f;
+            Debug.Log(m_playerNum + "sss" + m_runnerStatus.speed);
 
             if (m_stanTime < 0)
             {
@@ -100,17 +110,19 @@ public class RunnerController : SingletonMono<RunnerController>
                 // スタン終了時に保持してたスピードをプレイヤーのステータスへ戻す
                 if (!isStan)
                 {
-                    m_runnerStatus.speed = m_currentSpeed;
+                    //m_runnerStatus.speed = m_currentSpeed;
+                    m_runnerStatus.firstSpeed = 2;
+                    m_runnerStatus.maxSpeed = 3;
                 }
             }
         }
+        m_runnerMove.m_prevPos = m_runnerMove.m_player.transform.position;
     }
 
     private void FixedUpdate()
     {
         if (m_runnerStatus.isState == true)
         {
-            //Debug.Log("RBINPUT" + m_runnerInput.button_RB);
             m_runnerMove.Move();
             m_runnerMove.Button();
         }
@@ -121,6 +133,7 @@ public class RunnerController : SingletonMono<RunnerController>
             {
                 m_runnerStatus.isState = true;
                 State_timer = 0;
+                m_runnerMove.HealthControll();
             }
         }
         m_runnerAnimator.DownAnimation();

@@ -8,8 +8,7 @@ public class RunnerCamera : MonoBehaviour
     GameObject m_target;
     Vector3 m_targetPos;
     RunnerInput m_pInput;
-    public int playerNum;
-
+    RunnerController m_runnerController;
     [SerializeField,Header("プレイヤーとの距離")]
     float m_Distance;
     [SerializeField, Header("視点の高さ")]
@@ -20,15 +19,19 @@ public class RunnerCamera : MonoBehaviour
     float m_rayDistance = 10f;
     float cameraMoveSpeed = 3f;
 
-    void Start()
+    public int m_playerNum;
+
+	void Start()
     {
-        m_pInput = GetComponent<RunnerInput>();
+        m_pInput = m_target.GetComponent<RunnerInput>();
+        m_runnerController = m_target.GetComponent<RunnerController>();
         m_targetPos = m_target.transform.position;
+        m_playerNum = m_runnerController.m_playerNum;
     }
 
     void Update()
     {
-        m_pInput.PController(playerNum);
+        m_pInput.PController(m_playerNum);
     }
 
     void FixedUpdate()
@@ -39,20 +42,16 @@ public class RunnerCamera : MonoBehaviour
         transform.LookAt(m_lookAt);
         m_targetPos = m_target.transform.position;
 
-        float h = m_pInput.Raxis_x * 150 * Time.deltaTime;
-        float v = m_pInput.Raxis_y * 150 * Time.deltaTime;
+        float h = m_pInput.Raxis_x * 300 * Time.deltaTime;
+        float v = m_pInput.Raxis_y * 300 * Time.deltaTime;
 
         CameraCheck(m_target);
-
-        // targetの位置のY軸を中心に、回転する
-        transform.RotateAround(m_targetPos, Vector3.up, v);
 
         // targetの位置のY軸を中心に、回転する
         transform.RotateAround(m_targetPos, Vector3.up, -v);
 
         // カメラの垂直移動（角度制限なし）
         //transform.RotateAround(targetPos, transform.right, h);
-        transform.RotateAround(m_targetPos, Vector3.up, -v);
 
         //CameraMovement(m_target, m_Distance);
     }

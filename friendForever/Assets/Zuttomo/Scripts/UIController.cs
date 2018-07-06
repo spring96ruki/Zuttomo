@@ -14,6 +14,10 @@ public class UIController : MonoBehaviour
     public GameObject[] playerList;
     public List<Image> m_UI1List = new List<Image>();
     public List<Image> m_UI2List = new List<Image>();
+    public GameObject[] Result;
+    public Text[] ResultText1;
+    public Text[] ResultText2;
+    public Text[] ResultText3;
 
     void Start()
     {
@@ -21,8 +25,7 @@ public class UIController : MonoBehaviour
     }
 
     public void UIStart()
-    {
-        Debug.Log("for1");
+    { 
         m_Chasernum = SelectController.GetChaserplayer() - 1;
         Debug.Log("Pn:" + m_Chasernum);
         for (int i = 0; i < 4; i++)
@@ -65,19 +68,20 @@ public class UIController : MonoBehaviour
         m_UI2List[playerNum - 1].sprite = itemList[ItemNum - 1];
     }
 
-    internal void StanOn(float m_coolTime, float m_maxCoolTime)
+    internal void StanOn(float m_stanCoolTime, float m_maxStanCoolTime)
     {
-        m_UI1List[m_Chasernum].fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
+        m_UI1List[m_Chasernum].fillAmount = (m_maxStanCoolTime - m_stanCoolTime) / m_maxStanCoolTime;
         Debug.Log("スタン");
     }
 
     
 
-    internal void InvisibleOn(float m_coolTime,float m_maxCoolTime)
+    internal void InvisibleOn(float m_invisibleCoolTime, float m_maxInvisibleCoolTime)
     {
         Debug.Log("インビ");
-        Debug.Log("cool:" + m_coolTime);
-        m_UI2List[m_Chasernum].fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
+        //Debug.Log("cool:" + m_coolTime);
+        m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime;
+        //Debug.Log(m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime);
     }
 
     public Image GetStanImage()

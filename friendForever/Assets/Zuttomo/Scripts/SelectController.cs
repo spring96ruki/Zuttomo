@@ -16,20 +16,18 @@ public class SelectController : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
     }
 
+    void Update() {
+
+    }
+
     public void Lottery()
     {
-        player_count = 0;
 		Chaser_count = 0;
         for (int i = 0; i < 4; i++)
         {
-            //選択済みのプレイヤーの数を数えてカウントする
-            if (allplayerSelectState[i] != 0)
+            if (allplayerSelectState[i] == 2)
             {
-                player_count++;
-                //鬼の数を数える
-				if (allplayerSelectState [i] == 2) {
-					Chaser_count++;
-				}
+                Chaser_count++;
             }
         }
         if (player_count == 4)
@@ -45,20 +43,20 @@ public class SelectController : MonoBehaviour {
                     break;
 
                 default:
-				while (Chaser_count >= 2)
-                    {
-                        //鬼が二人以上いたらランダムで誰かを人間にする
-                        allplayerSelectState[new System.Random().Next(4)] = 1;
-					Chaser_count = 0;
-                        for (int i = 0; i < 4; i++)
+				    while (Chaser_count >= 2)
                         {
-                            //鬼の数を数える
-                            if (allplayerSelectState[i] == 2)
+                            //鬼が二人以上いたらランダムで誰かを人間にする
+                            allplayerSelectState[new System.Random().Next(4)] = 1;
+					        Chaser_count = 0;
+                            for (int i = 0; i < 4; i++)
                             {
-							Chaser_count++;
+                                //鬼の数を数える
+                                if (allplayerSelectState[i] == 2)
+                                {
+							    Chaser_count++;
+                                }
                             }
                         }
-                    }
                     break;
             }
 

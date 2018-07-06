@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -7,12 +8,12 @@ public class GameController : MonoBehaviour
 
     public static int m_getChasernum;
     public GameObject playerandcamera;
-    public GameObject itimathu;
+    public GameObject itimatu;
     public float ItemPosition_x;
     public float ItemPosition_z;
     public float rect_x;
     public float rect_y;
-    public int GamePhase;
+    public int[] GamePhase = new int[3];
     public bool OpenDoor;
 
     bool m_isRandom;
@@ -49,9 +50,8 @@ public class GameController : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
-        Debug.Log("for3");
         AddResponePoint();
 
         m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
@@ -62,9 +62,10 @@ public class GameController : MonoBehaviour
         {
             float x = Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
             float z = Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
-            GameObject PlayerAndCamera = Instantiate(playerandcamera, new Vector3(x, 1.3f, z), Quaternion.identity);
 
+            GameObject PlayerAndCamera = playerandcamera;
             PlayerAndCamera.name = ("Player" + (i + 1));
+
             var player = PlayerAndCamera.transform.GetChild(0).gameObject;
             var camera = PlayerAndCamera.transform.GetChild(1).gameObject;
 
@@ -89,19 +90,43 @@ public class GameController : MonoBehaviour
 
             player.GetComponent<RunnerStatus>().runnerNum = i + 1;
             player.GetComponent<RunnerController>().m_playerNum = i + 1;
-
+           // m_getChaserNum
             if (m_getChaserNum == i + 1)
             {
                 player.GetComponent<RunnerController>().ChaserFlag = true;
+                Debug.Log("cas");
+                player.tag = "Chaser";
+                PlayerAndCamera.tag = "Chaser";
+                GamePhase[i] = 1;
+
+                player.GetComponent<ChaserController>().enabled = true;
+                player.GetComponent<RunnerController>().enabled = false;
+                player.GetComponent<RunnerMove>().enabled = false;
             }
+            else
+            {
+                Debug.Log("run");
+                player.tag = "Runner";
+                PlayerAndCamera.tag = "Runner";
+
+                player.GetComponent<RunnerController>().ChaserFlag = false;
+                player.GetComponent<RunnerController>().enabled = true;
+                player.GetComponent<RunnerMove>().enabled = false;
+                player.GetComponent<ChaserController>().enabled = false;
+                player.GetComponent<ChaserMove>().enabled = false;
+                player.GetComponent<ChaserSkill>().enabled = false;
+            }
+            GameObject m_playerObj =  Instantiate(PlayerAndCamera, new Vector3(x, 1.3f, z), Quaternion.identity);
+            m_playerObj.name = PlayerAndCamera.name;
         }
 
         GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
         {
             ItemSpawn();
         }
         m_uIController.GetComponent<UIController>().UIStart();
+        //GamePhase = new int { 0, 0, 0, 0 };
     }
 
     // Update is called once per frame
@@ -115,22 +140,25 @@ public class GameController : MonoBehaviour
 
     void ItemSpawn()
     {
-        Instantiate(itimathu, new Vector3(Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x), 1.3f, Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z)), Quaternion.identity);
+        GameObject newitimatu = (GameObject)Instantiate(itimatu, new Vector3(Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x), 1.3f, Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z)), Quaternion.identity); ;
+        newitimatu.name = itimatu.name;
     }
 
-    public void GamePhaseAdd() {
-        GamePhase++;
+    public void GamePhaseAdd(int count) {
+        GamePhase[count - 1] = 1;
 
-        if (GamePhase == 3) {
-            EndGame();
+        if (GamePhase.Min() == 1) {
+            Invoke("ChaserResult", 1.0f);
+            Invoke("EndGame", 15.0f);
         }
     }
 
-    public void GamePhaseChange()
+    public void ChaserResult()
     {
-        GamePhaseAdd();
-        GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
+        Debug.Log("resresc");
+        GameObject.Find("ResultController").GetComponent<ResultController>().ChaserResult();
     }
+   
 
     public void EndGame()
     {

@@ -29,19 +29,22 @@ public class RunnerInput : MonoBehaviour
         {
             case 1:
                 PlayerInput(playerNum);
-                //KeyBoardEvent();
+                KeyBoardEvent();
                 break;
 
             case 2:
                 PlayerInput(playerNum);
+                KeyBoardEvent();
                 break;
 
             case 3:
                 PlayerInput(playerNum);
+                KeyBoardEvent();
                 break;
 
             case 4:
                 PlayerInput(playerNum);
+                KeyBoardEvent();
                 break;
         }
 
@@ -53,7 +56,7 @@ public class RunnerInput : MonoBehaviour
         Laxis_y = Input.GetAxis(GamePadName.GameStick_Left + playerNum.ToString() + GamePadName.GameStick_Y);
         Raxis_x = Input.GetAxis(GamePadName.GameStick_Right + playerNum.ToString() + GamePadName.GameStick_X);
         Raxis_y = Input.GetAxis(GamePadName.GameStick_Right + playerNum.ToString() + GamePadName.GameStick_Y);
-        //button_RB = Input.GetButton(GamePadName.GamePad_RB + playerNum.ToString());
+        button_RB = Input.GetButton(GamePadName.GamePad_RB + playerNum.ToString());
         button_A = Input.GetButtonDown(GamePadName.GamePad_A + playerNum.ToString());
         button_B = Input.GetButtonDown(GamePadName.GamePad_B + playerNum.ToString());
         button_X = Input.GetButtonDown(GamePadName.GamePad_X + playerNum.ToString());
@@ -65,11 +68,9 @@ public class RunnerInput : MonoBehaviour
         Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
         Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
         button_RB = Input.GetKey("z");
-        Debug.Log("z"+button_RB);
         button_A = Input.GetKeyDown("x");
         button_B = Input.GetKeyDown("c");
         button_X = Input.GetKeyDown("v");
         button_Y = Input.GetKeyDown("b");
-        //Debug.Log("ヘルス");
     }
 }
