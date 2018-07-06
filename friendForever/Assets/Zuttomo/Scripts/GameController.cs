@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -12,7 +13,7 @@ public class GameController : MonoBehaviour
     public float ItemPosition_z;
     public float rect_x;
     public float rect_y;
-    public int GamePhase;
+    public int[] GamePhase = new int[3];
     public bool OpenDoor;
 
     bool m_isRandom;
@@ -93,13 +94,21 @@ public class GameController : MonoBehaviour
             if (m_getChaserNum == i + 1)
             {
                 player.GetComponent<RunnerController>().ChaserFlag = true;
-                
+                Debug.Log("cas");
+                player.tag = "Chaser";
+                PlayerAndCamera.tag = "Chaser";
+                GamePhase[i] = 1;
+
                 player.GetComponent<ChaserController>().enabled = true;
                 player.GetComponent<RunnerController>().enabled = false;
                 player.GetComponent<RunnerMove>().enabled = false;
             }
             else
             {
+                Debug.Log("run");
+                player.tag = "Runner";
+                PlayerAndCamera.tag = "Runner";
+
                 player.GetComponent<RunnerController>().ChaserFlag = false;
                 player.GetComponent<RunnerController>().enabled = true;
                 player.GetComponent<RunnerMove>().enabled = false;
@@ -117,6 +126,7 @@ public class GameController : MonoBehaviour
             ItemSpawn();
         }
         m_uIController.GetComponent<UIController>().UIStart();
+        //GamePhase = new int { 0, 0, 0, 0 };
     }
 
     // Update is called once per frame
@@ -134,11 +144,11 @@ public class GameController : MonoBehaviour
         newitimatu.name = itimatu.name;
     }
 
-    public void GamePhaseAdd() {
-        GamePhase++;
+    public void GamePhaseAdd(int count) {
+        GamePhase[count - 1] = 1;
 
-        if (GamePhase == 3) {
-            EndGame();
+        if (GamePhase.Min() == 1) {
+            Invoke("EndGame", 15.0f);
         }
     }
 
@@ -146,12 +156,7 @@ public class GameController : MonoBehaviour
     {
 
     }
-
-    public void GamePhaseChange()
-    {
-        GamePhaseAdd();
-        GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
-    }
+   
 
     public void EndGame()
     {

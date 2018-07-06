@@ -21,7 +21,8 @@ public class gimmickItemScript : MonoBehaviour
                 {
                     if (GimmickScript.GetComponent<gimmickScript>().GetGimmickItem_player[collision.gameObject.GetComponent<RunnerStatus>().runnerNum - 1] == 1)
                     {
-                        GameObject.Find("GameController").GetComponent<GameController>().GamePhaseChange();
+                        GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd(collision.GetComponent<RunnerController>().m_playerNum);
+                        GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
                         collision.gameObject.SetActive(false);
                         Debug.Log("goal");
                     }
