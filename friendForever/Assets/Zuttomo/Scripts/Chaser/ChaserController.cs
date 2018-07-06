@@ -137,20 +137,16 @@ public class ChaserController : SingletonMono<ChaserController>
 
     void CoolTime()
     {
-
-        --m_stanCoolTime;
-        --m_invisibleCoolTime;
-        m_uIController.InvisibleOn( m_invisibleCoolTime, m_maxInvisibleCoolTime);
-        m_uIController.StanOn(m_stanCoolTime, m_maxStanCoolTime);
-        if (m_invisibleCoolTime <= 0)
+        m_uIController.InvisibleOn( m_invisibleTime, m_maxInvisibleTime);
+        m_uIController.StanOn(RunnerController.Instance.stanTime, m_stanTime);
+        if (m_invisibleTime <= 0)
         {
             m_uIController.GetInvisibleImage().fillAmount = 1f;
             m_invisibleCoolTime = 0;
         }
-        if (m_stanCoolTime <= 0)
+        if (m_stanTime <= 0)
         {
             m_uIController.GetStanImage().fillAmount = 1f;
-            m_stanCoolTime = 0;
         }
     }
 
@@ -187,7 +183,6 @@ public class ChaserController : SingletonMono<ChaserController>
             ChaserSkill.Instance.StanSkilStart(gameObject);
             RunnerController.Instance.stanTime = m_stanTime;
             m_uIController.GetStanImage().fillAmount = 0f;
-
         }
 
         if (m_runnerInput.button_B)
@@ -213,7 +208,7 @@ public class ChaserController : SingletonMono<ChaserController>
             {
                 Debug.Log("スキル_2");
                 m_chaserState = ChaserState.invisible;
-                m_invisibleTime = m_maxInvisibleCoolTime;
+                m_invisibleTime = m_maxInvisibleTime;
                 m_isInvisible = true;
                 m_uIController.GetInvisibleImage().fillAmount = 0f;
             }

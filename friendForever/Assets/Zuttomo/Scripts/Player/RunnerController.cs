@@ -62,7 +62,7 @@ public class RunnerController : SingletonMono<RunnerController>
         if (transform.position.y < -10) {
 			transform.position = new Vector3 (0, 3, 0);
 		}
-        Debug.Log("aaa"+m_stanTime);
+        Debug.Log(m_playerNum +"aaa"+ m_stanTime);
         Debug.Log("bbb"+isStan);
         Debug.Log("ccc"+m_state);
     }
@@ -92,7 +92,7 @@ public class RunnerController : SingletonMono<RunnerController>
             //m_currentSpeed = m_runnerStatus.speed;
             m_runnerStatus.firstSpeed = 0f;
             m_runnerStatus.maxSpeed = 0f;
-            Debug.Log("sss" + m_runnerStatus.speed);
+            Debug.Log(m_playerNum + "sss" + m_runnerStatus.speed);
 
             if (m_stanTime < 0)
             {
