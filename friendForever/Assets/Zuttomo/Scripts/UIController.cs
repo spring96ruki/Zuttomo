@@ -81,7 +81,7 @@ public class UIController : MonoBehaviour
         Debug.Log("インビ");
         //Debug.Log("cool:" + m_coolTime);
         m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime;
-        Debug.Log(m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime);
+        //Debug.Log(m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime);
     }
 
     public Image GetStanImage()
