@@ -187,7 +187,6 @@ public class ChaserController : SingletonMono<ChaserController>
             ChaserSkill.Instance.StanSkilStart(gameObject);
             RunnerController.Instance.stanTime = m_stanTime;
             m_uIController.GetStanImage().fillAmount = 0f;
-
         }
 
         if (m_runnerInput.button_B)
