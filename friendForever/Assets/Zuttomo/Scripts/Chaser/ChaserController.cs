@@ -30,8 +30,8 @@ public class ChaserController : SingletonMono<ChaserController>
     public float m_maxStanCoolTime = 100f;
     public float m_invisibleCoolTime;
     public float m_maxInvisibleCoolTime = 100f;
-    public float m_stanTime;
-    public float m_maxInvisibleTime;
+    public float m_stanTime = 50;
+    public float m_maxInvisibleTime = 50;
     public float m_stateTimer;
     public ChaserState m_chaserState;
 
@@ -50,26 +50,8 @@ public class ChaserController : SingletonMono<ChaserController>
         //m_uIController = GetComponent<UIController>();
 
         StatusInit();
-        StanInit();
-        InvisibleInit();
         m_chaserState = ChaserState.normal;
     }
-
-    //public void PlayerStart()
-    //{
-    //    m_runnerInput = GetComponent<RunnerInput>();
-    //    m_ChaserMove = GetComponent<ChaserMove>();
-    //    m_runnerStatus = GetComponent<RunnerStatus>();
-    //    m_rigidBody = GetComponent<Rigidbody>();
-    //    m_chaserColor = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
-    //    m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
-    //    //m_uIController = GetComponent<UIController>();
-
-    //    StatusInit();
-    //    StanInit();
-    //    InvisibleInit();
-    //    m_chaserState = ChaserState.normal;
-    //}
 
     void StatusInit()
     {
@@ -123,7 +105,9 @@ public class ChaserController : SingletonMono<ChaserController>
 
     // Update is called once per frame
     void Update () {
-
+        Debug.Log(m_chaserState);
+        Debug.Log(m_invisibleCoolTime.ToString());
+        Debug.Log("kkk" + m_stanCoolTime);
         CoolTime();
         ChaserInvisibleTime();
         m_runnerInput.PController(m_playerNum);
@@ -138,10 +122,6 @@ public class ChaserController : SingletonMono<ChaserController>
         else
         {
             m_stateTimer += Time.deltaTime;
-            //Vector3 force;
-            //force = transform.position * 200;
-            // Rigidbodyに力を加えて発射
-            //GetComponent<Rigidbody>().AddForce(force);
             if (m_stateTimer >= 3)
             {
                 m_runnerStatus.isState = true;
@@ -160,16 +140,16 @@ public class ChaserController : SingletonMono<ChaserController>
 
         --m_stanCoolTime;
         --m_invisibleCoolTime;
-        m_uIController.InvisibleOn(m_invisibleCoolTime, m_maxInvisibleCoolTime);
+        m_uIController.InvisibleOn( m_invisibleCoolTime, m_maxInvisibleCoolTime);
         m_uIController.StanOn(m_stanCoolTime, m_maxStanCoolTime);
         if (m_invisibleCoolTime <= 0)
         {
-            m_uIController.GetInvisibleImage().fillAmount = 0;
+            m_uIController.GetInvisibleImage().fillAmount = 1f;
             m_invisibleCoolTime = 0;
         }
         if (m_stanCoolTime <= 0)
         {
-            m_uIController.GetStanImage().fillAmount = 0;
+            m_uIController.GetStanImage().fillAmount = 1f;
             m_stanCoolTime = 0;
         }
     }
@@ -204,9 +184,10 @@ public class ChaserController : SingletonMono<ChaserController>
         if (m_runnerInput.button_A)
         {
             Debug.Log("スキル_1");
-            //ChaserSkill.Instance.StanSkilStart(gameObject);
-            //RunnerController.Instance.stanTime = m_stanTime;
-            //m_uIController.GetStanImage().fillAmount = 1f;
+            ChaserSkill.Instance.StanSkilStart(gameObject);
+            RunnerController.Instance.stanTime = m_stanTime;
+            m_uIController.GetStanImage().fillAmount = 0f;
+
         }
 
         if (m_runnerInput.button_B)
@@ -228,10 +209,14 @@ public class ChaserController : SingletonMono<ChaserController>
 
         if (m_runnerInput.button_X)
         {
-            Debug.Log("スキル_2");
-            m_chaserState = ChaserState.invisible;
-            m_invisibleTime = m_maxInvisibleTime;
-            //m_uIController.GetInvisibleImage().fillAmount = 1f;
+            if (m_invisibleCoolTime == 0f)
+            {
+                Debug.Log("スキル_2");
+                m_chaserState = ChaserState.invisible;
+                m_invisibleTime = m_maxInvisibleCoolTime;
+                m_isInvisible = true;
+                m_uIController.GetInvisibleImage().fillAmount = 0f;
+            }
         }
 
         if (m_runnerInput.button_Y)

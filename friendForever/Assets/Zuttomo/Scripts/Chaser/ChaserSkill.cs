@@ -46,8 +46,10 @@ public class ChaserSkill : FindObject {
         Debug.Log("とぅっとぅるー");
         if (ChaserController.Instance.m_chaserState == ChaserState.invisible)
         {
+            //Debug.Log("透明");
             if (coolTime == 0)
             {
+                Debug.Log("透明");
                 chaserObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
                 ChaserController.Instance.m_isInvisible = true;
             }

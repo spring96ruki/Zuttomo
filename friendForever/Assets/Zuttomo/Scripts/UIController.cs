@@ -68,19 +68,20 @@ public class UIController : MonoBehaviour
         m_UI2List[playerNum - 1].sprite = itemList[ItemNum - 1];
     }
 
-    internal void StanOn(float m_coolTime, float m_maxCoolTime)
+    internal void StanOn(float m_stanCoolTime, float m_maxStanCoolTime)
     {
-        m_UI1List[m_Chasernum].fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
+        m_UI1List[m_Chasernum].fillAmount = (m_maxStanCoolTime - m_stanCoolTime) / m_maxStanCoolTime;
         Debug.Log("スタン");
     }
 
     
 
-    internal void InvisibleOn(float m_coolTime,float m_maxCoolTime)
+    internal void InvisibleOn(float m_invisibleCoolTime, float m_maxInvisibleCoolTime)
     {
         Debug.Log("インビ");
-        Debug.Log("cool:" + m_coolTime);
-        m_UI2List[m_Chasernum].fillAmount = (m_maxCoolTime - m_coolTime) / m_maxCoolTime;
+        //Debug.Log("cool:" + m_coolTime);
+        m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime;
+        Debug.Log(m_UI2List[m_Chasernum].fillAmount = (m_maxInvisibleCoolTime - m_invisibleCoolTime) / m_maxInvisibleCoolTime);
     }
 
     public Image GetStanImage()
