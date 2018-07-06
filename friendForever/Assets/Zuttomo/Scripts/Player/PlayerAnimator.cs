@@ -131,6 +131,7 @@ public class PlayerAnimator : MonoBehaviour
         //アニメーション再生後の処理
         StartCoroutine(ActionAnimation(() =>
         {
+            GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd(this.GetComponent<RunnerController>().m_playerNum);
             gameObject.SetActive(false);
         }));
     }

@@ -14,6 +14,10 @@ public class UIController : MonoBehaviour
     public GameObject[] playerList;
     public List<Image> m_UI1List = new List<Image>();
     public List<Image> m_UI2List = new List<Image>();
+    public GameObject[] Result;
+    public Text[] ResultText1;
+    public Text[] ResultText2;
+    public Text[] ResultText3;
 
     void Start()
     {
