@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectButton : MonoBehaviour {
-    private RunnerInput m_runnerInput;
+    private PlayerInput m_playerInput;
     public SelectController selectController;
     public GameObject RunnerSprite;
     public GameObject ChaserSprite;
@@ -21,7 +21,6 @@ public class SelectButton : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        m_runnerInput = GetComponent<RunnerInput>();
         selectstate = 0;
         scaleChangeSpeed = 5f;
         scale = 30f;
@@ -31,36 +30,36 @@ public class SelectButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        m_runnerInput.PController(player_num);
+        m_playerInput.PController(player_num);
 
         //何かボタンがをされたらその押されたボタンに対応する処理をし、SelectControllerの情報を変更する
-        if (m_runnerInput.button_A || m_runnerInput.button_B || m_runnerInput.button_Y || m_runnerInput.button_X || Mathf.Abs(m_runnerInput.Laxis_x) >= 0.7)
+        if (m_playerInput.button_A || m_playerInput.button_B || m_playerInput.button_Y || m_playerInput.button_X || Mathf.Abs(m_playerInput.Laxis_x) >= 0.7)
         {
             if (PushSubmit == false)
             {
-                if (m_runnerInput.Laxis_x >= 0.7)
+                if (m_playerInput.Laxis_x >= 0.7)
                 {
                     selectstate = 2;
                 }
-                else if (m_runnerInput.Laxis_x <= -0.7)
+                else if (m_playerInput.Laxis_x <= -0.7)
                 {
                     selectstate = 1;
                 }
 
-                if (m_runnerInput.button_B == true && selectstate != 0)
+                if (m_playerInput.button_B == true && selectstate != 0)
                 {
                     PushSubmit = true;
-                    selectController.player_count++;
+                    selectController.m_playerCount++;
                     SubmitSprite.SetActive(true);
                 }
-            } else if (m_runnerInput.button_A == true && selectstate != 0)
+            } else if (m_playerInput.button_A == true && selectstate != 0)
             {
                 PushSubmit = false;
-                selectController.player_count--;
+                selectController.m_playerCount--;
                 SubmitSprite.SetActive(false);
             }
 
-            selectController.allplayerSelectState[player_num - 1] = selectstate;
+            selectController.allPlayerSelectState[player_num - 1] = selectstate;
             selectController.Lottery();
         }
 

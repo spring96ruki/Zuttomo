@@ -56,8 +56,8 @@ public class UIController : MonoBehaviour
     {
         for(int i = 0; i < 4; i++)
         {
-            float health = playerList[i].GetComponent<RunnerStatus>().health;
-            float maxHealth = playerList[i].GetComponent<RunnerStatus>().maxHealth;
+            float health = playerList[i].GetComponent<PlayerStatus>().health;
+            float maxHealth = playerList[i].GetComponent<PlayerStatus>().maxHealth;
             m_UI1List[i].GetComponent<Image>().fillAmount = health / maxHealth;
         }
     }

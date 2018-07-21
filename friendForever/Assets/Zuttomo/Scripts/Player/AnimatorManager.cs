@@ -1,23 +1,37 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+public enum ParamName
+{
+    MoveSpeed,
+    Push,
+    Kill,
+    Pill,
+    Down,
+    Death,
+    Barrier,
+    Throw,
+}
+
+public enum StateName
+{
+    Idle,
+    Move,
+    Push,
+    Kill,
+    Pill,
+    Down,
+    Death,
+    Barrier,
+    Throw,
+}
+
 /// <summary>
 /// Animator管理クラス
 /// </summary>
 [System.Serializable]
-public class AnimatorManager
+public class AnimatorManager : MonoBehaviour
 {
-    public enum ParamName
-    {
-        MoveSpeed,
-        Push,
-        Kill,
-        Pill,
-        Down,
-        Death,
-        Barrier,
-        Throw,
-    }
 
     static readonly Dictionary<ParamName, int> m_paramHashDete = new Dictionary<ParamName, int>()
     {
@@ -31,19 +45,6 @@ public class AnimatorManager
         { ParamName.Throw,      Animator.StringToHash("Throw")},
 
     };
-
-    public enum StateName
-    {
-        Idle,
-        Move,
-        Push,
-        Kill,
-        Pill,
-        Down,
-        Death,
-        Barrier,
-        Throw,
-    }
 
     static readonly Dictionary<StateName, int> m_stateHashDate = new Dictionary<StateName, int>()
     {
@@ -60,9 +61,9 @@ public class AnimatorManager
 
     List<Animator> m_animatorList;
 
-    public AnimatorManager(Animator[] m_animator)
+    public AnimatorManager(Animator[] animatorArray)
     {
-        m_animatorList = new List<Animator>(m_animator);
+        m_animatorList = new List<Animator>(animatorArray);
     }
 
     public Animator ActiveComponent
@@ -82,6 +83,34 @@ public class AnimatorManager
         }
     }
 
+    public void SetAnimation(ParamName paramName)
+    {
+        if (IsActive)
+        {
+            switch (paramName)
+            {
+                case ParamName.Barrier:
+                    ActiveComponent.SetTrigger(m_paramHashDete[paramName]);
+                    break;
+                case ParamName.Death:
+                    ActiveComponent.SetTrigger(m_paramHashDete[paramName]);
+                    break;
+                case ParamName.Kill:
+                    ActiveComponent.SetTrigger(m_paramHashDete[paramName]);
+                    break;
+                case ParamName.Pill:
+                    ActiveComponent.SetTrigger(m_paramHashDete[paramName]);
+                    break;
+                case ParamName.Push:
+                    ActiveComponent.SetTrigger(m_paramHashDete[paramName]);
+                    break;
+                case ParamName.Throw:
+                    ActiveComponent.SetTrigger(m_paramHashDete[paramName]);
+                    break;
+            }
+        }
+    }
+
     public int GetStateHash(StateName m_stateName)
     {
         return m_stateHashDate[m_stateName];
@@ -92,6 +121,21 @@ public class AnimatorManager
         get
         {
             return ActiveComponent.GetCurrentAnimatorStateInfo(0).fullPathHash;
+        }
+    }
+
+    public bool Down
+    {
+        get
+        {
+            return ActiveComponent.GetBool(m_paramHashDete[ParamName.Down]);
+        }
+        set
+        {
+            if (IsActive)
+            {
+                ActiveComponent.SetBool(m_paramHashDete[ParamName.Down], value);
+            }
         }
     }
 
@@ -110,67 +154,51 @@ public class AnimatorManager
         }
     }
 
-    public void SetPush()
-    {
-        if (IsActive)
-        {
-            ActiveComponent.SetTrigger(m_paramHashDete[ParamName.Push]);
-        }
-    }
+    //public void SetPush()
+    //{
+    //    if (IsActive)
+    //    {
+    //    }
+    //}
 
-    public void SetKill()
-    {
-        if (IsActive)
-        {
-            ActiveComponent.SetTrigger(m_paramHashDete[ParamName.Kill]);
-        }
-    }
+    //public void SetKill()
+    //{
+    //    if (IsActive)
+    //    {
+            
+    //    }
+    //}
 
-    public void SetPill()
-    {
-        if (IsActive)
-        {
-            ActiveComponent.SetTrigger(m_paramHashDete[ParamName.Pill]);
-        }
-    }
+    //public void SetPill()
+    //{
+    //    if (IsActive)
+    //    {
+            
+    //    }
+    //}
 
-    public void SetBarrier()
-    {
-        if (IsActive)
-        {
-            ActiveComponent.SetTrigger(m_paramHashDete[ParamName.Barrier]);
-        }
-    }
+    //public void SetBarrier()
+    //{
+    //    if (IsActive)
+    //    {
+            
+    //    }
+    //}
 
-    public void SetThrow()
-    {
-        if (IsActive)
-        {
-            ActiveComponent.SetTrigger(m_paramHashDete[ParamName.Throw]);
-        }
-    }
+    //public void SetThrow()
+    //{
+    //    if (IsActive)
+    //    {
+           
+    //    }
+    //}
 
-    public void SetDeath()
-    {
-        if (IsActive)
-        {
-            ActiveComponent.SetTrigger(m_paramHashDete[ParamName.Death]);
-        }
-    }
-
-    public bool Down
-    {
-        get
-        {
-            return ActiveComponent.GetBool(m_paramHashDete[ParamName.Down]);
-        }
-        set
-        {
-            if (IsActive)
-            {
-                ActiveComponent.SetBool(m_paramHashDete[ParamName.Down], value);
-            }
-        }
-    }
+    //public void SetDeath()
+    //{
+    //    if (IsActive)
+    //    {
+            
+    //    }
+    //}
 
 }

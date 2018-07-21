@@ -21,14 +21,14 @@ public class PlayerScreen : SingletonMono<PlayerScreen> {
         ScreenClear();
     }
 
-    public void ScreenSet(PlayerState state)
+    public void ScreenSet(PlayerFlag state)
     {
         //RemoveEvent();
         switch (state)
         {
-            case PlayerState.Runnner:
+            case PlayerFlag.Runner:
                 break;
-            case PlayerState.Chaser:
+            case PlayerFlag.Chaser:
                 break;
         }
     }

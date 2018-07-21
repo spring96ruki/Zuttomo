@@ -5,55 +5,51 @@ using UnityEngine;
 public class SelectController : MonoBehaviour {
 
     //鬼か人間かの選択結果を格納
-    public int[] allplayerSelectState = new int[4];
-	public static int setChaser_num = 0;
-    public int player_count = 0;
-	public int Chaser_count = 0;
+    public int[] allPlayerSelectState = new int[4];
+	public static int m_setChaserNum = 0;
+    public int m_playerCount = 0;
+	public int m_chaserCount = 0;
 
     // Use this for initialization
     void Start () {
-        allplayerSelectState = new int[] { 0, 0, 0, 0 };
+        allPlayerSelectState = new int[] { 0, 0, 0, 0 };
         DontDestroyOnLoad(this.gameObject);
-    }
-
-    void Update() {
-
     }
 
     public void Lottery()
     {
-		Chaser_count = 0;
-        for (int i = 0; i < 4; i++)
+		m_chaserCount = 0;
+        for (int i = 0; i < 4; ++i)
         {
-            if (allplayerSelectState[i] == 2)
+            if (allPlayerSelectState[i] == 2)
             {
-                Chaser_count++;
+                m_chaserCount++;
             }
         }
-        if (player_count == 4)
+        if (m_playerCount == 4)
         {
-			switch (Chaser_count)
+			switch (m_chaserCount)
             {
 				case 0:
                     //ランダムで鬼にする
-					allplayerSelectState [new System.Random ().Next (4)] = 2;
+					allPlayerSelectState [new System.Random ().Next (4)] = 2;
                     break;
 
                 case 1:
                     break;
 
                 default:
-				    while (Chaser_count >= 2)
+				    while (m_chaserCount >= 2)
                         {
                             //鬼が二人以上いたらランダムで誰かを人間にする
-                            allplayerSelectState[new System.Random().Next(4)] = 1;
-					        Chaser_count = 0;
+                            allPlayerSelectState[new System.Random().Next(4)] = 1;
+					        m_chaserCount = 0;
                             for (int i = 0; i < 4; i++)
                             {
                                 //鬼の数を数える
-                                if (allplayerSelectState[i] == 2)
+                                if (allPlayerSelectState[i] == 2)
                                 {
-							    Chaser_count++;
+							    m_chaserCount++;
                                 }
                             }
                         }
@@ -62,9 +58,9 @@ public class SelectController : MonoBehaviour {
 
             for (int i = 0; i < 4; i++)
             {
-                if (allplayerSelectState[i] == 2)
+                if (allPlayerSelectState[i] == 2)
                 {
-					setChaser_num = i + 1;
+					m_setChaserNum = i + 1;
                     Debug.Log("鬼:" + (i + 1));
                 }
             }
@@ -75,6 +71,6 @@ public class SelectController : MonoBehaviour {
 
 	public static int GetChaserplayer()
     {
-		return setChaser_num;
+		return m_setChaserNum;
     }
 }

@@ -6,8 +6,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    public static int m_getChasernum;
-    public GameObject playerandcamera;
+    public static int m_getChaserNum;
+    public GameObject m_playerAndCamera;
     public GameObject itimatu;
     public float ItemPosition_x;
     public float ItemPosition_z;
@@ -53,9 +53,21 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         AddResponePoint();
-
         m_uIController = GameObject.Find("UIController").GetComponent<UIController>();
-            
+        hogehoge();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            RandomNumber();
+        }
+    }
+
+    void hogehoge()
+    {
         int m_getChaserNum = SelectController.GetChaserplayer();
 
         for (int i = 0; i < 4; i++)
@@ -63,11 +75,11 @@ public class GameController : MonoBehaviour
             float x = Random.Range(-System.Math.Abs(ItemPosition_x), ItemPosition_x);
             float z = Random.Range(-System.Math.Abs(ItemPosition_z), ItemPosition_z);
 
-            GameObject PlayerAndCamera = playerandcamera;
-            PlayerAndCamera.name = ("Player" + (i + 1));
+            GameObject playerAndCamera = m_playerAndCamera;
+            playerAndCamera.name = ("Player" + (i + 1));
 
-            var player = PlayerAndCamera.transform.GetChild(0).gameObject;
-            var camera = PlayerAndCamera.transform.GetChild(1).gameObject;
+            var player = playerAndCamera.transform.GetChild(0).gameObject;
+            var camera = playerAndCamera.transform.GetChild(1).gameObject;
 
             if (i == 0 || i == 2)
             {
@@ -88,36 +100,36 @@ public class GameController : MonoBehaviour
             }
             camera.GetComponent<Camera>().rect = new Rect(rect_x, rect_y, 0.5f, 0.5f);
 
-            player.GetComponent<RunnerStatus>().runnerNum = i + 1;
+            player.GetComponent<PlayerStatus>().playerNum = i + 1;
             player.GetComponent<RunnerController>().m_playerNum = i + 1;
-           // m_getChaserNum
+            // m_getChaserNum
             if (m_getChaserNum == i + 1)
             {
-                player.GetComponent<RunnerController>().ChaserFlag = true;
+                //= PlayerFlag.Chaser;
                 Debug.Log("cas");
                 player.tag = "Chaser";
-                PlayerAndCamera.tag = "Chaser";
+                playerAndCamera.tag = "Chaser";
                 GamePhase[i] = 1;
 
                 player.GetComponent<ChaserController>().enabled = true;
                 player.GetComponent<RunnerController>().enabled = false;
-                player.GetComponent<RunnerMove>().enabled = false;
+                //player.GetComponent<PlayerMove>().enabled = false;
             }
             else
             {
                 Debug.Log("run");
                 player.tag = "Runner";
-                PlayerAndCamera.tag = "Runner";
+                playerAndCamera.tag = "Runner";
 
-                player.GetComponent<RunnerController>().ChaserFlag = false;
+                //player.GetComponent<RunnerController>().ChaserFlag = false;
                 player.GetComponent<RunnerController>().enabled = true;
-                player.GetComponent<RunnerMove>().enabled = false;
+                //player.GetComponent<RunnerMove>().enabled = false;
                 player.GetComponent<ChaserController>().enabled = false;
-                player.GetComponent<ChaserMove>().enabled = false;
-                player.GetComponent<ChaserSkill>().enabled = false;
+                //player.GetComponent<ChaserMove>().enabled = false;
+                //player.GetComponent<ChaserSkill>().enabled = false;
             }
-            GameObject m_playerObj =  Instantiate(PlayerAndCamera, new Vector3(x, 1.3f, z), Quaternion.identity);
-            m_playerObj.name = PlayerAndCamera.name;
+            GameObject m_playerObj = Instantiate(playerAndCamera, new Vector3(x, 1.3f, z), Quaternion.identity);
+            m_playerObj.name = playerAndCamera.name;
         }
 
         GameObject.Find("Gimmick Script").GetComponent<gimmickScript>().GimmickStart();
@@ -127,15 +139,6 @@ public class GameController : MonoBehaviour
         }
         m_uIController.GetComponent<UIController>().UIStart();
         //GamePhase = new int { 0, 0, 0, 0 };
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            RandomNumber();
-        }
     }
 
     void ItemSpawn()

@@ -1,0 +1,47 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ChaserSkill
+{
+    RunnerController m_runnerController;
+
+    public void StanSkilStart(GameObject chaserObject)
+    {
+
+        //FindPlayer(chaserObject);
+
+        float coolTime = ChaserController.Instance.m_stanCoolTime;
+        float skilTime = ChaserController.Instance.m_stanTime;
+        StanSkil(coolTime, skilTime);
+    }
+
+    void StanSkil(float coolTime, float skilTime)
+    {
+
+        // Rayを飛ばして対象がいたらRunnerControllerへ登録
+        if (coolTime == 0f)
+        {
+            Debug.Log("wan");
+            // RunnerStateをStanに変更し、スタン時間を登録
+            m_runnerController.RunnerStan(RunnerState.stan);
+        }
+    }
+
+    public void ChaserInvisible(GameObject chaserObject, ChaserState state, float coolTime)
+    {
+        Color chaserColor = ChaserController.Instance.m_chaserColor;
+        ChaserController.Instance.m_chaserState = state;
+        Debug.Log("とぅっとぅるー");
+        if (ChaserController.Instance.m_chaserState == ChaserState.invisible)
+        {
+            //Debug.Log("透明");
+            if (coolTime == 0)
+            {
+                Debug.Log("透明");
+                chaserObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color = new Color(chaserColor.r, chaserColor.g, chaserColor.b, 0f);
+                ChaserController.Instance.m_isInvisible = true;
+            }
+        }
+    }
+}

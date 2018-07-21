@@ -4,35 +4,29 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    RunnerController m_runnerController;
-    RunnerInput m_runnerInput;
-    RunnerStatus m_status;
     AnimatorManager m_animatorManeger;
-    RunnerSkill m_runnerSkill;
     [SerializeField]
     GameObject m_ChaserArea;
+
+    IEnumerator m_enumerator;
 
     public bool m_action;
 
     void Awake()
     {
-        m_runnerController = GetComponent<RunnerController>();
-        m_runnerInput = GetComponent<RunnerInput>();
-        m_status = GetComponent<RunnerStatus>();
-        m_runnerSkill = GetComponent<RunnerSkill>();
         m_animatorManeger = new AnimatorManager(GetComponentsInChildren<Animator>(true));
     }
 
     //走っている時のアニメーション
-    public void MoveAnimation(float horizontal, float virtical)
+    public void MoveAnimation(PlayerInput playerInput, PlayerStatus playerStatus , float horizontal, float virtical)
     {
-        if (m_runnerInput.Laxis_y >= 0.1f || m_runnerInput.Laxis_y <= -0.1f || m_runnerInput.Laxis_x >= 0.1f || m_runnerInput.Laxis_x <= -0.1f)
+        if (playerInput.Laxis_y >= 0.1f || playerInput.Laxis_y <= -0.1f || playerInput.Laxis_x >= 0.1f || playerInput.Laxis_x <= -0.1f)
         {
-            if (m_status.speed <= m_status.firstSpeed)
+            if (playerStatus.speed <= playerStatus.firstSpeed)
             {
                 m_animatorManeger.MoveSpeed = 0.1f;
             }
-            else if (m_status.speed >= m_status.firstSpeed)
+            else if (playerStatus.speed >= playerStatus.firstSpeed)
             {
                 m_animatorManeger.MoveSpeed = 1f;
             }
@@ -42,29 +36,57 @@ public class PlayerAnimator : MonoBehaviour
             m_animatorManeger.MoveSpeed = 0f;
         }
 
-        if(m_action)
+        if (m_action)
         {
-            m_status.speed = 0;
+            playerStatus.speed = 0;
+        }
+    }
+
+    public void MakeCoroutine(IEnumerator enumerator)
+    {
+        if (enumerator != null)
+        {
+            bool ret = enumerator.MoveNext();
+            if (ret)
+            {
+                Debug.Log("Next. ");
+            }
+            else
+            {
+                Debug.Log("finished");
+                enumerator = null;
+            }
         }
     }
 
     //突き飛ばされた時のアニメーション
-    public void DownAnimation()
+    public void DownAnimation(PlayerStatus playerStatus)
 	{
-        if (m_status.isState == true)
+        if (playerStatus.isState == true)
         {
             m_animatorManeger.Down = false;
-        } else {
+        }
+        else
+        {
             m_animatorManeger.Down = true;
         }
-	}
+    }
+
+    IEnumerator ActionAnimation(System.Action callback)
+    {
+        yield return null;
+        yield return new WaitForSeconds(1f);
+        Debug.Log("アニメーション終わった");
+        callback();
+    }
 
     //突き飛ばした時のアニメーション
-	public void PushAnimation()
+    public void PushAnimation()
     {
         m_action = true;
-        m_animatorManeger.SetPush();
+        m_animatorManeger.SetAnimation(ParamName.Push);
         //アニメーション再生後の処理
+        MakeCoroutine(ActionAnimation(() => { m_action = false; }));
         StartCoroutine(ActionAnimation(() =>
         {
             m_action = false;
@@ -75,39 +97,46 @@ public class PlayerAnimator : MonoBehaviour
     public void PillAnimation()
     {
         m_action = true;
-        m_animatorManeger.SetPill();
+        m_animatorManeger.SetAnimation(ParamName.Pill);
         //アニメーション再生後の処理
-        StartCoroutine(ActionAnimation(() =>
+        MakeCoroutine(ActionAnimation(() => 
         {
-            m_runnerSkill.StartCoroutine("DrugEvent");
+            //MakeCoroutine(DrugEvent());
             m_action = false;
         }));
+        //StartCoroutine(ActionAnimation(() =>
+        //{
+        //    m_runnerSkill.StartCoroutine("DrugEvent");
+        //    m_action = false;
+        //}));
     }
 
     //お札を使った時のアニメーション
     public void BarrierAnimation()
     {
         m_action = true;
-        m_animatorManeger.SetBarrier();
+        m_animatorManeger.SetAnimation(ParamName.Barrier);
         //アニメーション再生後の処理
-        StartCoroutine(ActionAnimation(() =>
-        {
-            m_runnerSkill.StartCoroutine("Invincible");
-            m_action = false;
-        }));
+        MakeCoroutine(ActionAnimation(() => { m_action = false; }));
+        //StartCoroutine(ActionAnimation(() =>
+        //{
+        //    //m_runnerSkill.StartCoroutine("Invincible");
+        //    m_action = false;
+        //}));
     }
 
     //市松を投げる時のアニメーション
     public void ThrowAnimation()
     {
         m_action = true;
-        m_animatorManeger.SetThrow();
+        m_animatorManeger.SetAnimation(ParamName.Throw);
         //アニメーション再生後の処理
-        StartCoroutine(ActionAnimation(() =>
-        {
-            m_runnerSkill.ItimatuEvent();
-            m_action = false;
-        }));
+        MakeCoroutine(ActionAnimation(() => { m_action = false; }));
+        //StartCoroutine(ActionAnimation(() =>
+        //{
+        //    //m_runnerSkill.ItimatuEvent();
+        //    m_action = false;
+        //}));
     }
 
     //runnerを捕まえる時のアニメーション
@@ -115,35 +144,35 @@ public class PlayerAnimator : MonoBehaviour
     {
         m_action = true;
         m_ChaserArea.SetActive(true);
-        m_animatorManeger.SetKill();
+        m_animatorManeger.SetAnimation(ParamName.Kill);
         //アニメーション再生後の処理
-        StartCoroutine(ActionAnimation(() =>
-        {
-            m_ChaserArea.SetActive(false);
-            m_action = false;
-        }));
+        MakeCoroutine(ActionAnimation(() => { m_action = false; }));
+        //StartCoroutine(ActionAnimation(() =>
+        //{
+        //    m_ChaserArea.SetActive(false);
+        //    m_action = false;
+        //}));
     }
 
     //捕まった時のアニメーション
-    public void DeathAnimation()
+    public void DeathAnimation(GameController gameController, ResultController resultController, RunnerController runnerControlerr)
     {
         m_action = true;
-        m_animatorManeger.SetDeath();
+        m_animatorManeger.SetAnimation(ParamName.Death);
         //アニメーション再生後の処理
-        StartCoroutine(ActionAnimation(() =>
+        MakeCoroutine(ActionAnimation(() => 
         {
-            GameObject.Find("ResultController").GetComponent<ResultController>().RunnerEnd(this.m_runnerController.m_playerNum, false);
-            GameObject.Find("GameController").GetComponent<GameController>().GamePhaseAdd(this.GetComponent<RunnerController>().m_playerNum);
+            resultController.RunnerEnd(runnerControlerr.m_playerNum, false);
+            gameController.GamePhaseAdd(runnerControlerr.m_playerNum);
             gameObject.SetActive(false);
-        }));
-    }
 
-    IEnumerator ActionAnimation(System.Action callback)
-    {
-        yield return null;
-        yield return new WaitForSeconds(1f);
-        Debug.Log("終わったよ");
-        callback();
+        }));
+        //StartCoroutine(ActionAnimation(() =>
+        //{
+        //    resultController.RunnerEnd(runnerControlerr.m_playerNum, false);
+        //    gameController.GamePhaseAdd(runnerControlerr.m_playerNum);
+        //    gameObject.SetActive(false);
+        //}));
     }
 
     public float GetAnimationTime
