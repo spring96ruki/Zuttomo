@@ -47,6 +47,7 @@ public class RunnerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        OrProblem();
         RunnerStanTime();
         //m_playerInput.PController(m_playerNum);
         RunnerMovement();
@@ -132,6 +133,16 @@ public class RunnerController : MonoBehaviour
 		m_runnerSkill.CheckEvent(check , m_playerStatus , m_playerNum);
     }
 
+
+    bool isInput = false;
+    void OrProblem()
+    {
+        if (m_playerInput.Laxis_y != 0f || m_playerInput.Laxis_x != 0f)
+        {
+            isInput = true;
+        }
+    }
+
     public void HealthControll()
     {
         if (m_playerFlag == PlayerFlag.Chaser)
@@ -142,7 +153,8 @@ public class RunnerController : MonoBehaviour
         {
             if (m_playerStatus.isHealth)
             {
-                if (m_playerInput.Laxis_y >= 0.1f || m_playerInput.Laxis_y <= -0.1f || m_playerInput.Laxis_x >= 0.1f || m_playerInput.Laxis_x <= -0.1f)
+                if (isInput
+                    /*m_playerInput.Laxis_y >= 0.1f || m_playerInput.Laxis_y <= -0.1f || m_playerInput.Laxis_x >= 0.1f || m_playerInput.Laxis_x <= -0.1f*/)
                 {
                     if (m_playerInput.button_RB)
                     {
