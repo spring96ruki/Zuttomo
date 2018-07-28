@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class PlayerInput
 {
-    internal float Laxis_x;
+    public float Laxis_x;
     public float Laxis_y;
     public float Raxis_x;
     public float Raxis_y;
+
+    public float LaxisKey_x;
+    public float LaxisKey_y;
+
     public bool button_RB;
     public bool button_A;
     public bool button_B;
@@ -55,8 +59,8 @@ public class PlayerInput
 
     void KeyBoardEvent()
     {
-        Laxis_x = Input.GetAxisRaw(GamePadName.xAxis);
-        Laxis_y = Input.GetAxisRaw(GamePadName.zAxis);
+        LaxisKey_x = Input.GetAxisRaw(GamePadName.xAxis);
+        LaxisKey_y = Input.GetAxisRaw(GamePadName.zAxis);
         button_I = Input.GetKeyDown(KeyCode.I);
         button_U = Input.GetKeyDown(KeyCode.U);
         button_K = Input.GetKeyDown(KeyCode.K);
