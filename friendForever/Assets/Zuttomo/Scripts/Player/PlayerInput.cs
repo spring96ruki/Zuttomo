@@ -9,8 +9,8 @@ public class PlayerInput
     public float Raxis_x;
     public float Raxis_y;
 
-    public float LaxisKey_x;
-    public float LaxisKey_y;
+    public float axisKey_x;
+    public float axisKey_z;
 
     public bool button_RB;
     public bool button_A;
@@ -20,9 +20,9 @@ public class PlayerInput
 
     public bool button_I;
     public bool button_U;
-    public bool button_K;
-    public bool button_J;
-    public bool button_H;
+    public bool button_T;
+    public bool button_E;
+    public bool button_R;
 
     public void PController(int playerNum)
     {
@@ -59,12 +59,12 @@ public class PlayerInput
 
     void KeyBoardEvent()
     {
-        LaxisKey_x = Input.GetAxisRaw(GamePadName.xAxis);
-        LaxisKey_y = Input.GetAxisRaw(GamePadName.zAxis);
+        axisKey_x = Input.GetAxisRaw(GamePadName.xAxis);
+        axisKey_z = Input.GetAxisRaw(GamePadName.zAxis);
         button_I = Input.GetKeyDown(KeyCode.I);
         button_U = Input.GetKeyDown(KeyCode.U);
-        button_K = Input.GetKeyDown(KeyCode.K);
-        button_J = Input.GetKeyDown(KeyCode.J);
-        button_H = Input.GetKeyDown(KeyCode.H);
+        button_T = Input.GetKeyDown(KeyCode.T);
+        button_E = Input.GetKeyDown(KeyCode.E);
+        button_R = Input.GetKey(KeyCode.R);
     }
 }
