@@ -10,6 +10,15 @@ public enum RunnerState
     run
 }
 
+public enum RunnerHaveItemState
+{
+    not,
+    itimatsu,
+    drug,
+    amulets,
+    test
+}
+
 public class RunnerController : MonoBehaviour {
 
     PlayerMove m_playerMove;
@@ -21,20 +30,25 @@ public class RunnerController : MonoBehaviour {
     string m_itemTagName;
     PlayerFlag m_playerFlag = PlayerFlag.Runner;
     RunnerState m_runnerState = RunnerState.idle;
+    RunnerHaveItemState m_runnerHaveItemState = RunnerHaveItemState.not;
 
     public int m_playerNum;
     public bool isDash;
-    public bool isPenalty;
     public bool isTouchItem;
+    public bool isBuff;
     public float m_buffTime;
+    public float m_maxBuffTime;
+    public float deltaTime;
     public Rigidbody m_rigidBody;
     public GameObject m_player;
     public GameObject m_cameraObject;
+    public GameObject m_itemObject;
 
     private void Awake()
     {
         isDash = false;
         isTouchItem = false;
+        deltaTime = Time.deltaTime;
         m_playerMove = new PlayerMove();
         m_playerInput = new PlayerInput();
         m_playerStatus = new PlayerStatus();
@@ -50,7 +64,8 @@ public class RunnerController : MonoBehaviour {
         RunnerButton();
         HealthController();
         Debug.Log("isTouchItem: " + isTouchItem);
-        Debug.Log("itemTagName: " + m_itemTagName);
+        Debug.Log("isHaveItem:" + m_playerStatus.isHaveItem);
+        Debug.Log("haveItemName: " + m_runnerHaveItemState);
 	}
 
     private void FixedUpdate()
@@ -61,13 +76,13 @@ public class RunnerController : MonoBehaviour {
     private void OnCollisionEnter(Collision other)
     {
         isTouchItem = true;
-        m_itemTagName = other.gameObject.tag;
+        m_itemObject = other.gameObject;
     }
 
     private void OnCollisionExit(Collision other)
     {
         isTouchItem = false;
-        m_itemTagName = null;
+        m_itemObject = null;
     }
 
     void RunnerButton()
@@ -84,11 +99,23 @@ public class RunnerController : MonoBehaviour {
             m_runnerState = RunnerState.walk;
             m_playerStatus.health += Time.deltaTime;
         }
+
         if (m_playerInput.button_E)
         {
+            if (m_playerStatus.isHaveItem)
+            {
+                HaveItemEvent(m_runnerHaveItemState);
+            }
+
             if (isTouchItem)
             {
-                CheckItem(m_itemTagName);
+                if (!m_playerStatus.isHaveItem)
+                {
+                    isTouchItem = false;
+                    m_playerStatus.isHaveItem = true;
+                    ItemCheck(m_itemObject);
+                    //Destroy(m_itemObject);
+                }
             }
         }
     }
@@ -112,7 +139,7 @@ public class RunnerController : MonoBehaviour {
             {
                 if (m_runnerState == RunnerState.run)
                 {
-                    m_playerStatus.health -= Time.deltaTime;
+                    m_playerStatus.health -= deltaTime;
                 }
             }
         }
@@ -123,23 +150,54 @@ public class RunnerController : MonoBehaviour {
         }
     }
 
-    void CheckItem(string itemTagName)
+    void BuffTimer()
     {
-        if (!m_playerStatus.isHaveItem)
+        if (m_buffTime < 0)
         {
-            switch (itemTagName)
-            {
-                case ItemName.ITIMATSU:
-                    break;
-                case ItemName.DRUG:
-                    m_runnerSkil.DrugEvent(m_buffTime, m_playerStatus);
-                    break;
-                case ItemName.AMULETS:
-                    break;
-                case TagName.TestTag:
-                    Debug.Log("テスト判定だよ");
-                    break;
-            }
+            m_buffTime = 0;
+        }
+
+        m_buffTime -= deltaTime;
+    }
+
+    void ItemCheck(GameObject itemObject)
+    {
+        switch (itemObject.tag)
+        {
+            case ItemName.ITIMATSU:
+                m_runnerHaveItemState = RunnerHaveItemState.itimatsu;
+                break;
+            case ItemName.DRUG:
+                m_runnerHaveItemState = RunnerHaveItemState.drug;
+                break;
+            case ItemName.AMULETS:
+                m_runnerHaveItemState = RunnerHaveItemState.amulets;
+                break;
+            case TagName.TestTag:
+                Debug.Log("テスト判定だよ");
+                m_runnerHaveItemState = RunnerHaveItemState.test;
+                break;
+        }
+    }
+
+    void HaveItemEvent(RunnerHaveItemState runnerHaveItemState)
+    {
+        switch (runnerHaveItemState)
+        {
+            case RunnerHaveItemState.itimatsu:
+                m_runnerHaveItemState = RunnerHaveItemState.not;
+                break;
+            case RunnerHaveItemState.drug:
+                m_runnerHaveItemState = RunnerHaveItemState.not;
+                break;
+            case RunnerHaveItemState.amulets:
+                m_runnerHaveItemState = RunnerHaveItemState.not;
+                break;
+            case RunnerHaveItemState.test:
+                Debug.Log("テストアイテム使ったよ");
+                m_runnerSkil.DrugEvent(m_playerStatus, m_buffTime);
+                m_runnerHaveItemState = RunnerHaveItemState.not;
+                break;
         }
     }
 }

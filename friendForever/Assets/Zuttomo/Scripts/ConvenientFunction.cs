@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FindObject : MonoBehaviour {
+public class ConvenientFunction{
 
-    protected bool isFind;
-    float m_rayDistance = 10f;
-
-    public void FindPlayer(GameObject player)
+    public void FindPlayer(GameObject player, float rayDistance)
     {
         Ray ray = new Ray(player.transform.position, player.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, m_rayDistance))
+        if (Physics.Raycast(ray, out hit, rayDistance))
         {
             switch (hit.collider.tag)
             {
@@ -25,10 +22,18 @@ public class FindObject : MonoBehaviour {
                     Debug.Log("3p見つけた");
                     break;
                 case TagName.TestTag:
-                    isFind = true;
                     Debug.Log("TestTargetを見つけた");
                     break;
             }
+        }
+    }
+
+    public void CoroutineMoveNext(IEnumerator coroutine)
+    {
+        IEnumerator localEnumeRator = coroutine;
+        if (localEnumeRator != null)
+        {
+            localEnumeRator.MoveNext();
         }
     }
 }
