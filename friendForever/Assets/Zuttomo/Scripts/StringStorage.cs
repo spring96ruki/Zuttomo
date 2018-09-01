@@ -22,6 +22,8 @@ public static class TagName
     public const string Chaser = "Chaser";
     public const string TestTag = "TestTarget";
     public const string Push = "Push";
+    public const string Item = "item";
+    public const string NPC = "NPC";
 }
 
 public static class ItemName

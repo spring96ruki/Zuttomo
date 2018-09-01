@@ -10,22 +10,14 @@ public class RunnerSkil : ConvenientFunction
 
     }
 
-    public void DrugEvent(PlayerStatus runnerStatus , float drugTime)
+    public void DrugEvent(PlayerStatus runnerStatus)
     {
-
+        runnerStatus.isBuff = true;
+        runnerStatus.buffTime = runnerStatus.maxBuffTime;
     }
 
-    //IEnumerator DrugEvent(PlayerStatus runnerStatus, float drugTime)
-    //{
-    //    float buffTime;
-    //    buffTime = drugTime;
-    //    while (buffTime > 0)
-    //    {
-    //        buffTime -= Time.deltaTime;
-    //        runnerStatus.health = runnerStatus.maxHealth;
-    //        Debug.Log("バフってるよ");
-    //        Debug.Log("buffTime: " + buffTime);
-    //    }
-    //    yield return null;
-    //}
+    public void AmuletsEvent()
+    {
+        // 死ぬのを一回防ぐ
+    }
 }
