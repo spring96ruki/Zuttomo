@@ -23,6 +23,14 @@ public class PlayerStatus
     public float buffTime;
     public float maxBuffTime;
 
+    public float stanTime;
+    public float invisibleTime;
+    public float maxInvisibleTime;
+    public float stanCoolTime;
+    public float maxStanCoolTime;
+    public float invisibleCoolTime;
+    public float maxInvisibleCoolTime;
+
     public void StatusInit(PlayerFlag playerFlag)
     {
         switch (playerFlag)
@@ -51,5 +59,9 @@ public class PlayerStatus
     void ChaserStatus()
     {
         runSpeed = 5f;
+        stanTime = 50;
+        maxInvisibleTime = 50;
+        maxStanCoolTime = 100f;
+        maxInvisibleCoolTime = 100f;
     }
 }

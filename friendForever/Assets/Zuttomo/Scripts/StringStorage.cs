@@ -16,14 +16,17 @@ public static class GamePadName
 
 public static class TagName
 {
+    public const string TestTag = "TestTarget";
+    public const string Player = "Player";
     public const string Player_1P = "Player_1P";
     public const string Player_2P = "Player_2P";
     public const string Player_3P = "Player_3P";
+    public const string Runner = "Runner";
     public const string Chaser = "Chaser";
-    public const string TestTag = "TestTarget";
     public const string Push = "Push";
     public const string Item = "item";
     public const string NPC = "NPC";
+    public const string Plane = "Plane";
 }
 
 public static class ItemName
