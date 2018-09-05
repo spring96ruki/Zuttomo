@@ -48,8 +48,8 @@ public class PlayerStatus
     {
         isBuff = false;
         isHaveItem = false;
-        walkSpeed = 3f;
-        runSpeed = 4f;
+        walkSpeed = 7f;
+        runSpeed = 8f;
         buffSpeed = 6f;
         maxHealth = 10f;
         health = maxHealth;
@@ -58,7 +58,7 @@ public class PlayerStatus
 
     void ChaserStatus()
     {
-        runSpeed = 5f;
+        runSpeed = 8.05f;
         stanTime = 50;
         maxInvisibleTime = 50;
         maxStanCoolTime = 100f;

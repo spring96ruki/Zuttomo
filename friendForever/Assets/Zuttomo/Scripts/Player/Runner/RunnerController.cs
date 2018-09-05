@@ -94,20 +94,16 @@ public class RunnerController : MonoBehaviour {
         RunnerStanTime();
         HealthController();
         m_playerInput.PController(m_playerNum);
+        m_playerMove.RunnerMovement(m_player, m_rigidBody, m_doingState, m_playerInput, m_playerStatus);
         m_playerCamera.CameraMovement(m_cameraObject, m_player);
         Debug.Log("m_plane: " + m_plane);
         Debug.Log("itemObject: " + m_itemObject);
         Debug.Log("haveItemObject: " + m_haveItemObject);
     }
 
-    private void FixedUpdate()
-    {
-        m_playerMove.RunnerMovement(m_rigidBody, m_doingState, m_playerInput, m_playerStatus);
-    }
-
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject != m_plane)
+        if (other.gameObject != m_plane || other.gameObject.tag != TagName.Chaser)
         {
             isTouchItem = true;
             m_itemObject = other.gameObject;

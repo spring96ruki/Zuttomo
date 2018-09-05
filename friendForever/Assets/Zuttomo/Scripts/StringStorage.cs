@@ -1,4 +1,81 @@
-﻿
+﻿using System.Collections;
+using System.Collections.Generic;
+
+public class GamePadStorage
+{
+    public static readonly string[] GamePadStickLeft_Y =
+    {
+        "L_GamePad1_Y",
+        "L_GamePad2_Y",
+        "L_GamePad3_Y",
+        "L_GamePad4_Y"
+    };
+
+    public static readonly string[] GamePadStickLeft_X =
+    {
+        "L_GamePad1_X",
+        "L_GamePad2_X",
+        "L_GamePad3_X",
+        "L_GamePad4_X"
+    };
+
+    public static readonly string[] GamePadStickRight_Y =
+    {
+        "R_GamePad1_Y",
+        "R_GamePad2_Y",
+        "R_GamePad3_Y",
+        "R_GamePad4_Y"
+    };
+
+    public static readonly string[] GamePadStickRight_X =
+    {
+        "R_GamePad1_X",
+        "R_GamePad2_X",
+        "R_GamePad3_X",
+        "R_GamePad4_X"
+    };
+
+    public static readonly string[] GamePad_RB =
+    {
+        "RB_1",
+        "RB_2",
+        "RB_3",
+        "RB_4"
+    };
+
+    public static readonly string[] GamePad_A =
+    {
+        "A_1",
+        "A_2",
+        "A_3",
+        "A_4"
+    };
+
+    public static readonly string[] GamePad_B =
+    {
+        "B_1",
+        "B_2",
+        "B_3",
+        "B_4"
+    };
+
+    public static readonly string[] GamePad_X =
+    {
+        "X_1",
+        "X_2",
+        "X_3",
+        "X_4"
+    };
+
+    public static readonly string[] GamePad_Y =
+    {
+        "Y_1",
+        "Y_2",
+        "Y_3",
+        "Y_4"
+    };
+}
+
 public static class GamePadName
 {
     public const string xAxis = "Horizontal";

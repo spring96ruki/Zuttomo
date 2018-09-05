@@ -28,17 +28,17 @@ public class PlayerInput
     {
         switch (playerNum)
         {
-            case 1:
+            case 0:
                 KeyBoardEvent();
+                break;
+
+            case 1:
                 break;
 
             case 2:
                 break;
 
             case 3:
-                break;
-
-            case 4:
                 break;
         }
 
@@ -55,6 +55,19 @@ public class PlayerInput
         button_B = Input.GetButtonDown(GamePadName.GamePad_B + playerNum.ToString());
         button_X = Input.GetButtonDown(GamePadName.GamePad_X + playerNum.ToString());
         button_Y = Input.GetButtonDown(GamePadName.GamePad_Y + playerNum.ToString());
+    }
+
+    void PlayerInputController(int playerNum)
+    {
+        Laxis_x = Input.GetAxis(GamePadStorage.GamePadStickLeft_X[playerNum]);
+        Laxis_y = Input.GetAxis(GamePadStorage.GamePadStickLeft_Y[playerNum]);
+        Raxis_x = Input.GetAxis(GamePadStorage.GamePadStickRight_X[playerNum]);
+        Raxis_y = Input.GetAxis(GamePadStorage.GamePadStickRight_Y[playerNum]);
+        button_RB = Input.GetButton(GamePadStorage.GamePad_RB[playerNum]);
+        button_A = Input.GetButton(GamePadStorage.GamePad_A[playerNum]);
+        button_B = Input.GetButton(GamePadStorage.GamePad_B[playerNum]);
+        button_X = Input.GetButton(GamePadStorage.GamePad_X[playerNum]);
+        button_Y = Input.GetButton(GamePadStorage.GamePad_Y[playerNum]);
     }
 
     void KeyBoardEvent()

@@ -10,51 +10,65 @@ public enum ChaserState
 
 public class ChaserController : SingletonMono<ChaserController> {
 
-    Rigidbody m_rigidBody;
-    PlayerInput m_playerInput;
     PlayerMove m_playerMove;
+    PlayerInput m_playerInput;
     PlayerStatus m_playerStatus;
+    PlayerCamera m_playerCamera;
     ChaserSkill m_chaserSkil;
+    ConvenientFunction m_convenient;
     RunnerController m_runnerController;
 
     float deltaTime;
 
-    public ChaserState m_chaserState;
+    PlayerFlag m_chaserFlag = PlayerFlag.Chaser;
+    public ChaserState m_chaserState = ChaserState.normal;
 
     public int m_playerNum;
     public bool m_isTakePlayer;
     public bool m_isInvisible;
-    public GameObject m_chaser;
+    public Rigidbody m_rigidBody;
+    public GameObject m_player;
     public GameObject m_camera;
     public Color m_chaserColor;
 
     private void Start()
     {
-        m_rigidBody = GetComponent<Rigidbody>();
-        m_chaserColor = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
         deltaTime = Time.deltaTime;
-        m_chaserState = ChaserState.normal;
         m_playerInput = new PlayerInput();
         m_playerMove = new PlayerMove();
         m_playerStatus = new PlayerStatus();
+        m_playerCamera = new PlayerCamera();
         m_chaserSkil = new ChaserSkill();
+        m_convenient = new ConvenientFunction();
         m_runnerController = new RunnerController();
+        m_chaserColor = GetComponentInChildren<MeshRenderer>().material.color;
+        m_playerStatus.StatusInit(m_chaserFlag);
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChaserInvisibleTime();
+        ChaserInvisible();
         m_playerInput.PController(m_playerNum);
+        m_playerMove.ChaserMovement(m_player, m_rigidBody, m_playerInput, m_playerStatus);
         Button();
         CoolTimer();
-        DebugLog();
+        //DebugLog();
+    }
 
-        if (m_chaserState == ChaserState.invisible)
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("範囲内だよ");
+        if (other.gameObject.tag == TagName.Runner)
         {
-            Debug.Log("透明化");
-            m_chaserSkil.ChaserInvisible(gameObject, m_chaserState, m_playerStatus.invisibleCoolTime);
+            m_isTakePlayer = true;
+            Debug.Log("プレイヤーが範囲内だよ");
         }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        m_isTakePlayer = false;
     }
 
     void CoolTimer()
@@ -90,8 +104,14 @@ public class ChaserController : SingletonMono<ChaserController> {
         Debug.Log("捕まってるか" + m_isTakePlayer);
     }
 
-    void ChaserInvisibleTime()
+    void ChaserInvisible()
     {
+        if (m_chaserState == ChaserState.invisible)
+        {
+            Debug.Log("透明化");
+            m_chaserSkil.ChaserInvisible(gameObject, m_chaserState, m_playerStatus.invisibleCoolTime);
+        }
+
         Debug.Log(m_playerStatus.invisibleTime);
         // m_isInvisibleがtrueになったら透明化開始
         if (m_isInvisible)
